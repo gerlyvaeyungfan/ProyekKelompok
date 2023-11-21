@@ -266,15 +266,16 @@ public class ProyekBookingGedung {
                                 System.out.println("|           MENU MEMBER           |");
                                 System.out.println("|---------------------------------|");
                                 System.out.println("|   1. Pesan Gedung               |");
-                                System.out.println("|   2. Lihat sisa stok gedung     |");
-                                System.out.println("|   3. Lihat Sisa Stok barang     |");
-                                System.out.println("|   4. Pengecekan barang tersedia |");
-                                System.out.println("|   5. Keluar                     |");
+                                System.out.println("|   2. Cetak Struk  Booking       |");
+                                System.out.println("|   3. Lihat sisa stok gedung     |");
+                                System.out.println("|   4. Lihat Sisa Stok barang     |");
+                                System.out.println("|   5. Pengecekan barang tersedia |");
+                                System.out.println("|   6. Keluar                     |");
                                 System.out.println("|________________________________/.");
-                                System.out.print("||> Masukkan Pilihan Anda 1/2/3/4/5 : ");
+                                System.out.print("||> Masukkan Pilihan Anda 1/2/3/4/5/6 : ");
                                 menuMember = input.nextInt();
-                                if (menuMember < 1 || menuMember > 5) {
-                                    System.out.println("\n! Mohon masukkan nomor antara 1 dan 5 !");
+                                if (menuMember < 1 || menuMember > 6) {
+                                    System.out.println("\n! Mohon masukkan nomor antara 1 dan 6 !");
                                 }
                                 switch (menuMember) {
                                     case 1:
@@ -665,10 +666,13 @@ public class ProyekBookingGedung {
                                 }
                                         break;
                                     case 2:
+                                        cetakStruk(cetakGedung, namaPemesan, noTelpPemesan, tglPemesan, tamuPemesan, cetakBarang, totalTarif, totalPesanGedung);
+                                        break;
+                                    case 3:
                                         tampilkanStokGedung();
                                         choiceMemb = true;
                                         break;
-                                    case 3:
+                                    case 4:
                                         System.out.println("\n,-------------------------------<");
                                         System.out.println("|     Daftar Barang Tersedia    | ");
                                         System.out.println("|_______________________________|");
@@ -680,20 +684,20 @@ public class ProyekBookingGedung {
                                         System.out.println("|_____|_____________|__________/.");
                                         choiceMemb = true;
                                         break;
-                                    case 4:
+                                    case 5:
                                         System.out.println("\n----------------------------------------------------");
                                         System.out.print("||> Masukkan nama barang : ");
                                         String targetBarang = input.next();
                                         System.out.println("----------------------------------------------------");
                                         cekStokBarang(targetBarang);
                                         break;
-                                    case 5:
+                                    case 6:
                                         choiceMenu = true;
                                         choiceMemb = false;
                                         halUtama = false;
                                         break;
                                 }
-                            } while (menuMember < 1 || menuMember > 5);
+                            } while (menuMember < 1 || menuMember > 6);
                         }
                     } else if (stepLogin == 3) {
                         System.out.println();
