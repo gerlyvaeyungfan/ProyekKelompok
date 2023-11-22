@@ -1,31 +1,30 @@
 import java.util.Scanner;
 
 public class ProyekBookingGedung {
-    static int indexHistori = 0, index;
-    static String[] namaBarang = new String[5];
-    static int[] stokBarang = new int[5];
-    static int jumlahBarang = 0;
-    static String[] namaGedung = new String[4];
-    static int[] stokGedung = new int[4];
-    static int jumlahGedung = 0;
-    static String inputPesanLagi, inputUserMember;
-    static String nama, noTelp, tgl, targetBarang;
-    static int jmlUserMemb = 0;
-    static String akun, inputUserAdmin, inputPwAdmin, inputUser, inputPwUser, inputkodeVerifPil1, inputkodeVerifPil2;
+    static int tamuPemesan=0, stepLogin, menuGedung, inputMetodePembayaran, menuAdmin, menuMember,jumlahTamu,
+               inputJumlahPesananGedung, jumlahPesananMeja, jumlahPesananKursi,jumlahPesananKarpet, index,
+               jumlahPesananSound, jumlahPesananMic, tambahanStok, indexUser = -1, pilihGedung,totalPesanMeja=0,
+               totalPesanKursi=0, totalPesanKarpet=0, totalPesanSound=0, totalPesanMic=0, jumlahPesanGedung1=0,
+               jumlahPesanGedung2=0, jumlahPesanGedung3=0, jumlahPesanGedung4=0, totalPesanGedung=0, jumlahBarang = 0,
+               jumlahGedung = 0, jmlUserMemb = 0;
+    static long tarif = 0, hargaMeja, hargaKursi, hargaKarpet, hargaSound, hargaMic,
+                hargaGedung1, hargaGedung2, hargaGedung3, hargaGedung4;
+    static double cetakHarga, totalTarif = 0, diskon;
+    static String inputPesanLagi, inputUserMember, nama, noTelp, tgl, targetBarang, cetakGedung = "", cetakBarang="",
+                  akun, inputUserAdmin, inputPwAdmin, inputUser, inputPwUser, inputkodeVerifPil1, inputkodeVerifPil2;
+    static boolean halUtama, pilihMenu, userAdminValid, pilihanAdmin, memberTerdaftar, penggunaValid, pilihMember,ketemu,
+                   pilihBarang, langkahSelanjutnya, gedungFiks, sewaBarangLagi, metodeBayar, jikaKode1Valid, memberValid,
+                   jikaKode2Valid, jikaBarangDitemukan, jikaGedungDitemukan, jikaGedungTersedia, jikaBarangTersedia;
+    
     static String kodeVerif[] = { "01234", "12345", "23456", "34567", "45678", "56789", "67890" };
     static String kodeMember[] = {"a1b2c3", "12ab34cd", "01000001", "01000111", "01001010"};
-    static int tamuPemesan=0, stepLogin, menuGedung, inputamuPemesanetodePembayaran, menuAdmin, menuMember;
-    static long tarif = 0, hargaMeja, hargaKursi, hargaKarpet, hargaSound, hargaMic,
-            hargaGedung1, hargaGedung2, hargaGedung3, hargaGedung4;
-    static double cetakHarga, totalTarif = 0, diskon;
-    static int jumlahTamu, inputJumlahPesananGedung, jumlahPesananMeja, jumlahPesananKursi,jumlahPesananKarpet,
-            jumlahPesananSound, jumlahPesananMic, tambahanStok, indexUser = -1;
-    static int pilihGedung,totalPesanMeja=0,totalPesanKursi=0, totalPesanKarpet=0, totalPesanSound=0, totalPesanMic=0;
-    static int jumlahPesanGedung1=0, jumlahPesanGedung2=0, jumlahPesanGedung3=0, jumlahPesanGedung4=0, totalPesanGedung=0;
-    static String cetakGedung = "", cetakBarang="";
-    static boolean halUtama, choiceMenu, userAdminValid, choiceAdm, isMembTerdaftar, penggunaValid, choiceMemb,
-        pilihBarang, langkahSelanjutnya, gedungFiks, sewaBarangLagi, metodeBayar, isKode1Valid, isMemberValid,
-        isKode2Valid, isBarangDitemukan, isGedungFound, isGedungTersedia, isBarangTersedia, ketemu;
+
+    static String[] namaBarang = new String[5];
+    static int[] stokBarang = new int[5];
+
+    static String[] namaGedung = new String[4];
+    static int[] stokGedung = new int[4];
+
     static String[] regUserMemb = new String[100];
     static String[] regPwMemb = new String[100];
 
@@ -109,8 +108,8 @@ public class ProyekBookingGedung {
                 }
 
             } else if (akun.equalsIgnoreCase("y")) {
-                boolean choiceMenu = true;
-                while (choiceMenu) {
+                boolean pilihMenu = true;
+                while (pilihMenu) {
                     do {
                         System.out.println("\n,----------------------------------------------<");
                         System.out.println("|  Selamat Datang di Website Booking Gedung:)  |");
@@ -156,8 +155,8 @@ public class ProyekBookingGedung {
                             }
                         } while (!userAdminValid);
 
-                        boolean choiceAdm = true;
-                        while (choiceAdm) {
+                        boolean pilihanAdmin = true;
+                        while (pilihanAdmin) {
                             do {
                                 System.out.println("\n,----------------------------------<");
                                 System.out.println("|            MENU ADMIN            |");
@@ -179,7 +178,7 @@ public class ProyekBookingGedung {
                             } while (menuAdmin < 1 || menuAdmin > 8);
                             switch (menuAdmin) {
                                 case 1:
-                                    cetakStruk(cetakGedung, nama, noTelp, tgl, inputamuPemesanetodePembayaran, cetakBarang, cetakHarga, totalPesanGedung);
+                                    cetakStruk(cetakGedung, nama, noTelp, tgl, inputMetodePembayaran, cetakBarang, cetakHarga, totalPesanGedung);
                                     break;
                                 case 2:
                                     System.out.println("\n-----------------------------------");
@@ -187,17 +186,17 @@ public class ProyekBookingGedung {
                                     String target = input.next();
                                     System.out.println("-----------------------------------");
 
-                                    boolean isMembTerdaftar = false;
+                                    boolean memberTerdaftar = false;
                                     for (int i = 1; i < jmlUserMemb; i++) {
                                         if (regUserMemb[i].equals(target)) {
-                                            isMembTerdaftar = true;
+                                            memberTerdaftar = true;
                                             break;
                                         }
                                     }
                                     System.out.println("\n.------------------------------------.");
-                                    if (isMembTerdaftar) {
+                                    if (memberTerdaftar) {
                                         System.out.println("!     ! Member Sudah Terdaftar !     !");
-                                    } else if (!isMembTerdaftar) {
+                                    } else if (!memberTerdaftar) {
                                         System.out.println("!     ! Member Tidak Terdaftar !     !");
                                     }
                                     System.out.println("!.----------------------------------.!");
@@ -233,8 +232,8 @@ public class ProyekBookingGedung {
                                     lihatDataMember();
                                     break;
                                 case 8:
-                                    choiceMenu = true;
-                                    choiceAdm = false;
+                                    pilihMenu = true;
+                                    pilihanAdmin = false;
                                     halUtama = false;
                                     break;
                             }
@@ -269,8 +268,8 @@ public class ProyekBookingGedung {
                             }
                         } while (!penggunaValid);
 
-                        boolean choiceMemb = true;
-                        while (choiceMemb) {
+                        boolean pilihMember = true;
+                        while (pilihMember) {
                             do {
                                 System.out.println("\n,---------------------------------<");
                                 System.out.println("|           MENU MEMBER           |");
@@ -579,13 +578,13 @@ public class ProyekBookingGedung {
                                                         continue;
                                                     }
                                                 }
-                                                isMemberValid=false;
+                                                memberValid=false;
                                                 System.out.println("\n----------------------------------------------------");
                                                         System.out.print("Apakah anda member (y/t) : ");
                                                         inputUserMember= input.next();
                                                         System.out.println("\n----------------------------------------------------");
                                                         if (inputUserMember.equals("y")){
-                                                        isMemberValid = false;
+                                                        memberValid = false;
                                                         do {
                                                         
                                                         System.out.print("Masukkan Kode Member milik Anda : ");
@@ -594,17 +593,17 @@ public class ProyekBookingGedung {
                                                             if (inputKodeMember.equals(verifMember)) {
                                                                 diskon = 0.1 * totalTarif;
                                                                 cetakHarga = totalTarif - diskon;
-                                                                isMemberValid=true;
+                                                                memberValid=true;
                                                                 break;
                                                             }
                                                         }
-                                                        if (!isMemberValid) {
+                                                        if (!memberValid) {
                                                             System.out.println("\n! Kode verifikasi Salah. Silahkan coba lagi !");
-                                                            isMemberValid=false;
+                                                            memberValid=false;
                                                         }
-                                                    } while (!isMemberValid);
+                                                    } while (!memberValid);
                                                     } else if (inputUserMember.equals("t")){
-                                                    isMemberValid=false;
+                                                    memberValid=false;
                                                 }
                                         boolean metodeBayar = false;
                                         while (!metodeBayar) {
@@ -618,54 +617,54 @@ public class ProyekBookingGedung {
                                                 System.out.println("| 2. | DANA/ShopeePay/LinkAja   | 085604054712   | Gerly Vaeyungfan |");
                                                 System.out.println("|____|__________________________|________________|_________________/.");
                                                 System.out.print("||> Pilih Metode Pembayaran 1/2 : ");
-                                                inputamuPemesanetodePembayaran = input.nextInt();
+                                                inputMetodePembayaran = input.nextInt();
                                                 metodeBayar=true;
-                                                if (inputamuPemesanetodePembayaran < 1 || inputamuPemesanetodePembayaran > 2) {
+                                                if (inputMetodePembayaran < 1 || inputMetodePembayaran > 2) {
                                                     System.out.println("\n! Mohon masukkan nomor antara 1 dan 2 !");
                                                 }
-                                            } while (inputamuPemesanetodePembayaran < 1 || inputamuPemesanetodePembayaran > 2);
-                                            switch (inputamuPemesanetodePembayaran) {
+                                            } while (inputMetodePembayaran < 1 || inputMetodePembayaran > 2);
+                                            switch (inputMetodePembayaran) {
                                                 case 1:
-                                                    isKode1Valid = false;
+                                                    jikaKode1Valid = false;
                                                     do {
                                                         System.out.println("\nKode verifikasi dikirim melalui SMS");
                                                         System.out.println("\n----------------------------------------------------");
                                                         System.out.print("Masukkan kode verifikasi : ");
                                                         inputkodeVerifPil1 = input.next();
                                                         System.out.println("\n----------------------------------------------------");
-                                                        isKode1Valid = false;
+                                                        jikaKode1Valid = false;
                                                         for (String kode : kodeVerif) {
                                                             if (inputkodeVerifPil1.equals(kode)) {
-                                                                isKode1Valid = true;
+                                                                jikaKode1Valid = true;
                                                                 metodeBayar = true;
                                                                 break;
                                                             }
                                                         }
-                                                        if (!isKode1Valid) {
+                                                        if (!jikaKode1Valid) {
                                                             System.out.println("\n! Kode verifikasi Salah. Silahkan coba lagi !");
                                                         }
-                                                    } while (!isKode1Valid);
+                                                    } while (!jikaKode1Valid);
                                                     break;
                                                 case 2:
-                                                    boolean isKode2Valid = false;
+                                                    boolean jikaKode2Valid = false;
                                                     do {
                                                         System.out.println("\nKode verifikasi dikirim melalui SMS");
                                                         System.out.println("\n----------------------------------------------------");
                                                         System.out.print("||> Masukkan Kode verifikasi : ");
                                                         inputkodeVerifPil2 = input.next();
                                                         System.out.println("------------------------------------------------------");
-                                                        isKode2Valid = false;
+                                                        jikaKode2Valid = false;
                                                         for (String kode : kodeVerif) {
                                                             if (inputkodeVerifPil2.equals(kode)) {
-                                                                isKode2Valid = true;
+                                                                jikaKode2Valid = true;
                                                                 metodeBayar=true;
                                                                 break;
                                                             }
                                                         }
-                                                        if (!isKode2Valid) {
+                                                        if (!jikaKode2Valid) {
                                                             System.out.println("\n! Kode verifikasi Salah. Silahkan coba lagi !");
                                                         }
-                                                    } while (!isKode2Valid);
+                                                    } while (!jikaKode2Valid);
                                             }
                                         }
                                     }
@@ -685,8 +684,8 @@ public class ProyekBookingGedung {
                                         cekStokBarang(targetBarang);
                                         break;
                                     case 5:
-                                        choiceMenu = true;
-                                        choiceMemb = false;
+                                        pilihMenu = true;
+                                        pilihMember = false;
                                         halUtama = false;
                                         break;
                                 }
@@ -706,7 +705,7 @@ public class ProyekBookingGedung {
                         cariNamaBarang(targetNamaBarang);
                     } else if (stepLogin == 5) {
                         System.out.println();
-                        choiceMenu = false;
+                        pilihMenu = false;
                         halUtama = true;
                     }
                 }
@@ -736,7 +735,7 @@ public class ProyekBookingGedung {
                                             System.out.println("| " + (i + 1) + ".  | " + namaBarang[i] + "\t    | "+ stokBarang[i] + "\t|");
                                         }
                                         System.out.println("|_____|_____________|__________/.");
-                                        choiceMemb = true;
+                                        pilihMember = true;
     }
 
 
@@ -761,11 +760,11 @@ public class ProyekBookingGedung {
     }
 
     public static void searchNamaGedung(String targetGedung) {
-        boolean isGedungFound = false;
+        boolean jikaGedungDitemukan = false;
 
         for (int i = 0; i < jumlahGedung; i++) {
             if (namaGedung[i].equalsIgnoreCase(targetGedung)) {
-                isGedungFound = true;
+                jikaGedungDitemukan = true;
                 System.out.println("\n.---------------------------------.");
                 System.out.println("!       ! Gedung Tersedia !       !");
                 System.out.println("!.-------------------------------.!");
@@ -773,7 +772,7 @@ public class ProyekBookingGedung {
             }
         }
 
-        if (!isGedungFound) {
+        if (!jikaGedungDitemukan) {
             System.out.println("\n.-----------------------------------.");
             System.out.println("!     ! Gedung Tidak Tersedia !     !");
             System.out.println("!.---------------------------------.!");
@@ -781,18 +780,18 @@ public class ProyekBookingGedung {
     }
 
     public static void tambahStokGedung(String targetGedung, int tambahanStokGd) {
-        boolean isGedungTersedia = false;
+        boolean jikaGedungTersedia = false;
         int indeks = -1;
 
         for (int i = 0; i < jumlahGedung; i++) {
             if (namaGedung[i].equalsIgnoreCase(targetGedung)) {
-                isGedungTersedia = true;
+                jikaGedungTersedia = true;
                 indeks = i;
                 break;
             }
         }
 
-        if (isGedungTersedia) {
+        if (jikaGedungTersedia) {
             stokGedung[indeks] += tambahanStokGd;
             System.out.println("\n.-----------------------------------.");
             System.out.println("!    ! Stok Gedung Ditambahkan !    !");
@@ -808,18 +807,18 @@ public class ProyekBookingGedung {
     }
 
     public static void tambahStokBarang(String targetBarang, int tambahanStok) {
-        boolean isBarangTersedia = false;
+        boolean jikaBarangTersedia = false;
         index = -1;
 
         for (int i = 0; i < jumlahBarang; i++) {
             if (namaBarang[i].equalsIgnoreCase(targetBarang)) {
-                isBarangTersedia = true;
+                jikaBarangTersedia = true;
                 index = i;
                 break;
             }
         }
 
-        if (isBarangTersedia) {
+        if (jikaBarangTersedia) {
             stokBarang[index] += tambahanStok;
             System.out.println("\n.-----------------------------------.");
             System.out.println("!    ! Stok Barang Ditambahkan !    !");
@@ -855,16 +854,16 @@ public class ProyekBookingGedung {
     }
 
     public static void cekStokBarang(String targetBarang) {
-        boolean isBarangTersedia = false;
+        boolean jikaBarangTersedia = false;
         int index = -1;
         for (int i = 0; i < jumlahBarang; i++) {
             if (namaBarang[i].equalsIgnoreCase(targetBarang)) {
-                isBarangTersedia = true;
+                jikaBarangTersedia = true;
                 index = i;
                 break;
             }
         }
-        if (isBarangTersedia) {
+        if (jikaBarangTersedia) {
             System.out.println("\n.-----------------------------------.");
             System.out.println("!    ! Barang Tersedia !            !");
             System.out.println("!.----------------------------------!");
@@ -881,7 +880,7 @@ public class ProyekBookingGedung {
     
     public static void cetakStruk(String cetakGedung, String nama, String noTelp, String tgl, int tamuPemesan,
                                   String cetakBarang, double cetakHarga, int totalPesanGedung) {
-        
+        System.out.println("-------------------------------------------\n");
         System.out.println("\t   BOOKING GEDUNG SOEHAT\n");
         System.out.println("---------Informasi Pemesanan Anda!---------");
         System.out.println("\t\t\t\tqty"+"\nNama Gedung     : " + cetakGedung);
