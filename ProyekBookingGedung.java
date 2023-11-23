@@ -5,17 +5,18 @@ public class ProyekBookingGedung {
                inputJumlahPesananGedung, jumlahPesananMeja, jumlahPesananKursi,jumlahPesananKarpet, index,
                jumlahPesananSound, jumlahPesananMic, tambahanStok, indexUser = -1, pilihGedung,totalPesanMeja=0,
                totalPesanKursi=0, totalPesanKarpet=0, totalPesanSound=0, totalPesanMic=0, jumlahPesanGedung1=0,
-               jumlahPesanGedung2=0, jumlahPesanGedung3=0, jumlahPesanGedung4=0, totalPesanGedung=0, jumlahBarang = 0,
-               jumlahGedung = 0, jmlUserMemb = 0;
+               jumlahPesanGedung2=0, jumlahPesanGedung3=0, jumlahPesanGedung4=0, totalPesanGedung=0,
+               jumlahBarang = 0, jumlahGedung = 0, jmlUserMemb = 0;
     static long tarif = 0, hargaMeja, hargaKursi, hargaKarpet, hargaSound, hargaMic,
                 hargaGedung1, hargaGedung2, hargaGedung3, hargaGedung4;
     static double cetakHarga, totalTarif = 0, diskon;
-    static String inputPesanLagi, inputUserMember, nama, noTelp, tgl, targetBarang, cetakGedung = "", cetakBarang="",
-                  akun, inputUserAdmin, inputPwAdmin, inputUser, inputPwUser, inputkodeVerifPil1, inputkodeVerifPil2;
-    static boolean halUtama, pilihMenu, userAdminValid, pilihanAdmin, memberTerdaftar, penggunaValid, pilihMember,ketemu,
-                   pilihBarang, langkahSelanjutnya, gedungFiks, sewaBarangLagi, metodeBayar, jikaKode1Valid, memberValid,
-                   jikaKode2Valid, jikaBarangDitemukan, jikaGedungDitemukan, jikaGedungTersedia, jikaBarangTersedia;
-    
+    static String inputPesanLagi, inputUserMember, nama, noTelp, tgl, targetBarang, cetakGedung = "", akun, 
+                  cetakBarang="", inputUserAdmin, inputPwAdmin, inputUser, inputPwUser, inputkodeVerifPil1,
+                  inputkodeVerifPil2;
+    static boolean halUtama, pilihMenu, userAdminValid, pilihanAdmin, memberTerdaftar, penggunaValid, ketemu,
+                   pilihMember, pilihBarang, langkahSelanjutnya, gedungFiks, sewaBarangLagi, metodeBayar,
+                   jikaKode1Valid, memberValid, jikaKode2Valid, jikaBarangDitemukan, jikaGedungDitemukan,
+                   jikaGedungTersedia, jikaBarangTersedia;
     static String kodeVerif[] = { "01234", "12345", "23456", "34567", "45678", "56789", "67890" };
     static String kodeMember[] = {"a1b2c3", "12ab34cd", "01000001", "01000111", "01001010"};
 
@@ -277,13 +278,12 @@ public class ProyekBookingGedung {
                                 System.out.println("|   1. Pesan Gedung               |");
                                 System.out.println("|   2. Lihat sisa stok gedung     |");
                                 System.out.println("|   3. Lihat Sisa Stok barang     |");
-                                System.out.println("|   4. Pengecekan barang tersedia |");
-                                System.out.println("|   5. Keluar                     |");
+                                System.out.println("|   4. Keluar                     |");
                                 System.out.println("|________________________________/.");
-                                System.out.print("||> Masukkan Pilihan Anda 1/2/3/4/5 : ");
+                                System.out.print("||> Masukkan Pilihan Anda 1/2/3/4 : ");
                                 menuMember = input.nextInt();
-                                if (menuMember < 1 || menuMember > 5) {
-                                    System.out.println("\n! Mohon masukkan nomor antara 1 dan 5 !");
+                                if (menuMember < 1 || menuMember > 4) {
+                                    System.out.println("\n! Mohon masukkan nomor antara 1 dan 4 !");
                                 }
                                 switch (menuMember) {
                                     case 1:
@@ -727,19 +727,12 @@ public class ProyekBookingGedung {
                                         tampilkanStokBarang();
                                         break;
                                     case 4:
-                                        System.out.println("\n----------------------------------------------------");
-                                        System.out.print("||> Masukkan nama barang : ");
-                                        String targetBarang = input.next();
-                                        System.out.println("----------------------------------------------------");
-                                        cekStokBarang(targetBarang);
-                                        break;
-                                    case 5:
                                         pilihMenu = true;
                                         pilihMember = false;
                                         halUtama = false;
                                         break;
                                 }
-                            } while (menuMember < 1 || menuMember > 5);
+                            } while (menuMember < 1 || menuMember > 4);
                         }
                     } else if (stepLogin == 3) {
                         System.out.println("\n----------------------------------------------------");
