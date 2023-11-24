@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class ProyekBookingGedung {
     static int tamuPemesan=0, stepLogin, menuGedung, inputMetodePembayaran, menuAdmin, menuMember,jumlahTamu,
-               inputJumlahPesananGedung, jumlahPesananMeja, jumlahPesananKursi,jumlahPesananKarpet, index,
+               inputJumlahPesananGedung, jumlahPesananMeja, jumlahPesananKursi, jumlahPesananKarpet, index,
                jumlahPesananSound, jumlahPesananMic, tambahanStok, indexUser = -1, pilihGedung,totalPesanMeja=0,
                totalPesanKursi=0, totalPesanKarpet=0, totalPesanSound=0, totalPesanMic=0, jumlahPesanGedung1=0,
                jumlahPesanGedung2=0, jumlahPesanGedung3=0, jumlahPesanGedung4=0, totalPesanGedung=0,
@@ -61,7 +61,7 @@ public class ProyekBookingGedung {
         stokBarang[jumlahBarang] = 100;
         jumlahBarang++;
 
-        String[][] users = {
+        String[][] userAdmin = {
                 { "april", "111" },
                 { "gerly", "222" },
                 { "jaden", "333" },
@@ -77,7 +77,6 @@ public class ProyekBookingGedung {
         regPwMemb[jmlUserMemb] = "12345";
         jmlUserMemb++;
 
-
         boolean halUtama = false;
         do {
             System.out.println(" T-.___________________________________________________.-T");
@@ -88,7 +87,6 @@ public class ProyekBookingGedung {
             System.out.println("<||.---------------------------------------------------.||>");
             System.out.print("\n||> Apakah Anda sudah punya akun ? (y/t) : ");
             akun = input.next();
-
             if (akun.equalsIgnoreCase("t")) {
                 System.out.println("---------------------------------------------------");
                 System.out.print("||> Masukkan username baru: ");
@@ -107,7 +105,6 @@ public class ProyekBookingGedung {
                 } else {
                     System.out.println("\nMohon maaf, jumlah member melebihi batas.");
                 }
-
             } else if (akun.equalsIgnoreCase("y")) {
                 boolean pilihMenu = true;
                 while (pilihMenu) {
@@ -128,7 +125,6 @@ public class ProyekBookingGedung {
                             System.out.println("\n! Mohon masukkan nomor antara 1 dan 5 !");
                         }
                     } while (stepLogin < 1 || stepLogin > 5);
-
                     if (stepLogin == 1) {
                         boolean userAdminValid = true;
                         do {
@@ -140,7 +136,7 @@ public class ProyekBookingGedung {
                             inputPwAdmin = input.next();
                             System.out.println("---------------------------------------------------");
                             userAdminValid = false;
-                            for (String[] user : users) {
+                            for (String[] user : userAdmin) {
                                 if (user[0].equals(inputUserAdmin) && user[1].equals(inputPwAdmin)) {
                                     userAdminValid = true;
                                     break;
@@ -155,7 +151,6 @@ public class ProyekBookingGedung {
                                 System.out.println("\n! Login gagal. Username atau password salah. Silakan coba lagi !");
                             }
                         } while (!userAdminValid);
-
                         boolean pilihanAdmin = true;
                         while (pilihanAdmin) {
                             do {
@@ -268,7 +263,6 @@ public class ProyekBookingGedung {
                                 System.out.println("\n! Login gagal. Username atau password salah. Silakan coba lagi !");
                             }
                         } while (!penggunaValid);
-
                         boolean pilihMember = true;
                         while (pilihMember) {
                             do {
@@ -500,14 +494,12 @@ public class ProyekBookingGedung {
                                             System.out.print("||> Masukkan Tanggal Acara (DD-MM-YYY) : ");
                                             tgl = input.next();
                                             input.nextLine();
-
                                             boolean sewaBarangLagi = true;
                                             while (sewaBarangLagi) {
                                                 System.out.println("----------------------------------------------------");
                                                 System.out.print("||> Apakah Anda ingin menyewa barang tambahan? (y/t) : ");
                                                 String inputSewaBarang = input.next();
                                                 System.out.println("----------------------------------------------------");
-
                                                 while (!inputSewaBarang.equalsIgnoreCase("y") && !inputSewaBarang.equalsIgnoreCase("t")) {
                                                     System.out.println("\n! Pilihan Salah. Mohon masukkan huruf y atau t !");
                                                     System.out.println("\n----------------------------------------------------");
@@ -515,7 +507,6 @@ public class ProyekBookingGedung {
                                                     inputSewaBarang = input.next();
                                                     System.out.println("----------------------------------------------------");
                                                 }
-
                                                 if (inputSewaBarang.equalsIgnoreCase("y")) {
                                                     pilihBarang = true;
                                                     while (pilihBarang) {
@@ -537,7 +528,6 @@ public class ProyekBookingGedung {
                                                             if (menuGedung < 1 || menuGedung > 5) {
                                                                 System.out.println("\n! Pilihan Salah.Mohon masukkan angka antara 1 dan 4 !\n");
                                                             }
-                                                            
                                                             System.out.println("----------------------------------------------------");
                                                             switch (menuGedung) {
                                                                 case 1:
