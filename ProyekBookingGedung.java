@@ -1,14 +1,14 @@
 import java.util.Scanner;
 
 public class ProyekBookingGedung {
-    static int tamuPemesan=0, stepLogin, menuGedung, inputMetodePembayaran, menuAdmin, menuMember,jumlahTamu,
+    static int tamuPemesan=0, stepLogin, menuGedung, inputMetodePembayaran, menuAdmin, menuMember, jumlahTamu,
                inputJumlahPesananGedung, jumlahPesananMeja, jumlahPesananKursi, jumlahPesananKarpet, index,
                jumlahPesananSound, jumlahPesananMic, tambahanStok, indexUser = -1, pilihGedung,totalPesanMeja=0,
                totalPesanKursi=0, totalPesanKarpet=0, totalPesanSound=0, totalPesanMic=0, jumlahPesanGedung1=0,
                jumlahPesanGedung2=0, jumlahPesanGedung3=0, jumlahPesanGedung4=0, totalPesanGedung=0,
                jumlahBarang = 0, jumlahGedung = 0, jmlUserMemb = 0;
     static long tarif = 0, hargaMeja, hargaKursi, hargaKarpet, hargaSound, hargaMic,
-                hargaGedung1, hargaGedung2, hargaGedung3, hargaGedung4, tampilBiaya;
+                hargaGedung1, hargaGedung2, hargaGedung3, hargaGedung4, tampilBiaya=0;
     static double cetakHarga, totalTarif = 0, diskon;
     static String inputPesanLagi, inputUserMember, nama, noTelp, tgl, targetBarang, cetakGedung = "", akun, 
                   cetakBarang="", inputUserAdmin, inputPwAdmin, inputUser, inputPwUser, inputkodeVerifPil1,
@@ -77,7 +77,6 @@ public class ProyekBookingGedung {
         regPwMemb[jmlUserMemb] = "12345";
         jmlUserMemb++;
 
-        boolean halUtama = false;
         do {
             System.out.println(" T-.___________________________________________________.-T");
             System.out.println(" ||                                                     ||");
@@ -281,8 +280,7 @@ public class ProyekBookingGedung {
                                 }
                                 switch (menuMember) {
                                     case 1:
-                                        boolean langkahSelanjutnya = true;
-                                        System.out.println("|,------------------------------------------------------<");
+                                        System.out.println("\n,------------------------------------------------------<");
                                         System.out.println("|              Daftar Gedung yang tersedia!            |");
                                         System.out.println("|______________________________________________________|");
                                         System.out.println("| No. | Nama Gedung | Harga Gedung | Tamu | Tarif Tamu |");
@@ -912,9 +910,9 @@ public class ProyekBookingGedung {
     
     public static void cetakStruk(String cetakGedung, String nama, String noTelp, String tgl, int tamuPemesan,
                                   String cetakBarang, long tampilBiaya, int totalPesanGedung) {
-        System.out.println("-------------------------------------------\n");
+        System.out.println("===========================================\n");
         System.out.println("\t   BOOKING GEDUNG SOEHAT\n");
-        System.out.println("---------Informasi Pemesanan Anda!---------");
+        System.out.println("=========Informasi Pemesanan Anda!=========");
         System.out.println("\t\t\t\tqty"+"\nNama Gedung     : " + cetakGedung);
         System.out.println("Atas Nama       : " + nama);
         System.out.println("No. Telepon     : " + noTelp);
