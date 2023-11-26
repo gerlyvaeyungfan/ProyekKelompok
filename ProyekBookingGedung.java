@@ -8,7 +8,7 @@ public class ProyekBookingGedung {
                jumlahPesanGedung2=0, jumlahPesanGedung3=0, jumlahPesanGedung4=0, totalPesanGedung=0,
                jumlahBarang = 0, jumlahGedung = 0, jmlUserMemb = 0;
     static long tarif = 0, hargaMeja, hargaKursi, hargaKarpet, hargaSound, hargaMic,
-                hargaGedung1, hargaGedung2, hargaGedung3, hargaGedung4;
+                hargaGedung1, hargaGedung2, hargaGedung3, hargaGedung4, tampilBiaya;
     static double cetakHarga, totalTarif = 0, diskon;
     static String inputPesanLagi, inputUserMember, nama, noTelp, tgl, targetBarang, cetakGedung = "", akun, 
                   cetakBarang="", inputUserAdmin, inputPwAdmin, inputUser, inputPwUser, inputkodeVerifPil1,
@@ -174,7 +174,7 @@ public class ProyekBookingGedung {
                             } while (menuAdmin < 1 || menuAdmin > 8);
                             switch (menuAdmin) {
                                 case 1:
-                                    cetakStruk(cetakGedung, nama, noTelp, tgl, inputMetodePembayaran, cetakBarang, cetakHarga, totalPesanGedung);
+                                    cetakStruk(cetakGedung, nama, noTelp, tgl, inputMetodePembayaran, cetakBarang, tampilBiaya, totalPesanGedung);
                                     break;
                                 case 2:
                                     System.out.println("\n-----------------------------------");
@@ -318,6 +318,7 @@ public class ProyekBookingGedung {
                                                     hargaGedung1=inputJumlahPesananGedung*500000;
                                                     totalTarif+=hargaGedung1;
                                                     cetakHarga+=totalTarif;
+                                                    tampilBiaya=(long) cetakHarga;
                                                     System.out.println("\n.----------------------------------.");
                                                     System.out.println("!      ! Pemesanan Berhasil !      !");
                                                     System.out.println("!.---------------------------------!");
@@ -335,6 +336,7 @@ public class ProyekBookingGedung {
                                                             tarif = jumlahTamu * 90000;
                                                             totalTarif += tarif;
                                                             cetakHarga+=totalTarif;
+                                                            tampilBiaya=(long) cetakHarga;
                                                         }
                                                     } while (jumlahTamu < 1 || jumlahTamu > 900);
                                                         gedungFiks=false;
@@ -361,6 +363,7 @@ public class ProyekBookingGedung {
                                                     hargaGedung2=inputJumlahPesananGedung*400000;
                                                     totalTarif+=hargaGedung2;
                                                     cetakHarga+=totalTarif;
+                                                    tampilBiaya=(long) cetakHarga;
                                                     System.out.println("\n.----------------------------------.");
                                                     System.out.println("!      ! Pemesanan Berhasil !      !");
                                                     System.out.println("!.---------------------------------!");
@@ -378,6 +381,7 @@ public class ProyekBookingGedung {
                                                             tarif = jumlahTamu * 25000;
                                                             totalTarif += tarif;
                                                             cetakHarga+=totalTarif;
+                                                            tampilBiaya=(long) cetakHarga;
                                                         }
                                                     } while (jumlahTamu < 1 || jumlahTamu > 250);                                                            
                                                     gedungFiks=false;
@@ -404,6 +408,7 @@ public class ProyekBookingGedung {
                                                     hargaGedung3=inputJumlahPesananGedung*200000;
                                                     totalTarif+=hargaGedung3;
                                                     cetakHarga+=totalTarif;
+                                                    tampilBiaya=(long) cetakHarga;
                                                     System.out.println("\n.----------------------------------.");
                                                     System.out.println("!      ! Pemesanan Berhasil !      !");
                                                     System.out.println("!.---------------------------------!");
@@ -422,6 +427,7 @@ public class ProyekBookingGedung {
                                                             tarif = jumlahTamu * 10000;
                                                             totalTarif += tarif;
                                                             cetakHarga+=totalTarif;
+                                                            tampilBiaya=(long) cetakHarga;
                                                         }
                                                     } while (jumlahTamu < 1 || jumlahTamu > 100);                                                            
                                                     gedungFiks=false;
@@ -448,6 +454,7 @@ public class ProyekBookingGedung {
                                                     hargaGedung4=inputJumlahPesananGedung*300000;
                                                     totalTarif+=hargaGedung4;
                                                     cetakHarga+=totalTarif;
+                                                    tampilBiaya=(long) cetakHarga;
                                                     System.out.println("\n.----------------------------------.");
                                                     System.out.println("!      ! Pemesanan Berhasil !      !");
                                                     System.out.println("!.---------------------------------!");
@@ -466,6 +473,7 @@ public class ProyekBookingGedung {
                                                             tarif = jumlahTamu * 50000;
                                                             totalTarif += tarif;
                                                             cetakHarga+=totalTarif;
+                                                            tampilBiaya=(long) cetakHarga;
                                                         }
                                                     } while (jumlahTamu < 1 || jumlahTamu > 500);                                                            
                                                     gedungFiks=false;
@@ -540,6 +548,7 @@ public class ProyekBookingGedung {
                                                                         hargaMeja = jumlahPesananMeja * 10000;
                                                                         totalTarif += hargaMeja;
                                                                         cetakHarga+=totalTarif;
+                                                                        tampilBiaya=(long) cetakHarga;
                                                                         System.out.println("Pesanan Meja diterima.");
                                                                     } else {
                                                                         System.out.println("Stok Meja tidak mencukupi untuk pesanan tersebut.");
@@ -555,6 +564,7 @@ public class ProyekBookingGedung {
                                                                         hargaKursi = jumlahPesananKursi * 5000;
                                                                         totalTarif += hargaKursi;
                                                                         cetakHarga+=totalTarif;
+                                                                        tampilBiaya=(long) cetakHarga;
                                                                         System.out.println("Pesanan Kursi diterima.");
                                                                     } else {
                                                                         System.out.println("Stok Meja tidak mencukupi untuk pesanan tersebut.");
@@ -570,6 +580,7 @@ public class ProyekBookingGedung {
                                                                         hargaKarpet = jumlahPesananKarpet * 7000;
                                                                         totalTarif += hargaKarpet;
                                                                         cetakHarga+=totalTarif;
+                                                                        tampilBiaya=(long) cetakHarga;
                                                                         System.out.println("Pesanan Karpet diterima.");
                                                                     } else {
                                                                         System.out.println("Stok Meja tidak mencukupi untuk pesanan tersebut.");
@@ -585,6 +596,7 @@ public class ProyekBookingGedung {
                                                                         hargaSound = jumlahPesananSound * 200000;
                                                                         totalTarif += hargaSound;
                                                                         cetakHarga+=totalTarif;
+                                                                        tampilBiaya=(long) cetakHarga;
                                                                         System.out.println("Pesanan Sound diterima.");
                                                                     } else {
                                                                         System.out.println("Stok Meja tidak mencukupi untuk pesanan tersebut.");
@@ -600,6 +612,7 @@ public class ProyekBookingGedung {
                                                                         hargaMic = jumlahPesananMic * 50000;
                                                                         totalTarif += hargaMic;
                                                                         cetakHarga+=totalTarif;
+                                                                        tampilBiaya=(long) cetakHarga;
                                                                         System.out.println("Pesanan Mic diterima.");
                                                                     } else {
                                                                         System.out.println("Stok Meja tidak mencukupi untuk pesanan tersebut.");
@@ -630,6 +643,7 @@ public class ProyekBookingGedung {
                                                         if (inputKodeMember.equals(verifMember)) {
                                                             diskon = 0.1 * totalTarif;
                                                             cetakHarga = totalTarif - diskon;
+                                                            tampilBiaya=(long) cetakHarga;
                                                             memberValid=true;
                                                             break;
                                                         }
@@ -897,7 +911,7 @@ public class ProyekBookingGedung {
     }
     
     public static void cetakStruk(String cetakGedung, String nama, String noTelp, String tgl, int tamuPemesan,
-                                  String cetakBarang, double cetakHarga, int totalPesanGedung) {
+                                  String cetakBarang, long tampilBiaya, int totalPesanGedung) {
         System.out.println("-------------------------------------------\n");
         System.out.println("\t   BOOKING GEDUNG SOEHAT\n");
         System.out.println("---------Informasi Pemesanan Anda!---------");
@@ -907,7 +921,7 @@ public class ProyekBookingGedung {
         System.out.println("Tanggal         : " + tgl);
         System.out.println("Jumlah Tamu     : " + tamuPemesan);
         System.out.println("Barang tambahan : " + cetakBarang);
-        System.out.println("Total Biaya     : Rp." + cetakHarga);
+        System.out.println("Total Biaya     : Rp." + tampilBiaya);
         System.out.println("Total Gedung    : " + totalPesanGedung);
         System.out.println("------------------------------------------");
         System.out.println("\t  Jl. Soekarno Hatta No.9");
