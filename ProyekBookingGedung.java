@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class ProyekBookingGedung {
-    static int tamuPemesan=0, stepLogin, menuGedung, inputMetodePembayaran, menuAdmin, menuMember, jumlahTamu,
+    static int tamuPemesan=0, jumlahTamu, stepLogin, menuGedung, inputMetodePembayaran, menuAdmin, menuMember, 
                inputJumlahPesananGedung, jumlahPesananMeja, jumlahPesananKursi, jumlahPesananKarpet, index,
                jumlahPesananSound, jumlahPesananMic, tambahanStok, indexUser = -1, pilihGedung,totalPesanMeja=0,
                totalPesanKursi=0, totalPesanKarpet=0, totalPesanSound=0, totalPesanMic=0, jumlahPesanGedung1=0,
@@ -266,9 +266,9 @@ public class ProyekBookingGedung {
                         while (pilihMember) {
                             do {
                                 System.out.println("\n,---------------------------------<");
-                                System.out.println("|           MENU MEMBER           |");
+                                System.out.println("|            MENU USER            |");
                                 System.out.println("|---------------------------------|");
-                                System.out.println("|   1. Pesan Gedung               |");
+                                System.out.println("|   1. Pemesanan Gedung           |");
                                 System.out.println("|   2. Lihat sisa stok gedung     |");
                                 System.out.println("|   3. Lihat Sisa Stok barang     |");
                                 System.out.println("|   4. Keluar                     |");
