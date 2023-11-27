@@ -870,7 +870,7 @@ public class ProyekBookingGedung {
             stokGedung[jumlahGedung] = stokGd;
             jumlahGedung++;
         } else {
-            System.out.println("\nMohon maaf, jumlah gedung melebihi batas.");
+            System.out.println("\n! Mohon maaf, jumlah gedung melebihi batas !");
         }
     }
 
@@ -880,7 +880,7 @@ public class ProyekBookingGedung {
             stokBarang[jumlahBarang] = stokBrg;
             jumlahBarang++;
         } else {
-            System.out.println("\nMohon maaf, jumlah barang melebihi batas.");
+            System.out.println("\n! Mohon maaf, jumlah barang melebihi batas !");
         }
     }
 
@@ -910,7 +910,7 @@ public class ProyekBookingGedung {
     
     public static void cetakStruk(String cetakGedung, String nama, String noTelp, String tgl, int tamuPemesan,
                                   String cetakBarang, long tampilBiaya, int totalPesanGedung) {
-        System.out.println("===========================================\n");
+        System.out.println("\n===========================================\n");
         System.out.println("\t   BOOKING GEDUNG SOEHAT\n");
         System.out.println("=========Informasi Pemesanan Anda!=========");
         System.out.println("\t\t\t\tqty"+"\nNama Gedung     : " + cetakGedung);
