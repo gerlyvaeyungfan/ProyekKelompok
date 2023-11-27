@@ -491,12 +491,11 @@ public class ProyekBookingGedung {
                                                 }
                                             }
                                             System.out.println("----------------------------------------------------");
+                                            input.nextLine();
                                             System.out.print("||> Masukkan Nama Anda : ");
-                                            nama = input.next();
-                                            input.nextLine();
+                                            nama = input.nextLine();
                                             System.out.print("||> Masukkan No. Telepon : ");
-                                            noTelp = input.next();
-                                            input.nextLine();
+                                            noTelp = input.nextLine();
                                             System.out.print("||> Masukkan Tanggal Acara (DD-MM-YYY) : ");
                                             tgl = input.next();
                                             input.nextLine();
