@@ -173,8 +173,8 @@ public class ProyekBookingGedung {
                             } while (menuAdmin < 1 || menuAdmin > 8);
                             switch (menuAdmin) {
                                 case 1:
-                                    cetakStruk(cetakGedung, nama, noTelp, tgl, inputMetodePembayaran, cetakBarang, tampilBiaya, totalPesanGedung);
-                                    break;
+                                    cetakStruk(cetakGedung, nama, noTelp, tgl, tamuPemesan, cetakBarang, tampilBiaya,totalPesanGedung);
+                                  break;
                                 case 2:
                                     System.out.println("\n-----------------------------------");
                                     System.out.print("||> Masukkan username member : ");
@@ -255,7 +255,7 @@ public class ProyekBookingGedung {
                             if (penggunaValid) {
                                 System.out.println("\n-VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV-");
                                 System.out.println("          ! LOGIN BERHASIL !         ");
-                                System.out.println("      SELAMAT DATANG, MEMBER :)      ");
+                                System.out.println("       SELAMAT DATANG, USER :)       ");
                                 System.out.println("-VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV-");
                                 
                             } else {
