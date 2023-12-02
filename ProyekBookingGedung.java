@@ -317,12 +317,6 @@ public class ProyekBookingGedung {
                                                     totalTarif+=hargaGedung1;
                                                     cetakHarga+=totalTarif;
                                                     tampilBiaya=(long) cetakHarga;
-                                                    System.out.println("\n.----------------------------------.");
-                                                    System.out.println("!      ! Pemesanan Berhasil !      !");
-                                                    System.out.println("!.---------------------------------!");
-                                                    System.out.println("  Gedung: " + namaGedung[0]);
-                                                    System.out.println("  Jumlah Dipesan: " + inputJumlahPesananGedung);
-                                                    System.out.println(".-----------------------------------.\n");
                                                     do {
                                                         System.out.print("||> Masukkan Jumlah Tamu : ");
                                                         jumlahTamu = input.nextInt();
@@ -362,12 +356,6 @@ public class ProyekBookingGedung {
                                                     totalTarif+=hargaGedung2;
                                                     cetakHarga+=totalTarif;
                                                     tampilBiaya=(long) cetakHarga;
-                                                    System.out.println("\n.----------------------------------.");
-                                                    System.out.println("!      ! Pemesanan Berhasil !      !");
-                                                    System.out.println("!.---------------------------------!");
-                                                    System.out.println("  Gedung: " + namaGedung[1]);
-                                                    System.out.println("  Jumlah Dipesan: " + inputJumlahPesananGedung);
-                                                    System.out.println(".-----------------------------------.\n");
                                                     do {
                                                         System.out.print("||> Masukkan Jumlah Tamu : ");
                                                         jumlahTamu = input.nextInt();
@@ -407,12 +395,6 @@ public class ProyekBookingGedung {
                                                     totalTarif+=hargaGedung3;
                                                     cetakHarga+=totalTarif;
                                                     tampilBiaya=(long) cetakHarga;
-                                                    System.out.println("\n.----------------------------------.");
-                                                    System.out.println("!      ! Pemesanan Berhasil !      !");
-                                                    System.out.println("!.---------------------------------!");
-                                                    System.out.println("  Gedung: " + namaGedung[2]);
-                                                    System.out.println("  Jumlah Dipesan: " + inputJumlahPesananGedung);
-                                                    System.out.println(".-----------------------------------.\n");
                                                     do {
                                                         System.out.print("||> Masukkan Jumlah Tamu : ");
                                                         jumlahTamu = input.nextInt();
@@ -453,12 +435,6 @@ public class ProyekBookingGedung {
                                                     totalTarif+=hargaGedung4;
                                                     cetakHarga+=totalTarif;
                                                     tampilBiaya=(long) cetakHarga;
-                                                    System.out.println("\n.----------------------------------.");
-                                                    System.out.println("!      ! Pemesanan Berhasil !      !");
-                                                    System.out.println("!.---------------------------------!");
-                                                    System.out.println("  Gedung: " + namaGedung[3]);
-                                                    System.out.println("  Jumlah Dipesan: " + inputJumlahPesananGedung);
-                                                    System.out.println(".-----------------------------------.\n");
                                                     do {
                                                         System.out.print("||> Masukkan Jumlah Tamu : ");
                                                         jumlahTamu = input.nextInt();
