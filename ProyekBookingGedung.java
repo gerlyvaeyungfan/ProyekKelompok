@@ -110,6 +110,8 @@ public class ProyekBookingGedung {
             System.out.print("\n||> Apakah Anda sudah punya akun ? (y/t) : ");
             akun = input.next();
             if (akun.equalsIgnoreCase("t")) {
+                System.out.println("\n---------------------------------------------------");
+                System.out.println("Silahkan Registrasi User Baru!");
                 tambahAkunCustomer();
             } else if (akun.equalsIgnoreCase("y")) {
                 boolean pilihMenu = true;
@@ -930,28 +932,25 @@ public class ProyekBookingGedung {
 
     public static void tampilkanDaftarGedung() {
         Scanner input = new Scanner(System.in);
-        System.out.println("\n,------------------------------------------------------<");
-        System.out.println("|              Daftar Gedung yang tersedia!            |");
-        System.out.println("|______________________________________________________|");
-        System.out.println("| No. | Nama Gedung | Harga Gedung | Tamu | Tarif Tamu |");
-        System.out.println("|-----|-------------|--------------|------|------------|");
-        System.out.println("| 1.  | Pernikahan  | Rp.500000    | 900  | Rp.90000   |");
-        System.out.println("| 2.  | Olahraga    | Rp.400000    | 250  | Rp.25000   |");
-        System.out.println("| 3.  | Kesenian    | Rp.200000    | 100  | Rp.10000   |");
-        System.out.println("| 4.  | Auditorium  | Rp.300000    | 500  | Rp.50000   |");
-        System.out.println("|_____|_____________|______________|______|___________/.");
-        System.out.print("||> Masukkan Pilihan Anda : ");
-        pilihGedung = input.nextInt();
-        while (pilihGedung < 1 || pilihGedung > 4) {
-            System.out.println("\n! Pilihan Salah. Mohon masukkan angka antara 1 dan 4 !\n");
+        do {
+            System.out.println("\n,------------------------------------------------------<");
+            System.out.println("|              Daftar Gedung yang tersedia!            |");
+            System.out.println("|______________________________________________________|");
+            System.out.println("| No. | Nama Gedung | Harga Gedung | Tamu | Tarif Tamu |");
+            System.out.println("|-----|-------------|--------------|------|------------|");
+            System.out.println("| 1.  | Pernikahan  | Rp.500000    | 900  | Rp.90000   |");
+            System.out.println("| 2.  | Olahraga    | Rp.400000    | 250  | Rp.25000   |");
+            System.out.println("| 3.  | Kesenian    | Rp.200000    | 100  | Rp.10000   |");
+            System.out.println("| 4.  | Auditorium  | Rp.300000    | 500  | Rp.50000   |");
+            System.out.println("|_____|_____________|______________|______|___________/.");
             System.out.print("||> Masukkan Pilihan Anda : ");
             pilihGedung = input.nextInt();
-        }
-        if (pilihGedung < 1 || pilihGedung > 4) {
-            System.out.println("\n.-------------------------------------------.");
-            System.out.println("!   Mohon masukkan Angka antara 1 dan 4     !");
-            System.out.println("!.-----------------------------------------.!");
-        }
+            if (pilihGedung < 1 || pilihGedung > 4) {
+                System.out.println("\n.-------------------------------------------.");
+                System.out.println("!   Mohon masukkan Angka antara 1 dan 4     !");
+                System.out.println("!.-----------------------------------------.!");
+            }
+        } while (pilihGedung < 1 || pilihGedung > 4);
     }
     
     public static void cetakStruk(String cetakGedung, String nama, String noTelp, String tgl, int tamuPemesan,
