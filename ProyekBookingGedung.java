@@ -168,14 +168,15 @@ public class ProyekBookingGedung {
                             System.out.println("|   8. Lihat Data User             |");
                             System.out.println("|   9. Tambah Akun Admin Baru      |");
                             System.out.println("|   10. Tambah Akun Kasir Baru     |");
-                            System.out.println("|   11. Keluar                     |");
+                            System.out.println("|   11. Lihat Laporan Harian       |");
+                            System.out.println("|   12. Keluar                     |");
                             System.out.println("|_________________________________/.");
                             System.out.print("||> Masukkan Pilihan Anda : ");
                             menuAdmin = input.nextInt();
                             if (menuAdmin < 1 || menuAdmin > 11) {
                                 System.out.println("\n! Mohon masukkan nomor antara 1 dan 11 !");
                             }
-                        } while (menuAdmin < 1 || menuAdmin > 11);
+                        } while (menuAdmin < 1 || menuAdmin > 12);
                         switch (menuAdmin) {
                             case 1:
                                 PencarianAdminTerdaftar();
@@ -207,7 +208,9 @@ public class ProyekBookingGedung {
                             case 10:
                                 tambahAkunKasir();
                                 break;
-                            case 11:
+                            case 11: 
+                                PelaporanHarian(nama, tgl, tampilBiaya, totalPesanGedung, cetakBarang);
+                            case 12:
                                 pilihMenu = true;
                                 pilihanAdmin = false;
                                 break;
@@ -1175,5 +1178,17 @@ public class ProyekBookingGedung {
                 pilihBarang=false;
             }
         }
+    }
+    static void PelaporanHarian(String nama, String tgl, long tampilBiaya, int totalPesanGedung, String cetakbarang){
+        System.out.println("\n-----------------------------------");
+        System.out.println("\tLaporan Harian Hasil Penjualan");
+        System.out.println("-----------------------------------");
+        System.out.println("Nama Pelanggan : " + nama);
+        System.out.println("Tanggal Sewa   : " + tgl);
+        System.out.println("Total Gedung   : " + cetakGedung);
+        System.out.println("Total Barang   : " + cetakbarang);
+        System.out.println("-----------------------------------");
+        System.out.println("Total Penjualan : " + tampilBiaya);
+        System.out.println("-----------------------------------");
     }
 }
