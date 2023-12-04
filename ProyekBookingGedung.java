@@ -1,3 +1,6 @@
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class ProyekBookingGedung {
@@ -10,13 +13,16 @@ public class ProyekBookingGedung {
     static long tarif = 0, hargaMeja, hargaKursi, hargaKarpet, hargaSound, hargaMic,
                 hargaGedung1, hargaGedung2, hargaGedung3, hargaGedung4, tampilBiaya=0;
     static double cetakHarga, totalTarif = 0, diskon;
-    static String inputPesanLagi, inputUserMember, nama, noTelp, tgl, targetBarang, cetakGedung = "", akun, 
+    static String inputPesanLagi, inputUserMember, nama, noTelp, targetBarang, cetakGedung = "", akun, 
                   cetakBarang="", inputUserAdmin, inputPwAdmin, inputUser, inputPwUser, inputkodeVerifPil1,
-                  inputkodeVerifPil2, inputUserKasir, inputPwKasir, targetGedung, targetNamaBarang;
+                  inputkodeVerifPil2, inputUserKasir, inputPwKasir, targetGedung, targetNamaBarang, inputTanggal;
     static boolean pilihMenu, regUsernameAdminValid, pilihanAdmin, userTerdaftar, penggunaValid, ketemu,
-                   pilihMember, pilihBarang, langkahSelanjutnya, sewaBarangLagi, metodeBayar,
+                   pilihMember, pilihBarang, langkahSelanjutnya, sewaBarangLagi, metodeBayar, inputTanggalValid,
                    jikaKode1Valid, memberValid, jikaKode2Valid, jikaBarangDitemukan, jikaGedungDitemukan,
                    jikaGedungTersedia, jikaBarangTersedia, regUsernameKasirValid, pilihanKasir, pilihanGedung;
+    static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    static Date tanggal = null;
+
     static String kodeVerif[] = { "01234", "12345", "23456", "34567", "45678", "56789", "67890" };
     static String kodeMember[] = {"a1b2c3", "12ab34cd", "01000001", "01000111", "01001010"};
 
@@ -35,11 +41,17 @@ public class ProyekBookingGedung {
     static String[] regUsernameUser = new String[100];
     static String[] regPasswordUser = new String[100];
 
-    
+    static boolean isValidFormat(String value, SimpleDateFormat dateFormat) {
+        dateFormat.setLenient(false);
+
+        Date parsedDate = dateFormat.parse(value, new ParsePosition(0));
+
+        return parsedDate != null;
+    }
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-
+        
         regUsernameAdmin[jumlahAdmin] = "april";
         regPasswordAdmin[jumlahAdmin]= "111";
         jumlahAdmin++;
@@ -100,7 +112,7 @@ public class ProyekBookingGedung {
         jumlahBarang++;
 
         do {
-            System.out.println(" T-.___________________________________________________.-T");
+            System.out.println("\n T-.___________________________________________________.-T");
             System.out.println(" ||                                                     ||");
             System.out.println(" ||   SELAMAT DATANG DI WEBSITE BOOKING GEDUNG SOEHAT   ||");
             System.out.println(" ||                                                     ||");
@@ -119,7 +131,7 @@ public class ProyekBookingGedung {
                     System.out.println("|   6. Pengecekan Barang Tersedia     |");
                     System.out.println("|   7. Keluar                         |");
                     System.out.println("|_____________________________________/.");
-                    System.out.print("||> Masukkan Pilihan Anda : ");
+                    System.out.print("||> Masukkan Pilihan Anda: ");
                     stepLogin = input.nextInt();
                     if (stepLogin < 1 || stepLogin > 7) {
                         System.out.println("\n! Mohon masukkan nomor antara 1 dan 7 !");
@@ -171,10 +183,10 @@ public class ProyekBookingGedung {
                             System.out.println("|   11. Lihat Laporan Harian       |");
                             System.out.println("|   12. Keluar                     |");
                             System.out.println("|_________________________________/.");
-                            System.out.print("||> Masukkan Pilihan Anda : ");
+                            System.out.print("||> Masukkan Pilihan Anda: ");
                             menuAdmin = input.nextInt();
-                            if (menuAdmin < 1 || menuAdmin > 11) {
-                                System.out.println("\n! Mohon masukkan nomor antara 1 dan 11 !");
+                            if (menuAdmin < 1 || menuAdmin > 12) {
+                                System.out.println("\n! Mohon masukkan nomor antara 1 dan 12 !");
                             }
                         } while (menuAdmin < 1 || menuAdmin > 12);
                         switch (menuAdmin) {
@@ -209,7 +221,7 @@ public class ProyekBookingGedung {
                                 tambahAkunKasir();
                                 break;
                             case 11: 
-                                PelaporanHarian(nama, tgl, tampilBiaya, totalPesanGedung, cetakBarang);
+                                PelaporanHarian(nama, dateFormat, tampilBiaya, totalPesanGedung, cetakBarang);
                             case 12:
                                 pilihMenu = true;
                                 pilihanAdmin = false;
@@ -259,7 +271,7 @@ public class ProyekBookingGedung {
                             System.out.println("|   7. Tambah Barang Baru          |");
                             System.out.println("|   8. Keluar                      |");
                             System.out.println("|_________________________________/.");
-                            System.out.print("||> Masukkan Pilihan Anda : ");
+                            System.out.print("||> Masukkan Pilihan Anda: ");
                             menuKasir = input.nextInt();
                             if (menuKasir < 1 || menuKasir > 8) {
                                 System.out.println("\n! Mohon masukkan nomor antara 1 dan 8 !");
@@ -267,7 +279,7 @@ public class ProyekBookingGedung {
                         } while (menuKasir < 1 || menuKasir > 8);
                         switch (menuKasir) {
                             case 1:
-                                cetakStruk(cetakGedung, nama, noTelp, tgl, tamuPemesan, cetakBarang, tampilBiaya,totalPesanGedung);
+                                cetakStruk(cetakGedung, nama, noTelp, inputTanggal, tamuPemesan, cetakBarang, tampilBiaya,totalPesanGedung);
                               break;
                             case 2:
                                 tampilkanStokGedung();
@@ -297,10 +309,10 @@ public class ProyekBookingGedung {
                     boolean penggunaValid;
                     do {
                         System.out.println("\n---------------------------------------------------");
-                        System.out.print("||> Masukkan username : ");
+                        System.out.print("||> Masukkan username: ");
                         inputUser = input.next();
                         System.out.println("---------------------------------------------------");
-                        System.out.print("||> Masukkan password : ");
+                        System.out.print("||> Masukkan password: ");
                         inputPwUser = input.next();
                         System.out.println("---------------------------------------------------");
                         penggunaValid = false;
@@ -332,7 +344,7 @@ public class ProyekBookingGedung {
                             System.out.println("|   3. Lihat Sisa Stok Barang     |");
                             System.out.println("|   4. Keluar                     |");
                             System.out.println("|________________________________/.");
-                            System.out.print("||> Masukkan Pilihan Anda : ");
+                            System.out.print("||> Masukkan Pilihan Anda: ");
                             menuMember = input.nextInt();
                             if (menuMember < 1 || menuMember > 4) {
                                 System.out.println("\n! Mohon masukkan nomor antara 1 dan 4 !");
@@ -370,10 +382,10 @@ public class ProyekBookingGedung {
 
     public static void PencarianAdminTerdaftar() {
         Scanner input = new Scanner(System.in);
-        System.out.println("\n----------------------------------------");
-        System.out.print("||> Masukkan username admin : ");
+        System.out.println("/n----------------------------------------------------");
+        System.out.print("||> Masukkan username admin: ");
         String targetAdmin = input.next();
-        System.out.println("----------------------------------------");
+        System.out.println("----------------------------------------------------");
         boolean adminTerdaftar = false;
         for (int i = 0; i < jumlahUser; i++) {
             if (regUsernameUser[i].equals(targetAdmin)) {
@@ -392,10 +404,10 @@ public class ProyekBookingGedung {
 
     public static void PencarianKasirTerdaftar() {
         Scanner input = new Scanner(System.in);
-        System.out.println("\n----------------------------------------");
-        System.out.print("||> Masukkan username kasir : ");
+        System.out.println("/n----------------------------------------------------");
+        System.out.print("||> Masukkan username kasir: ");
         String targetKasir = input.next();
-        System.out.println("----------------------------------------");
+        System.out.println("----------------------------------------------------");
         boolean kasirTerdaftar = false;
         for (int i = 0; i < jumlahUser; i++) {
             if (regUsernameUser[i].equals(targetKasir)) {
@@ -414,10 +426,10 @@ public class ProyekBookingGedung {
 
     public static void PencarianUserTerdaftar() {
         Scanner input = new Scanner(System.in);
-        System.out.println("\n----------------------------------------");
-        System.out.print("||> Masukkan username user : ");
+        System.out.println("\n----------------------------------------------------");
+        System.out.print("||> Masukkan username user: ");
         String targetUser = input.next();
-        System.out.println("----------------------------------------");
+        System.out.println("----------------------------------------------------");
         boolean userTerdaftar = false;
         for (int i = 0; i < jumlahUser; i++) {
             if (regUsernameUser[i].equals(targetUser)) {
@@ -459,7 +471,7 @@ public class ProyekBookingGedung {
     public static void cariNamaBarang(String targetNamaBarang) {
         Scanner input = new Scanner(System.in);
         System.out.println("\n----------------------------------------------------");
-                    System.out.print("||> Masukkan nama barang : ");
+                    System.out.print("||> Masukkan nama barang: ");
                     targetNamaBarang = input.next();
                     System.out.println("----------------------------------------------------");
         boolean isBarangDitemukan = false;
@@ -482,7 +494,7 @@ public class ProyekBookingGedung {
     public static void searchNamaGedung(String targetGedung) {
         Scanner input = new Scanner(System.in);
         System.out.println("\n----------------------------------------------------");
-                    System.out.print("||> Masukkan nama gedung : ");
+                    System.out.print("||> Masukkan nama gedung: ");
                     targetGedung = input.next();
                     System.out.println("----------------------------------------------------");
         boolean jikaGedungDitemukan = false;
@@ -504,13 +516,13 @@ public class ProyekBookingGedung {
 
     public static void tambahkanStokGedung(String targetGedung, int tambahStokGedung) {
         Scanner input = new Scanner(System.in);
-        System.out.println("\n------------------------------------");
-        System.out.print("||> Masukkan nama gedung   : ");
+        System.out.println("\n----------------------------------------------------");
+        System.out.print("||> Masukkan nama gedung: ");
         targetGedung = input.next();
-        System.out.println("------------------------------------");
-        System.out.print("||> Masukkan tambahan stok : ");
+        System.out.println("----------------------------------------------------");
+        System.out.print("||> Masukkan tambahan stok: ");
         tambahStokGedung = input.nextInt();
-        System.out.println("------------------------------------");
+        System.out.println("----------------------------------------------------");
         boolean jikaGedungTersedia = false;
         int indeks = -1;
         for (int i = 0; i < jumlahGedung; i++) {
@@ -537,12 +549,12 @@ public class ProyekBookingGedung {
 
     public static void tambahkanStokBarang(String targetBarang, int tambahanStok) {
         Scanner input = new Scanner(System.in);
-        System.out.print("||> Masukkan nama barang   : ");
+        System.out.print("||> Masukkan nama barang: ");
         targetBarang = input.next();
-        System.out.println("------------------------------------");
-        System.out.print("||> Masukkan tambahan stok : ");
+        System.out.println("----------------------------------------------------");
+        System.out.print("||> Masukkan tambahan stok: ");
         tambahanStok = input.nextInt();
-        System.out.println("------------------------------------");
+        System.out.println("----------------------------------------------------");
         boolean jikaBarangTersedia = false;
         index = -1;
         for (int i = 0; i < jumlahBarang; i++) {
@@ -569,10 +581,13 @@ public class ProyekBookingGedung {
 
     public static void tambahGedung() {
         Scanner input = new Scanner(System.in);
+        System.out.println("\n----------------------------------------------------");
         System.out.print("Masukkan Nama Gedung Baru: ");
-        String namaGedungBaru = input.next();
+        String namaGedungBaru = input.nextLine();
+        System.out.println("----------------------------------------------------");
         System.out.print("Masukkan Stok Gedung Baru: ");
         int stokGedungBaru = input.nextInt();
+        System.out.println("----------------------------------------------------");
         if (jumlahGedung < namaGedung.length && jumlahGedung < stokGedung.length) {
             namaGedung[jumlahGedung] = namaGedungBaru;
             stokGedung[jumlahGedung] = stokGedungBaru;
@@ -585,10 +600,13 @@ public class ProyekBookingGedung {
     
     public static void tambahBarang() {
         Scanner input = new Scanner(System.in);
+        System.out.println("\n----------------------------------------------------");
         System.out.print("Masukkan Nama Barang Baru: ");
-        String namaBarangBaru = input.next();
+        String namaBarangBaru = input.nextLine();
+        System.out.println("----------------------------------------------------");
         System.out.print("Masukkan Stok Barang Baru: ");
         int stokBarangBaru = input.nextInt();
+        System.out.println("----------------------------------------------------");
         if (jumlahBarang < namaBarang.length && jumlahBarang < stokBarang.length) {
             namaBarang[jumlahBarang] = namaBarangBaru;
             stokBarang[jumlahBarang] = stokBarangBaru;
@@ -637,7 +655,7 @@ public class ProyekBookingGedung {
             System.out.println("| 3.  | Kesenian    | Rp.200000    | 100  | Rp.10000   |");
             System.out.println("| 4.  | Auditorium  | Rp.300000    | 500  | Rp.50000   |");
             System.out.println("|_____|_____________|______________|______|___________/.");
-            System.out.print("||> Masukkan Pilihan Anda : ");
+            System.out.print("||> Masukkan Pilihan Anda: ");
             pilihGedung = input.nextInt();
             if (pilihGedung < 1 || pilihGedung > 4) {
                 System.out.println("\n.-------------------------------------------.");
@@ -651,7 +669,7 @@ public class ProyekBookingGedung {
         boolean gedungFiks = true;
         while (gedungFiks) {
             System.out.println("----------------------------------------------------");
-            System.out.print("||> Masukkan Jumlah Gedung yang ingin dipesan : ");
+            System.out.print("||> Masukkan Jumlah Gedung yang ingin dipesan: ");
             inputJumlahPesananGedung=input.nextInt();
             if (pilihGedung == 1) {
                 if (inputJumlahPesananGedung > 0 && inputJumlahPesananGedung <= stokGedung[0]) {
@@ -664,7 +682,7 @@ public class ProyekBookingGedung {
                     cetakHarga+=totalTarif;
                     tampilBiaya=(long) cetakHarga;
                     do {
-                        System.out.print("||> Masukkan Jumlah Tamu : ");
+                        System.out.print("||> Masukkan Jumlah Tamu: ");
                         jumlahTamu = input.nextInt();
                         if (jumlahTamu <1 || jumlahTamu> 900) {
                             System.out.println("----------------------------------------------------");
@@ -706,7 +724,7 @@ public class ProyekBookingGedung {
                     cetakHarga+=totalTarif;
                     tampilBiaya=(long) cetakHarga;
                     do {
-                        System.out.print("||> Masukkan Jumlah Tamu : ");
+                        System.out.print("||> Masukkan Jumlah Tamu: ");
                         jumlahTamu = input.nextInt();
                         if (jumlahTamu <1 || jumlahTamu> 250) {
                             System.out.println("----------------------------------------------------");
@@ -718,6 +736,8 @@ public class ProyekBookingGedung {
                             totalTarif += tarif;
                             cetakHarga+=totalTarif;
                             tampilBiaya=(long) cetakHarga;
+                            pilihanGedung=false;
+                            gedungFiks=false;
                         }
                     } while (jumlahTamu < 1 || jumlahTamu > 250);
                 } else if (inputJumlahPesananGedung>stokGedung[1]){
@@ -745,7 +765,7 @@ public class ProyekBookingGedung {
                     cetakHarga+=totalTarif;
                     tampilBiaya=(long) cetakHarga;
                     do {
-                        System.out.print("||> Masukkan Jumlah Tamu : ");
+                        System.out.print("||> Masukkan Jumlah Tamu: ");
                         jumlahTamu = input.nextInt();
                         if (jumlahTamu <1 || jumlahTamu> 100) {
                             System.out.println("----------------------------------------------------");
@@ -757,6 +777,8 @@ public class ProyekBookingGedung {
                             totalTarif += tarif;
                             cetakHarga+=totalTarif;
                             tampilBiaya=(long) cetakHarga;
+                            pilihanGedung=false;
+                            gedungFiks=false;
                         }
                     } while (jumlahTamu < 1 || jumlahTamu > 100);
                 } else if (inputJumlahPesananGedung>stokGedung[2]){
@@ -784,7 +806,7 @@ public class ProyekBookingGedung {
                     cetakHarga+=totalTarif;
                     tampilBiaya=(long) cetakHarga;
                     do {
-                        System.out.print("||> Masukkan Jumlah Tamu : ");
+                        System.out.print("||> Masukkan Jumlah Tamu: ");
                         jumlahTamu = input.nextInt();
                         if (jumlahTamu <1 || jumlahTamu> 500) {
                             System.out.println("----------------------------------------------------");
@@ -796,6 +818,8 @@ public class ProyekBookingGedung {
                             totalTarif += tarif;
                             cetakHarga+=totalTarif;
                             tampilBiaya=(long) cetakHarga;
+                            pilihanGedung=false;
+                            gedungFiks=false;
                         }
                     } while (jumlahTamu < 1 || jumlahTamu > 500);
                 } else if (inputJumlahPesananGedung>stokGedung[3]){
@@ -823,14 +847,25 @@ public class ProyekBookingGedung {
     public static void InputDataPengguna() {
         Scanner input = new Scanner(System.in);
         System.out.println("----------------------------------------------------");
-        System.out.print("||> Masukkan Nama Anda : ");
+        System.out.print("||> Masukkan Nama Anda: ");
         nama = input.nextLine();
-        System.out.print("||> Masukkan No. Telepon : ");
+        System.out.print("||> Masukkan No. Telepon: ");
         noTelp = input.nextLine();
-        System.out.print("||> Masukkan Tanggal Acara (DD-MM-YYY) : ");
-        tgl = input.nextLine();
+        inputTanggalValid = false;
+        while (!inputTanggalValid) {
+            System.out.print("||> Masukkan Tanggal Acara (dd/MM/yyyy): ");
+            inputTanggal = input.nextLine();
+            if (isValidFormat(inputTanggal, dateFormat)) {
+                tanggal = dateFormat.parse(inputTanggal, new ParsePosition(0));
+                if (tanggal != null && tanggal.getTime() > 0) {
+                    inputTanggalValid = true;
+                }
+            } else {
+                System.out.println("Format tanggal tidak valid. Mohon masukkan kembali.");
+            }
+        }
     }
-    public static void cetakStruk(String cetakGedung, String nama, String noTelp, String tgl, int tamuPemesan,
+    public static void cetakStruk(String cetakGedung, String nama, String noTelp, String inputTanggal, int tamuPemesan,
                                   String cetakBarang, long tampilBiaya, int totalPesanGedung) {
         System.out.println("\n===========================================\n");
         System.out.println("\t   BOOKING GEDUNG SOEHAT\n");
@@ -838,7 +873,7 @@ public class ProyekBookingGedung {
         System.out.println("\t\t\t\tqty"+"\nNama Gedung     : " + cetakGedung);
         System.out.println("Atas Nama       : " + nama);
         System.out.println("No. Telepon     : " + noTelp);
-        System.out.println("Tanggal         : " + tgl);
+        System.out.println("Tanggal         : " + dateFormat.format(tanggal));
         System.out.println("Jumlah Tamu     : " + tamuPemesan);
         System.out.println("Barang tambahan : " + cetakBarang);
         System.out.println("Total Biaya     : Rp." + tampilBiaya);
@@ -967,7 +1002,7 @@ public class ProyekBookingGedung {
             System.out.println("| 4.  | Sound       | Rp.200000/pcs  | 50          |");
             System.out.println("| 5.  | Mic         | Rp.50000/pcs   | 100         |");
             System.out.println("|_____|_____________|________________|____________/.");
-            System.out.print("||> Masukkan Pilihan Anda : ");
+            System.out.print("||> Masukkan Pilihan Anda: ");
             menuGedung = input.nextInt();
             pilihBarang = false;
             if (menuGedung < 1 || menuGedung > 5) {
@@ -976,7 +1011,7 @@ public class ProyekBookingGedung {
             System.out.println("----------------------------------------------------");
             switch (menuGedung) {
                 case 1:
-                    System.out.print("||> Jumlah Meja yang akan dipesan : ");
+                    System.out.print("||> Jumlah Meja yang akan dipesan: ");
                     jumlahPesananMeja = input.nextInt();
                     if (jumlahPesananMeja > 0 && jumlahPesananMeja <= stokBarang[0]) {
                         totalPesanMeja+=jumlahPesananMeja;
@@ -991,7 +1026,7 @@ public class ProyekBookingGedung {
                     }
                     break;
                 case 2:
-                    System.out.print("||> Jumlah Kursi yang akan dipesan : ");
+                    System.out.print("||> Jumlah Kursi yang akan dipesan: ");
                     jumlahPesananKursi = input.nextInt();
                     if (jumlahPesananKursi > 0 && jumlahPesananKursi <= stokBarang[1]) {
                         totalPesanKursi+=jumlahPesananKursi;
@@ -1006,7 +1041,7 @@ public class ProyekBookingGedung {
                     }
                     break;
                 case 3:
-                    System.out.print("||> Jumlah Karpet yang akan dipesan : ");
+                    System.out.print("||> Jumlah Karpet yang akan dipesan: ");
                     jumlahPesananKarpet = input.nextInt();
                     if (jumlahPesananKarpet > 0 && jumlahPesananKarpet <= stokBarang[2]) {
                         totalPesanKarpet+=jumlahPesananKarpet;
@@ -1021,7 +1056,7 @@ public class ProyekBookingGedung {
                     }
                     break;
                 case 4:
-                    System.out.print("||> Jumlah Sound yang akan dipesan : ");
+                    System.out.print("||> Jumlah Sound yang akan dipesan: ");
                     jumlahPesananSound = input.nextInt();
                     if (jumlahPesananSound > 0 && jumlahPesananSound <= stokBarang[3]) {
                         totalPesanSound+=jumlahPesananSound;
@@ -1036,7 +1071,7 @@ public class ProyekBookingGedung {
                     }
                     break;
                 case 5:
-                    System.out.print("||> Jumlah Mic yang akan dipesan : ");
+                    System.out.print("||> Jumlah Mic yang akan dipesan: ");
                     jumlahPesananMic = input.nextInt();
                     if (jumlahPesananMic > 0 && jumlahPesananMic <= stokBarang[4]) {
                         totalPesanMic+=jumlahPesananMic;
@@ -1067,7 +1102,7 @@ public class ProyekBookingGedung {
                 System.out.println("| 1. | BRI/BNI/BCA              | 2341760195     | Gerly Vaeyungfan |");
                 System.out.println("| 2. | DANA/ShopeePay/LinkAja   | 085604054712   | Gerly Vaeyungfan |");
                 System.out.println("|____|__________________________|________________|_________________/.");
-                System.out.print("||> Pilih Metode Pembayaran : ");
+                System.out.print("||> Pilih Metode Pembayaran: ");
                 inputMetodePembayaran = input.nextInt();
                 metodeBayar=false;
                 if (inputMetodePembayaran < 1 || inputMetodePembayaran > 2) {
@@ -1080,7 +1115,7 @@ public class ProyekBookingGedung {
                     do {
                         System.out.println("\nKode verifikasi dikirim melalui SMS");
                         System.out.println("\n----------------------------------------------------");
-                        System.out.print("Masukkan kode verifikasi : ");
+                        System.out.print("Masukkan kode verifikasi: ");
                         inputkodeVerifPil1 = input.next();
                         System.out.println("\n----------------------------------------------------");
                         jikaKode1Valid = false;
@@ -1101,8 +1136,8 @@ public class ProyekBookingGedung {
                         do {
                             System.out.println("\nKode verifikasi dikirim melalui SMS");
                             System.out.println("\n----------------------------------------------------");
-                            System.out.print("||> Masukkan Kode verifikasi : ");
-                            inputkodeVerifPil2 = input.next();
+                            System.out.print("||> Masukkan Kode verifikasi: ");
+                            inputkodeVerifPil2 = input.nextLine();
                             System.out.println("------------------------------------------------------");
                             jikaKode2Valid = false;
                             for (String kode : kodeVerif) {
@@ -1124,15 +1159,15 @@ public class ProyekBookingGedung {
     public static void PilihanMember() {
         Scanner input = new Scanner(System.in);
         memberValid=false;
-        System.out.println("\n----------------------------------------------------");
-        System.out.print("Apakah Anda Member (y/t) : ");
-        inputUserMember= input.next();
-        System.out.println("\n----------------------------------------------------");
+        System.out.print("||> Apakah Anda Member (y/t): ");
+        inputUserMember= input.nextLine();
+        System.out.println("----------------------------------------------------");
         if (inputUserMember.equals("y")){
             memberValid = false;
             do {
-                System.out.print("Masukkan Kode Member milik Anda : ");
+                System.out.print("||> Masukkan Kode Member milik Anda: ");
                 String inputKodeMember = input.next();
+                System.out.println("----------------------------------------------------");
                 for (String verifMember : kodeMember) {
                     if (inputKodeMember.equals(verifMember)) {
                         diskon = 0.1 * totalTarif;
@@ -1157,14 +1192,14 @@ public class ProyekBookingGedung {
         boolean sewaBarangLagi = true;
         while (sewaBarangLagi) {
             System.out.println("----------------------------------------------------");
-            System.out.print("||> Apakah Anda ingin menyewa barang tambahan? (y/t) : ");
-            String inputSewaBarang = input.next();
+            System.out.print("||> Ingin sewa barang tambahan? (y/t): ");
+            String inputSewaBarang = input.nextLine();
             System.out.println("----------------------------------------------------");
             while (!inputSewaBarang.equalsIgnoreCase("y") && !inputSewaBarang.equalsIgnoreCase("t")) {
                 System.out.println("\n! Pilihan Salah. Mohon masukkan huruf y atau t !");
                 System.out.println("\n----------------------------------------------------");
-                System.out.print("||> Apakah Anda ingin menyewa barang tambahan? (y/t) : ");
-                inputSewaBarang = input.next();
+                System.out.print("||> Ingin sewa barang tambahan? (y/t): ");
+                inputSewaBarang = input.nextLine();
                 System.out.println("----------------------------------------------------");
             }
             if (inputSewaBarang.equalsIgnoreCase("y")) {
@@ -1179,16 +1214,19 @@ public class ProyekBookingGedung {
             }
         }
     }
-    static void PelaporanHarian(String nama, String tgl, long tampilBiaya, int totalPesanGedung, String cetakbarang){
-        System.out.println("\n-----------------------------------");
+    static void PelaporanHarian(String nama, SimpleDateFormat dateFormat, long tampilBiaya, int totalPesanGedung, String cetakbarang){
+        System.out.println("----------------------------------------------------");
         System.out.println("\tLaporan Harian Hasil Penjualan");
-        System.out.println("-----------------------------------");
+        System.out.println("----------------------------------------------------");
         System.out.println("Nama Pelanggan : " + nama);
-        System.out.println("Tanggal Sewa   : " + tgl);
+        Date tanggal = new Date();
+        System.out.println("Tanggal Sewa   : " + dateFormat.format(tanggal));
         System.out.println("Total Gedung   : " + cetakGedung);
         System.out.println("Total Barang   : " + cetakbarang);
-        System.out.println("-----------------------------------");
-        System.out.println("Total Penjualan : " + tampilBiaya);
-        System.out.println("-----------------------------------");
+        System.out.println("----------------------------------------------------");
+        System.out.println("Total Hasil Penjualan : " + tampilBiaya);
+        System.out.println("----------------------------------------------------");
     }
+
+
 }
