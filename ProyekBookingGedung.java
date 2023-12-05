@@ -1,6 +1,5 @@
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -231,7 +230,7 @@ public class ProyekBookingGedung {
                                 tambahAkunKasir();
                                 break;
                             case 11: 
-                                LaporanHarian(new Date());
+                                LaporanPendapatan(new Date());
                             case 12:
                                 pilihMenu = true;
                                 pilihanAdmin = false;
@@ -876,34 +875,20 @@ public class ProyekBookingGedung {
         
     }
 
-    private static void tambahDataPengguna(String nama, String noTelp, Date tanggal, String cetakGedung, String cetakBarang, long tampilBiaya) {
-        if (jumlahData <= 100) {
-            namaArray[jumlahData] = nama;
-            noTelpArray[jumlahData] = noTelp;
-            tanggalArray[jumlahData] = tanggal;
-            gedungArray[jumlahData] = cetakGedung;
-            barangArray[jumlahData] = cetakBarang;
-            biayaArray[jumlahData] = tampilBiaya;
-            jumlahData++;
-        } else {
-            System.out.println("Array sudah penuh. Tidak dapat menambahkan data lagi.");
+    private static void tambahTransaksi(String namaPelanggan, String noTelpPelanggan, Date tanggal, String cetakGedung,
+                                        String cetakBarang, long totalPendapatanHarian) {
+        if (jumlahTransaksi < 100) {
+            namaArray[jumlahTransaksi] = nama;
+            noTelpArray[jumlahTransaksi] = noTelp;
+            tanggalArray[jumlahTransaksi] = tanggal;
+            gedungArray[jumlahTransaksi] = cetakGedung;
+            barangArray[jumlahTransaksi] = cetakBarang;
+            biayaArray[jumlahTransaksi] = tampilBiaya;
+            jumlahTransaksi++;
         }
     }
 
-    private static void tambahTransaksi(String namaPelanggan, String noTelpPelanggan,
-                                        Date tanggal, String cetakGedung,
-                                        String cetakBarang, long totalPendapatanHarian) {
-        if (jumlahTransaksi < 100) {
-        namaArray[jumlahTransaksi] = nama;
-        noTelpArray[jumlahTransaksi] = noTelp;
-        tanggalArray[jumlahTransaksi] = tanggal;
-        gedungArray[jumlahTransaksi] = cetakGedung;
-        barangArray[jumlahTransaksi] = cetakBarang;
-        biayaArray[jumlahTransaksi] = tampilBiaya;
-        jumlahTransaksi++;
-    }}
-
-    private static void LaporanHarian(Date currentDate) {
+    private static void LaporanPendapatan(Date currentDate) {
         System.out.println("\n======================================================");
         System.out.println("             LAPORAN HARIAN DAN BULANAN");
         System.out.println("\nTanggal: " + dateFormat.format(currentDate));
@@ -926,17 +911,6 @@ public class ProyekBookingGedung {
         System.out.println("\n====================================================");
         System.out.println("TOTAL PENDAPATAN BULANAN : Rp." + totalPendapatanHarian);
         System.out.println("====================================================");
-    }
-
-    private static boolean isSameDay(Date date1, Date date2) {
-        Calendar cal1 = Calendar.getInstance();
-        Calendar cal2 = Calendar.getInstance();
-        cal1.setTime(date1);
-        cal2.setTime(date2);
-
-        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
-                cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH) &&
-                cal1.get(Calendar.DAY_OF_MONTH) == cal2.get(Calendar.DAY_OF_MONTH);
     }
 
     public static void tambahAkunAdmin() {
@@ -1283,7 +1257,6 @@ public class ProyekBookingGedung {
             }
         }
     }
-
 
     public static void cetakStruk(String cetakGedung, String nama, String noTelp, String inputTanggal, int tamuPemesan,
                                   String cetakBarang, long tampilBiaya, int jumlahPesanGedung) {
