@@ -687,7 +687,7 @@ public class ProyekBookingGedung {
             if (pilihGedung == 1) {
                 if (inputJumlahPesananGedung > 0 && inputJumlahPesananGedung <= stokGedung[0]) {
                     jumlahPesanGedung += inputJumlahPesananGedung;
-                    cetakGedung += namaGedung[0];
+                    cetakGedung += "\n-> "+namaGedung[0];
                     stokGedung[0] -= inputJumlahPesananGedung;
                     hargaGedung1=inputJumlahPesananGedung*500000;
                     totalTarif+=hargaGedung1;
@@ -728,7 +728,7 @@ public class ProyekBookingGedung {
             } else if (pilihGedung == 2) {
                 if (inputJumlahPesananGedung > 0 && inputJumlahPesananGedung <= stokGedung[1]) {
                     jumlahPesanGedung += inputJumlahPesananGedung;
-                    cetakGedung += namaGedung[1];
+                    cetakGedung += "\n-> "+namaGedung[1];
                     stokGedung[1] -= inputJumlahPesananGedung;
                     hargaGedung2=inputJumlahPesananGedung*400000;
                     totalTarif+=hargaGedung2;
@@ -768,7 +768,7 @@ public class ProyekBookingGedung {
             } else if (pilihGedung == 3) {
                 if (inputJumlahPesananGedung > 0 && inputJumlahPesananGedung <= stokGedung[2]) {
                     jumlahPesanGedung += inputJumlahPesananGedung;
-                    cetakGedung += namaGedung[2];
+                    cetakGedung += "\n-> "+namaGedung[2];
                     stokGedung[2] -= inputJumlahPesananGedung;
                     hargaGedung3=inputJumlahPesananGedung*200000;
                     totalTarif+=hargaGedung3;
@@ -808,7 +808,7 @@ public class ProyekBookingGedung {
             } else if (pilihGedung == 4) {
                 if (inputJumlahPesananGedung > 0 && inputJumlahPesananGedung <= stokGedung[3]) {
                     jumlahPesanGedung += inputJumlahPesananGedung;
-                    cetakGedung += namaGedung[3];
+                    cetakGedung += "\n-> "+namaGedung[3];
                     stokGedung[3] -= inputJumlahPesananGedung;
                     hargaGedung4=inputJumlahPesananGedung*300000;
                     totalTarif+=hargaGedung4;
@@ -897,32 +897,35 @@ public class ProyekBookingGedung {
         namaArray[jumlahTransaksi] = nama;
         noTelpArray[jumlahTransaksi] = noTelp;
         tanggalArray[jumlahTransaksi] = tanggal;
-        gedungArray[jumlahTransaksi] = "";
-        barangArray[jumlahTransaksi] = "";
-        biayaArray[jumlahTransaksi] = totalPendapatanHarian;
+        gedungArray[jumlahTransaksi] = cetakGedung;
+        barangArray[jumlahTransaksi] = cetakBarang;
+        biayaArray[jumlahTransaksi] = tampilBiaya;
         jumlahTransaksi++;
     }}
 
     private static void LaporanHarian(Date currentDate) {
-        System.out.println("\n----------------------------------------------------");
-        System.out.println("\tLaporan Harian Hasil Penjualan");
-        System.out.println("Tanggal: " + dateFormat.format(currentDate));
-        System.out.println("----------------------------------------------------");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        System.out.println("\n======================================================");
+        System.out.println("             LAPORAN HARIAN DAN BULANAN");
+        System.out.println("\nTanggal: " + dateFormat.format(currentDate));
+        System.out.println("======================================================");
 
         for (int i = 0; i < jumlahTransaksi; i++) {
-                System.out.println("Nama: " + namaArray[i]);
-                System.out.println("No. Telepon: " + noTelpArray[i]);
-                System.out.println("Tanggal Acara: " + dateFormat.format(tanggalArray[i]));
-                System.out.println("Total Gedung   : " + gedungArray[i]);
-                System.out.println("Barang Terjual"+barangArray[i]);
-                System.out.println("----------------------------------------------------");
-                System.out.println("Total Pendapatan : " + biayaArray[i]);
-                System.out.println("----------------------------------------------------");
-                totalPendapatanHarian += biayaArray[i];
-                System.out.println("Total Pendapatan Harian : " + totalPendapatanHarian);
-            
+            System.out.println("\n----------------------------------------------------");
+            System.out.println("Nama Pemesan      : " + namaArray[i]);
+            System.out.println("No. Telepon       : " + noTelpArray[i]);
+            System.out.println("Tanggal Acara     : " + dateFormat.format(tanggalArray[i]));
+            System.out.println("----------------------------------------------------");
+            System.out.println("Gedung Yang Disewa" + gedungArray[i]);
+            System.out.println("----------------------------------------------------");
+            System.out.println("Barang Yang Telah Terjual"+barangArray[i]);
+            System.out.println("----------------------------------------------------");
+            System.out.println("PENDAPATAN HARIAN : Rp." + biayaArray[i]);
+            System.out.println("----------------------------------------------------");
+            totalPendapatanHarian += biayaArray[i];
         }
+        System.out.println("\n====================================================");
+        System.out.println("TOTAL PENDAPATAN BULANAN : Rp." + totalPendapatanHarian);
+        System.out.println("====================================================");
     }
 
     private static boolean isSameDay(Date date1, Date date2) {
@@ -1287,14 +1290,14 @@ public class ProyekBookingGedung {
         System.out.println("\n=============================================\n");
         System.out.println("\t    BOOKING GEDUNG SOEHAT\n");
         System.out.println("==========Informasi Pemesanan Anda!==========");
-        System.out.println("\n\t     GEDUNG"+ cetakGedung);
+        System.out.println("\nGedung Dipesan"+ cetakGedung);
         System.out.println("\nAtas Nama         : " + nama);
         System.out.println("No. Telepon       : " + noTelp);
         System.out.println("Tanggal           : " + dateFormat.format(tanggal));
         System.out.println("Jumlah Tamu       : " + tamuPemesan);
         System.out.println("\nBarang tambahan"+cetakBarang);
-        System.out.println("\nTotal Biaya       : Rp." + tampilBiaya);
         System.out.println("Total Gedung      : " + jumlahPesanGedung);
+        System.out.println("\nTotal Biaya       : Rp." + tampilBiaya);
         System.out.println("--------------------------------------------");
         System.out.println("Metode Pembayaran : " + cetakMetodePembayaran);
         System.out.println("--------------------------------------------");
