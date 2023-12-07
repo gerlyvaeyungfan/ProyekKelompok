@@ -4,26 +4,64 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class ProyekBookingGedung {
-    static int tamuPemesan=0, jumlahTamu, stepLogin, menuGedung, inputMetodePembayaran, menuAdmin, menuMember, menuKasir, 
+    
+    static int jumlahTamu, stepLogin, menuGedung, inputMetodePembayaran, menuAdmin, menuMember, menuKasir, 
                inputJumlahPesananGedung, jumlahPesananMeja, jumlahPesananKursi, jumlahPesananKarpet, index, indexKasir,
                jumlahPesananSound, jumlahPesananMic, tambahanStok, indexUser, indexAdmin, pilihGedung,totalPesanMeja=0,
-               totalPesanKursi=0, totalPesanKarpet=0, totalPesanSound=0, totalPesanMic=0, jumlahPesanGedung=0,
+               totalPesanKursi=0, totalPesanKarpet=0, totalPesanSound=0, totalPesanMic=0,
                jumlahBarang = 0, jumlahGedung = 0, jumlahUser = 0, jumlahAdmin = 0, jumlahKasir = 0, tambahStokGedung,
                jumlahData=0, jumlahTransaksi = 0;
-    static long tarif = 0, hargaMeja, hargaKursi, hargaKarpet, hargaSound, hargaMic, totalPendapatanHarian = 0,
-                hargaGedung1, hargaGedung2, hargaGedung3, hargaGedung4, tampilBiaya=0;
-    static double cetakHarga, totalTarif = 0, diskon;
-    static String inputPesanLagi, inputUserMember, nama, noTelp, targetBarang, cetakGedung = "", akun, 
-                  cetakBarang="", inputUserAdmin, inputPwAdmin, inputUser, inputPwUser, inputKodeVerif,
-                  inputUserKasir, inputPwKasir, targetGedung, targetNamaBarang, inputTanggal, cetakMetodePembayaran="";
+    static long tarif = 0, hargaMeja, hargaKursi, hargaKarpet, hargaSound, hargaMic, totalPendapatanBulanan = 0,
+                hargaGedung1, hargaGedung2, hargaGedung3, hargaGedung4, totalBiaya, cetakHargaGedung1, cetakHargaGedung2,
+                cetakHargaGedung3, cetakHargaGedung4, cetakHargaBarang1, cetakHargaBarang2, cetakHargaBarang3,
+                cetakHargaBarang4,cetakHargaBarang5;
+    static double totalTarifGedung1 = 0, totalTarifGedung2 = 0, totalTarifGedung3 = 0, totalTarifGedung4 = 0,
+                  totalTarifBarang1 = 0, totalTarifBarang2 = 0, totalTarifBarang3 = 0, totalTarifBarang4 = 0,
+                  totalTarifBarang5 = 0, diskon, cetakHargaMember, totalTarifMember;
+    static String inputPesanLagi, inputUserMember, inputNamaPelanggan, inputNoTelpPelanggan, targetBarang, akun, 
+                  inputUserAdmin, inputPwAdmin, inputUser, inputPwUser, inputKodeVerif, totalGedung="", totalBarang="",
+                  inputUserKasir, inputPwKasir, targetGedung, targetNamaBarang, inputTanggal, metodePembayaran="";
     static boolean pilihMenu, regUsernameAdminValid, pilihanAdmin, userTerdaftar, penggunaValid, ketemu,
                    pilihMember, pilihBarang, langkahSelanjutnya, sewaBarangLagi, metodeBayar, inputTanggalValid,
                    jikaKodeValid, memberValid, jikaBarangDitemukan, jikaGedungDitemukan,
                    jikaGedungTersedia, jikaBarangTersedia, regUsernameKasirValid, pilihanKasir, pilihanGedung;
-    
+
+    static String[] namaPelanggan = new String[100];
+    static String[] noTelpPelanggan = new String[100];
+    private static String [] tampilTanggal = new String[100];
+    static String[] cetakGedung = new String[100];
+    static String[] cetakBarang = new String[100];
+    static int [] cetakStokGedung = new int[100];
+    static int [] tamuPemesan = new int[100];
+    static int [] jumlahPesanGedung = new int[100];
+    static long [] tampilBiaya = new long[100];
+    static String[] cetakMetodePembayaran= new String[100];
+
+    static int jumlahHistori = 0;
+
+    private static void tambahHistori() {
+        if (jumlahHistori < 100) {
+            namaPelanggan[jumlahHistori] = inputNamaPelanggan;
+            noTelpPelanggan[jumlahHistori] = inputNoTelpPelanggan;
+            tampilTanggal[jumlahHistori] = inputTanggal;
+            tamuPemesan[jumlahHistori] = jumlahTamu;
+            cetakGedung[jumlahHistori] = totalGedung;
+            cetakBarang[jumlahHistori] = totalBarang;
+            tampilBiaya[jumlahHistori] = totalBiaya;
+            cetakMetodePembayaran[jumlahTransaksi] = metodePembayaran;
+            jumlahHistori++;
+        }
+    }
+
     static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     static Date tanggal = null;
 
+    static boolean isValidFormat(String value, SimpleDateFormat dateFormat) {
+        dateFormat.setLenient(false);
+        Date parsedDate = dateFormat.parse(value, new ParsePosition(0));
+        return parsedDate != null;
+    }
+    
     static String menuMetodeBayar[] = {"BRI", "BNI", "BCA", "DANA", "GoPay", "LinkAja"};
     static String kodeVerif[] = { "01234", "12345", "23456", "34567", "45678", "56789", "67890" };
     static String kodeMember[] = {"a1b2c3", "12ab34cd", "01000001", "01000111", "01001010"};
@@ -43,21 +81,23 @@ public class ProyekBookingGedung {
     static String[] regUsernameUser = new String[100];
     static String[] regPasswordUser = new String[100];
 
-    static boolean isValidFormat(String value, SimpleDateFormat dateFormat) {
-        dateFormat.setLenient(false);
-
-        Date parsedDate = dateFormat.parse(value, new ParsePosition(0));
-
-        return parsedDate != null;
+    public static void LihatHistoriPemesanan() {
+        System.out.println("\n-----------------------------------");
+        System.out.println("Jumlah Histori : " + jumlahHistori);
+        System.out.println("Daftar Histori Pelanggan:");
+        System.out.println("-----------------------------------");
+        for (int i = 0; i < jumlahHistori; i++) {
+            System.out.println("Histori ke-" + (i + 1));
+            System.out.println("Tanggal           : "+ tampilTanggal[i]);
+            System.out.println("Atas nama         : " + namaPelanggan[i]);
+            System.out.println("No.Telp           : " + noTelpPelanggan[i]);
+            System.out.println("Nama Gedung       : " + cetakGedung[i]);
+            System.out.println("Nama Barang       : " + cetakBarang[i]);
+            System.out.println("Metode Pembayaran : " + cetakMetodePembayaran[i]);
+            System.out.println("-----------------------------------");
+        }
     }
 
-    private static String[] namaArray = new String[100];
-    private static String[] noTelpArray = new String[100];
-    private static Date[] tanggalArray = new Date[100];
-    private static String[] gedungArray = new String[100];
-    private static String[] barangArray = new String[100];
-    private static long[] biayaArray = new long[100];
-    
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
@@ -165,10 +205,10 @@ public class ProyekBookingGedung {
                             }
                         }
                         if (regUsernameAdminValid) {
-                            System.out.println("\n-VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV-");
+                            System.out.println("\n-....................................-");
                             System.out.println("          ! LOGIN BERHASIL !          ");
                             System.out.println("       SELAMAT DATANG, ADMIN :)       ");
-                            System.out.println("-VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV-");
+                            System.out.println("-....................................-");
                         } else {
                             System.out.println("\n! Login gagal. Username atau password salah. Silakan coba lagi !");
                         }
@@ -189,15 +229,16 @@ public class ProyekBookingGedung {
                             System.out.println("|   8. Lihat Data User             |");
                             System.out.println("|   9. Tambah Akun Admin Baru      |");
                             System.out.println("|   10. Tambah Akun Kasir Baru     |");
-                            System.out.println("|   11. Lihat Laporan Harian       |");
-                            System.out.println("|   12. Keluar                     |");
+                            System.out.println("|   11. Lihat Laporan Pendapatan   |");
+                            System.out.println("|   12. Lihat Histori Pemesanan    |");
+                            System.out.println("|   13. Keluar                     |");
                             System.out.println("|_________________________________/.");
                             System.out.print("||> Masukkan Pilihan Anda: ");
                             menuAdmin = input.nextInt();
-                            if (menuAdmin < 1 || menuAdmin > 12) {
-                                System.out.println("\n! Mohon masukkan nomor antara 1 dan 12 !");
+                            if (menuAdmin < 1 || menuAdmin > 13) {
+                                System.out.println("\n! Mohon masukkan nomor antara 1 dan 13 !");
                             }
-                        } while (menuAdmin < 1 || menuAdmin > 12);
+                        } while (menuAdmin < 1 || menuAdmin > 13);
                         switch (menuAdmin) {
                             case 1:
                                 PencarianAdminTerdaftar();
@@ -231,7 +272,11 @@ public class ProyekBookingGedung {
                                 break;
                             case 11: 
                                 LaporanPendapatan(new Date());
+                                break;
                             case 12:
+                                LihatHistoriPemesanan();
+                                break;
+                            case 13:
                                 pilihMenu = true;
                                 pilihanAdmin = false;
                                 break;
@@ -257,10 +302,10 @@ public class ProyekBookingGedung {
                             }
                         }
                         if (regUsernameKasirValid) {
-                            System.out.println("\n-VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV-");
+                            System.out.println("\n-....................................-");
                             System.out.println("          ! LOGIN BERHASIL !          ");
                             System.out.println("       SELAMAT DATANG, KASIR :)       ");
-                            System.out.println("-VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV-");
+                            System.out.println("-....................................-");
                         } else {
                             System.out.println("\n! Login gagal. Username atau password salah. Silakan coba lagi !");
                         }
@@ -288,7 +333,7 @@ public class ProyekBookingGedung {
                         } while (menuKasir < 1 || menuKasir > 8);
                         switch (menuKasir) {
                             case 1:
-                                cetakStruk(cetakGedung, nama, noTelp, inputTanggal, tamuPemesan, cetakBarang, tampilBiaya, jumlahPesanGedung);
+                                cetakStruk();
                               break;
                             case 2:
                                 tampilkanStokGedung();
@@ -334,10 +379,10 @@ public class ProyekBookingGedung {
                             }
                         }
                         if (penggunaValid) {
-                            System.out.println("\n-VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV-");
+                            System.out.println("\n-...................................-");
                             System.out.println("          ! LOGIN BERHASIL !         ");
                             System.out.println("       SELAMAT DATANG, USER :)       ");
-                            System.out.println("-VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV-");
+                            System.out.println("-...................................-");
                         } else {
                             System.out.println("\n! Login gagal. Username atau password salah. Silakan coba lagi !");
                         }
@@ -361,8 +406,6 @@ public class ProyekBookingGedung {
                             switch (menuMember) {
                                 case 1:
                                     ProsesPemesananGedung();
-                                    tambahTransaksi(nama, noTelp, tanggal, cetakGedung, cetakBarang, totalPendapatanHarian);
-
                                     break;
                                 case 2:
                                     tampilkanStokGedung();
@@ -685,13 +728,14 @@ public class ProyekBookingGedung {
             inputJumlahPesananGedung=input.nextInt();
             if (pilihGedung == 1) {
                 if (inputJumlahPesananGedung > 0 && inputJumlahPesananGedung <= stokGedung[0]) {
-                    jumlahPesanGedung += inputJumlahPesananGedung;
-                    cetakGedung += "\n-> "+namaGedung[0];
+                    jumlahPesanGedung [jumlahHistori]=inputJumlahPesananGedung;
+                    totalGedung ="\n-> "+namaGedung[0];
+                    cetakGedung[jumlahHistori] = totalGedung;
                     stokGedung[0] -= inputJumlahPesananGedung;
+                    cetakStokGedung[jumlahHistori] = stokGedung[0];
                     hargaGedung1=inputJumlahPesananGedung*500000;
-                    totalTarif+=hargaGedung1;
-                    cetakHarga+=totalTarif;
-                    tampilBiaya=(long) cetakHarga;
+                    totalTarifGedung1+=hargaGedung1;
+                    cetakHargaGedung1 = (long)totalTarifGedung1;
                     do {
                         System.out.print("||> Masukkan Jumlah Tamu: ");
                         jumlahTamu = input.nextInt();
@@ -700,11 +744,11 @@ public class ProyekBookingGedung {
                             System.out.println("! Mohon masukkan jumlah tamu antara 1 dan 900 !");
                             gedungFiks=false;
                         } else {
-                            tamuPemesan+=jumlahTamu;
+                            tamuPemesan[jumlahHistori]=jumlahTamu;
                             tarif = jumlahTamu * 90000;
-                            totalTarif += tarif;
-                            cetakHarga+=totalTarif;
-                            tampilBiaya=(long) cetakHarga;
+                            totalTarifGedung1 += tarif;
+                            cetakHargaGedung1+=totalTarifGedung1;
+                            tampilBiaya[jumlahHistori]=(long) cetakHargaGedung1;
                             pilihanGedung=false;
                             gedungFiks=false;
 
@@ -726,13 +770,13 @@ public class ProyekBookingGedung {
                 }
             } else if (pilihGedung == 2) {
                 if (inputJumlahPesananGedung > 0 && inputJumlahPesananGedung <= stokGedung[1]) {
-                    jumlahPesanGedung += inputJumlahPesananGedung;
-                    cetakGedung += "\n-> "+namaGedung[1];
+                    jumlahPesanGedung[jumlahHistori] = inputJumlahPesananGedung;
+                    totalGedung ="\n-> "+namaGedung[1];
+                    cetakGedung[jumlahHistori] = totalGedung;
                     stokGedung[1] -= inputJumlahPesananGedung;
                     hargaGedung2=inputJumlahPesananGedung*400000;
-                    totalTarif+=hargaGedung2;
-                    cetakHarga+=totalTarif;
-                    tampilBiaya=(long) cetakHarga;
+                    totalTarifGedung2+=hargaGedung2;
+                    cetakHargaGedung2 = (long)totalTarifGedung2;
                     do {
                         System.out.print("||> Masukkan Jumlah Tamu: ");
                         jumlahTamu = input.nextInt();
@@ -741,11 +785,11 @@ public class ProyekBookingGedung {
                             System.out.println("! Mohon masukkan jumlah tamu antara 1 dan 250 !");
                             gedungFiks=false;
                         } else {
-                            tamuPemesan+=jumlahTamu;
+                            tamuPemesan[jumlahHistori]=jumlahTamu;
                             tarif = jumlahTamu * 25000;
-                            totalTarif += tarif;
-                            cetakHarga+=totalTarif;
-                            tampilBiaya=(long) cetakHarga;
+                            totalTarifGedung2 += tarif;
+                            cetakHargaGedung2+=totalTarifGedung2;
+                            tampilBiaya[jumlahHistori]=(long) cetakHargaGedung2;
                             pilihanGedung=false;
                             gedungFiks=false;
                         }
@@ -766,13 +810,13 @@ public class ProyekBookingGedung {
                 }
             } else if (pilihGedung == 3) {
                 if (inputJumlahPesananGedung > 0 && inputJumlahPesananGedung <= stokGedung[2]) {
-                    jumlahPesanGedung += inputJumlahPesananGedung;
-                    cetakGedung += "\n-> "+namaGedung[2];
+                    jumlahPesanGedung[jumlahHistori] = inputJumlahPesananGedung;
+                    totalGedung="\n-> "+namaGedung[2];
+                    cetakGedung[jumlahHistori] = totalGedung;
                     stokGedung[2] -= inputJumlahPesananGedung;
                     hargaGedung3=inputJumlahPesananGedung*200000;
-                    totalTarif+=hargaGedung3;
-                    cetakHarga+=totalTarif;
-                    tampilBiaya=(long) cetakHarga;
+                    totalTarifGedung3=hargaGedung3;
+                    cetakHargaGedung3 = (long)totalTarifGedung3;
                     do {
                         System.out.print("||> Masukkan Jumlah Tamu: ");
                         jumlahTamu = input.nextInt();
@@ -781,11 +825,11 @@ public class ProyekBookingGedung {
                             System.out.println("! Mohon masukkan jumlah tamu antara 1 dan 100 !");
                             gedungFiks=false;
                         } else {
-                            tamuPemesan+=jumlahTamu;
+                            tamuPemesan[jumlahHistori]=jumlahTamu;
                             tarif = jumlahTamu * 10000;
-                            totalTarif += tarif;
-                            cetakHarga+=totalTarif;
-                            tampilBiaya=(long) cetakHarga;
+                            totalTarifGedung3 += tarif;
+                            cetakHargaGedung3+=totalTarifGedung3;
+                            tampilBiaya[jumlahHistori]=(long) cetakHargaGedung3;
                             pilihanGedung=false;
                             gedungFiks=false;
                         }
@@ -806,13 +850,13 @@ public class ProyekBookingGedung {
                 }
             } else if (pilihGedung == 4) {
                 if (inputJumlahPesananGedung > 0 && inputJumlahPesananGedung <= stokGedung[3]) {
-                    jumlahPesanGedung += inputJumlahPesananGedung;
-                    cetakGedung += "\n-> "+namaGedung[3];
+                    jumlahPesanGedung[jumlahHistori]= inputJumlahPesananGedung;
+                    totalGedung="\n-> "+namaGedung[3];
+                    cetakGedung[jumlahHistori] = totalGedung;
                     stokGedung[3] -= inputJumlahPesananGedung;
                     hargaGedung4=inputJumlahPesananGedung*300000;
-                    totalTarif+=hargaGedung4;
-                    cetakHarga+=totalTarif;
-                    tampilBiaya=(long) cetakHarga;
+                    totalTarifGedung4+=hargaGedung4;
+                    cetakHargaGedung1 = (long)totalTarifGedung4;
                     do {
                         System.out.print("||> Masukkan Jumlah Tamu: ");
                         jumlahTamu = input.nextInt();
@@ -821,11 +865,11 @@ public class ProyekBookingGedung {
                             System.out.println("! Mohon masukkan jumlah tamu antara 1 dan 500 !");
                             gedungFiks=false;
                         } else {
-                            tamuPemesan+=jumlahTamu;
+                            tamuPemesan[jumlahHistori]=jumlahTamu;
                             tarif = jumlahTamu * 50000;
-                            totalTarif += tarif;
-                            cetakHarga+=totalTarif;
-                            tampilBiaya=(long) cetakHarga;
+                            totalTarifGedung4+= tarif;
+                            cetakHargaGedung4+=totalTarifGedung4;
+                            tampilBiaya[jumlahHistori]=(long) cetakHargaGedung4;
                             pilihanGedung=false;
                             gedungFiks=false;
                         }
@@ -850,15 +894,16 @@ public class ProyekBookingGedung {
         PIlihSewaBarangLagi();                                
         PilihanMember();                                
         PilihMetodeBayar();
+        tambahHistori();
     }
     
     public static void InputDataPengguna() {
         Scanner input = new Scanner(System.in);
         System.out.println("----------------------------------------------------");
         System.out.print("||> Masukkan Nama Anda: ");
-        nama = input.nextLine();
+        inputNamaPelanggan = input.nextLine();
         System.out.print("||> Masukkan No. Telepon: ");
-        noTelp = input.nextLine();
+        inputNoTelpPelanggan = input.nextLine();
         inputTanggalValid = false;
         while (!inputTanggalValid) {
             System.out.print("||> Masukkan Tanggal Acara (dd/MM/yyyy): ");
@@ -867,24 +912,11 @@ public class ProyekBookingGedung {
                 tanggal = dateFormat.parse(inputTanggal, new ParsePosition(0));
                 if (tanggal != null && tanggal.getTime() > 0) {
                     inputTanggalValid = true;
+                    tampilTanggal[jumlahHistori] = inputTanggal;
                 }
             } else {
                 System.out.println("Format tanggal tidak valid. Mohon masukkan kembali.");
             }
-        }
-        
-    }
-
-    private static void tambahTransaksi(String namaPelanggan, String noTelpPelanggan, Date tanggal, String cetakGedung,
-                                        String cetakBarang, long totalPendapatanHarian) {
-        if (jumlahTransaksi < 100) {
-            namaArray[jumlahTransaksi] = nama;
-            noTelpArray[jumlahTransaksi] = noTelp;
-            tanggalArray[jumlahTransaksi] = tanggal;
-            gedungArray[jumlahTransaksi] = cetakGedung;
-            barangArray[jumlahTransaksi] = cetakBarang;
-            biayaArray[jumlahTransaksi] = tampilBiaya;
-            jumlahTransaksi++;
         }
     }
 
@@ -893,23 +925,20 @@ public class ProyekBookingGedung {
         System.out.println("             LAPORAN HARIAN DAN BULANAN");
         System.out.println("\nTanggal: " + dateFormat.format(currentDate));
         System.out.println("======================================================");
-
-        for (int i = 0; i < jumlahTransaksi; i++) {
+        for (int i = 0; i < jumlahHistori; i++) {
             System.out.println("\n----------------------------------------------------");
-            System.out.println("Nama Pemesan      : " + namaArray[i]);
-            System.out.println("No. Telepon       : " + noTelpArray[i]);
-            System.out.println("Tanggal Acara     : " + dateFormat.format(tanggalArray[i]));
+            System.out.println("Tanggal Acara     : " + tampilTanggal[i]);
             System.out.println("----------------------------------------------------");
-            System.out.println("Gedung Yang Disewa" + gedungArray[i]);
+            System.out.println("Gedung Yang Disewa" + cetakGedung[i]);
             System.out.println("----------------------------------------------------");
-            System.out.println("Barang Yang Telah Terjual"+barangArray[i]);
+            System.out.println("Barang Yang Telah Tersewa"+cetakBarang[i]);
             System.out.println("----------------------------------------------------");
-            System.out.println("PENDAPATAN HARIAN : Rp." + biayaArray[i]);
+            System.out.println("PENDAPATAN HARIAN : Rp." + tampilBiaya[i]);
             System.out.println("----------------------------------------------------");
-            totalPendapatanHarian += biayaArray[i];
+            totalPendapatanBulanan += tampilBiaya[i];
         }
         System.out.println("\n====================================================");
-        System.out.println("TOTAL PENDAPATAN BULANAN : Rp." + totalPendapatanHarian);
+        System.out.println("TOTAL PENDAPATAN BULANAN : Rp." + totalPendapatanBulanan);
         System.out.println("====================================================");
     }
 
@@ -926,9 +955,9 @@ public class ProyekBookingGedung {
             regUsernameAdmin[jumlahAdmin] = inputUserBaru;
             regPasswordAdmin[jumlahAdmin] = inputPwBaru;
             jumlahAdmin++;
-            System.out.println("\n-VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV-");
+            System.out.println("\n-.......................................-");
             System.out.println("   ! USER ADMIN BERHASIL DITAMBAHKAN !   ");
-            System.out.println("-VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV-\n");
+            System.out.println("-.......................................-\n");
         } else {
             System.out.println("\nMohon maaf, jumlah admin melebihi batas.");
         }
@@ -947,9 +976,9 @@ public class ProyekBookingGedung {
             regUsernameKasir[jumlahKasir] = inputUserBaru;
             regPasswordKasir[jumlahKasir] = inputPwBaru;
             jumlahKasir++;
-            System.out.println("\n-VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV-");
+            System.out.println("\n-.......................................-");
             System.out.println("   ! USER KASIR BERHASIL DITAMBAHKAN !   ");
-            System.out.println("-VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV-\n");
+            System.out.println("-.......................................-\n");
         } else {
             System.out.println("\nMohon maaf, jumlah kasir melebihi batas.");
         }
@@ -968,9 +997,9 @@ public class ProyekBookingGedung {
             regUsernameUser[jumlahUser] = inputUserBaru;
             regPasswordUser[jumlahUser] = inputPwBaru;
             jumlahUser++;
-            System.out.println("\n-VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV-");
+            System.out.println("\n-....................................-");
             System.out.println("   ! USER BARU BERHASIL TERDAFTAR !   ");
-            System.out.println("-VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV-\n");
+            System.out.println("-....................................-\n");
         } else {
             System.out.println("\nMohon maaf, jumlah member melebihi batas.");
         }
@@ -1042,13 +1071,14 @@ public class ProyekBookingGedung {
                     System.out.print("||> Jumlah Meja yang akan dipesan: ");
                     jumlahPesananMeja = input.nextInt();
                     if (jumlahPesananMeja > 0 && jumlahPesananMeja <= stokBarang[0]) {
-                        totalPesanMeja+=jumlahPesananMeja;
-                        cetakBarang+="\n-> "+namaBarang[0]+"           : "+totalPesanMeja;
+                        totalBarang="\n-> "+namaBarang[0]+"           : "+jumlahPesananMeja;
+                        cetakBarang[jumlahHistori]=totalBarang;
                         stokBarang[0] -= jumlahPesananMeja;
                         hargaMeja = jumlahPesananMeja * 10000;
-                        totalTarif += hargaMeja;
-                        cetakHarga+=totalTarif;
-                        tampilBiaya=(long) cetakHarga;
+                        totalTarifBarang1 += hargaMeja;
+                        cetakHargaBarang1+=totalTarifBarang1;
+                        totalBiaya=(long) cetakHargaBarang1;
+                        tampilBiaya[jumlahHistori]=totalBiaya;
                     } else {
                         System.out.println("\n! Stok Meja tidak mencukupi untuk pesanan tersebut !");
                     }
@@ -1057,13 +1087,14 @@ public class ProyekBookingGedung {
                     System.out.print("||> Jumlah Kursi yang akan dipesan: ");
                     jumlahPesananKursi = input.nextInt();
                     if (jumlahPesananKursi > 0 && jumlahPesananKursi <= stokBarang[1]) {
-                        totalPesanKursi+=jumlahPesananKursi;
-                        cetakBarang+="\n-> "+namaBarang[1]+"          : "+totalPesanKursi;
+                        totalBarang="\n-> "+namaBarang[1]+"          : "+jumlahPesananKursi;
+                        cetakBarang[jumlahHistori]=totalBarang;
                         stokBarang[1] -= jumlahPesananKursi;
                         hargaKursi = jumlahPesananKursi * 5000;
-                        totalTarif += hargaKursi;
-                        cetakHarga+=totalTarif;
-                        tampilBiaya=(long) cetakHarga;
+                        totalTarifBarang2 += hargaKursi;
+                       cetakHargaBarang2+=totalTarifBarang2;
+                        totalBiaya=(long) cetakHargaBarang2;
+                        tampilBiaya[jumlahHistori]=totalBiaya;
                     } else {
                         System.out.println("\n! Stok Kursi tidak mencukupi untuk pesanan tersebut !");
                     }
@@ -1072,13 +1103,14 @@ public class ProyekBookingGedung {
                     System.out.print("||> Jumlah Karpet yang akan dipesan: ");
                     jumlahPesananKarpet = input.nextInt();
                     if (jumlahPesananKarpet > 0 && jumlahPesananKarpet <= stokBarang[2]) {
-                        totalPesanKarpet+=jumlahPesananKarpet;
-                        cetakBarang+="\n-> "+namaBarang[2]+"         : "+totalPesanKarpet;
+                        totalBarang="\n-> "+namaBarang[2]+"         : "+jumlahPesananKarpet;
+                        cetakBarang[jumlahHistori]=totalBarang;
                         stokBarang[2] -= jumlahPesananKarpet;
                         hargaKarpet = jumlahPesananKarpet * 7000;
-                        totalTarif += hargaKarpet;
-                        cetakHarga+=totalTarif;
-                        tampilBiaya=(long) cetakHarga;
+                        totalTarifBarang3 += hargaKarpet;
+                       cetakHargaBarang3+=totalTarifBarang3;
+                        totalBiaya=(long) cetakHargaBarang3;
+                        tampilBiaya[jumlahHistori]=totalBiaya;
                     } else {
                         System.out.println("\n! Stok Karpet tidak mencukupi untuk pesanan tersebut !");
                     }
@@ -1087,13 +1119,14 @@ public class ProyekBookingGedung {
                     System.out.print("||> Jumlah Sound yang akan dipesan: ");
                     jumlahPesananSound = input.nextInt();
                     if (jumlahPesananSound > 0 && jumlahPesananSound <= stokBarang[3]) {
-                        totalPesanSound+=jumlahPesananSound;
-                        cetakBarang+="\n-> "+namaBarang[3]+"          : "+totalPesanSound;
+                        totalBarang="\n-> "+namaBarang[3]+"          : "+jumlahPesananSound;
+                        cetakBarang[jumlahHistori]=totalBarang;
                         stokBarang[3] -= jumlahPesananSound;
                         hargaSound = jumlahPesananSound * 200000;
-                        totalTarif += hargaSound;
-                        cetakHarga+=totalTarif;
-                        tampilBiaya=(long) cetakHarga;
+                        totalTarifBarang4 += hargaSound;
+                       cetakHargaBarang4+=totalTarifBarang4;
+                        totalBiaya=(long) cetakHargaBarang4;
+                        tampilBiaya[jumlahHistori]=totalBiaya;
                     } else {
                         System.out.println("\n! Stok Sound tidak mencukupi untuk pesanan tersebut !");
                     }
@@ -1102,13 +1135,14 @@ public class ProyekBookingGedung {
                     System.out.print("||> Jumlah Mic yang akan dipesan: ");
                     jumlahPesananMic = input.nextInt();
                     if (jumlahPesananMic > 0 && jumlahPesananMic <= stokBarang[4]) {
-                        totalPesanMic+=jumlahPesananMic;
-                        cetakBarang+="\n-> "+namaBarang[4]+"            : "+totalPesanMic;
+                        totalBarang="\n-> "+namaBarang[0]+"            : "+jumlahPesananMic;
+                        cetakBarang[jumlahHistori]=totalBarang;
                         stokBarang[4] -= jumlahPesananMic;
                         hargaMic = jumlahPesananMic * 50000;
-                        totalTarif += hargaMic;
-                        cetakHarga+=totalTarif;
-                        tampilBiaya=(long) cetakHarga;
+                        totalTarifBarang5 += hargaMic;
+                        cetakHargaBarang5+=totalTarifBarang5;
+                        totalBiaya=(long) cetakHargaBarang5;
+                        tampilBiaya[jumlahHistori]=totalBiaya;
                     } else {
                         System.out.println("\n! Stok Mic tidak mencukupi untuk pesanan tersebut !");
                     }
@@ -1138,17 +1172,23 @@ public class ProyekBookingGedung {
                 inputMetodePembayaran = input.nextInt();
                 metodeBayar=false;
                 if (inputMetodePembayaran==1) {
-                    cetakMetodePembayaran += menuMetodeBayar[0];
+                    metodePembayaran = "BRI";
+                    cetakMetodePembayaran[jumlahHistori]=metodePembayaran;
                 } else if (inputMetodePembayaran==2) {
-                    cetakMetodePembayaran += menuMetodeBayar[1];
-                } else if (inputMetodePembayaran==32) {
-                    cetakMetodePembayaran += menuMetodeBayar[2];
+                    metodePembayaran = "BNI";
+                    cetakMetodePembayaran[jumlahHistori]=metodePembayaran;
+                } else if (inputMetodePembayaran==3) {
+                    metodePembayaran = "BCA";
+                    cetakMetodePembayaran[jumlahHistori]=metodePembayaran;
                 } else if (inputMetodePembayaran==4) {
-                    cetakMetodePembayaran += menuMetodeBayar[3];
+                    metodePembayaran = "DANA";
+                    cetakMetodePembayaran[jumlahHistori]=metodePembayaran;
                 } else if (inputMetodePembayaran==5) {
-                    cetakMetodePembayaran += menuMetodeBayar[4];
+                    metodePembayaran = "ShopeePay";
+                    cetakMetodePembayaran[jumlahHistori]=metodePembayaran;
                 } else if (inputMetodePembayaran==6) {
-                    cetakMetodePembayaran += menuMetodeBayar[5];
+                    metodePembayaran = "LinkAja";
+                    cetakMetodePembayaran[jumlahHistori]=metodePembayaran;
                 }
                 if (inputMetodePembayaran < 1 || inputMetodePembayaran > 6) {
                     System.out.println("\n! Mohon masukkan nomor antara 1 dan 6 !");
@@ -1213,9 +1253,9 @@ public class ProyekBookingGedung {
                 System.out.println("----------------------------------------------------");
                 for (String verifMember : kodeMember) {
                     if (inputKodeMember.equals(verifMember)) {
-                        diskon = 0.1 * totalTarif;
-                        cetakHarga = totalTarif - diskon;
-                        tampilBiaya=(long) cetakHarga;
+                        diskon = 0.1 * totalTarifMember;
+                        cetakHargaMember = totalTarifMember - diskon;
+                        tampilBiaya[jumlahHistori]=(long) cetakHargaMember;
                         memberValid=true;
                         break;
                     }
@@ -1258,26 +1298,24 @@ public class ProyekBookingGedung {
         }
     }
 
-    public static void cetakStruk(String cetakGedung, String nama, String noTelp, String inputTanggal, int tamuPemesan,
-                                  String cetakBarang, long tampilBiaya, int jumlahPesanGedung) {
+    public static void cetakStruk() {
         System.out.println("\n=============================================\n");
         System.out.println("\t    BOOKING GEDUNG SOEHAT\n");
         System.out.println("==========Informasi Pemesanan Anda!==========");
-        System.out.println("\nGedung Dipesan"+ cetakGedung);
-        System.out.println("\nAtas Nama         : " + nama);
-        System.out.println("No. Telepon       : " + noTelp);
-        System.out.println("Tanggal           : " + dateFormat.format(tanggal));
-        System.out.println("Jumlah Tamu       : " + tamuPemesan);
-        System.out.println("\nBarang tambahan"+cetakBarang);
-        System.out.println("Total Gedung      : " + jumlahPesanGedung);
-        System.out.println("\nTotal Biaya       : Rp." + tampilBiaya);
+        System.out.println("\nGedung Dipesan"+ cetakGedung[jumlahHistori-1]);
+        System.out.println("\nAtas Nama         : " + namaPelanggan[jumlahHistori-1]);
+        System.out.println("No. Telepon       : " + noTelpPelanggan[jumlahHistori-1]);
+        System.out.println("Tanggal           : " + tampilTanggal[jumlahHistori-1]);
+        System.out.println("Jumlah Tamu       : " + tamuPemesan[jumlahHistori-1]);
+        System.out.println("\nBarang tambahan"+cetakBarang[jumlahHistori-1]);
+        System.out.println("Total Gedung      : " + jumlahPesanGedung[jumlahHistori-1]);
+        System.out.println("\nTotal Biaya       : Rp." + tampilBiaya[jumlahHistori-1]);
         System.out.println("--------------------------------------------");
-        System.out.println("Metode Pembayaran : " + cetakMetodePembayaran);
+        System.out.println("Metode Pembayaran : " + cetakMetodePembayaran[jumlahHistori-1]);
         System.out.println("--------------------------------------------");
         System.out.println("\t   Jl. Soekarno Hatta No.9");
         System.out.println("       Kel. Jatimulyo, Kec. Lowokwaru");
         System.out.println("\t       MALANG 65141");
         System.out.println("--------------------------------------------");
     }
-
 }
