@@ -112,25 +112,22 @@ public class ProyekBookingGedung {
         stokBarang[jumlahBarang] = 20000;
         jumlahBarang++;
 
-        System.out.println("\n T-.___________________________________________________.-T");
-        System.out.println(" ||                                                     ||");
-        System.out.println(" ||   SELAMAT DATANG DI WEBSITE BOOKING GEDUNG SOEHAT   ||");
-        System.out.println(" ||                                                     ||");
-        System.out.println("<||.---------------------------------------------------.||>");
+        System.out.println("\n T-.________________________________________________________.-T");
+        System.out.println(" ||                                                            ||");
+        System.out.println(" ||       SELAMAT DATANG DI WEBSITE BOOKING GEDUNG SOEHAT      ||");
+        System.out.println(" ||                                                            ||");
+        System.out.println("<||.----------------------------------------------------------.||>");
         boolean pilihMenu = true;
         while (pilihMenu) {
             do {
-                System.out.println("\n,-------------------------------------<");
-                System.out.println("|              DAFTAR MENU            |");
-                System.out.println("|-------------------------------------|");
-                System.out.println("|   1. Login Admin                    |");
-                System.out.println("|   2. Login Kasir                    |");
-                System.out.println("|   3. Login User                     |");
-                System.out.println("|   4. Daftar Akun User Baru          |");
-                System.out.println("|   5. Pengecekan Gedung Tersedia     |");
-                System.out.println("|   6. Pengecekan Barang Tersedia     |");
-                System.out.println("|   7. Keluar                         |");
-                System.out.println("|_____________________________________/.");
+                System.out.println("\n,----------------------------------------------------------------<");
+                System.out.println("|                           DAFTAR MENU                          |");
+                System.out.println("|----------------------------------------------------------------|");
+                System.out.println("|   1. Login Admin              5. Pengecekan Gedung Tersedia    |");
+                System.out.println("|   2. Login Kasir              6. Pengecekan Barang Tersedia    |");
+                System.out.println("|   3. Login User               7. Keluar                        |");
+                System.out.println("|   4. Daftar Akun User Baru                                     |");
+                System.out.println("|_______________________________________________________________/.");
                 System.out.print("||> Masukkan Pilihan Anda: ");
                 stepLogin = input.nextInt();
                 if (stepLogin < 1 || stepLogin > 7) {
@@ -168,23 +165,17 @@ public class ProyekBookingGedung {
                 boolean pilihanAdmin = true;
                 while (pilihanAdmin) {
                     do {
-                        System.out.println("\n,----------------------------------<");
-                        System.out.println("|            MENU ADMIN            |");
-                        System.out.println("|----------------------------------|");
-                        System.out.println("|   1. Pencarian Admin Terdaftar   |");
-                        System.out.println("|   2. Pencarian Kasir Terdaftar   |");
-                        System.out.println("|   3. Pencarian User Terdaftar    |");
-                        System.out.println("|   4. Lihat Sisa Stok Gedung      |");
-                        System.out.println("|   5. Lihat Sisa Stok Barang      |");
-                        System.out.println("|   6. Lihat Data Admin            |");
-                        System.out.println("|   7. Lihat Data Kasir            |");
-                        System.out.println("|   8. Lihat Data User             |");
-                        System.out.println("|   9. Tambah Akun Admin Baru      |");
-                        System.out.println("|   10. Tambah Akun Kasir Baru     |");
-                        System.out.println("|   11. Lihat Laporan Pendapatan   |");
-                        System.out.println("|   12. Lihat Histori Pemesanan    |");
-                        System.out.println("|   13. Keluar                     |");
-                        System.out.println("|_________________________________/.");
+                        System.out.println("\n,-----------------------------------------------------------------<");
+                        System.out.println("|                             MENU ADMIN                          |");
+                        System.out.println("|-----------------------------------------------------------------|");
+                        System.out.println("|   1. Pencarian Admin Terdaftar     8. Lihat Data Admin          |");
+                        System.out.println("|   2. Pencarian Kasir Terdaftar     9. Lihat Data Kasir          |");
+                        System.out.println("|   3. Pencarian User Terdaftar      10. Lihat Data User          |");
+                        System.out.println("|   4. Lihat Sisa Stok Gedung        11. Tambah Akun Admin Baru   |");
+                        System.out.println("|   5. Lihat Sisa Stok Barang        12. Tambah Akun Kasir Baru   |");
+                        System.out.println("|   6. Lihat Laporan Pendapatan      13. Keluar                   |");
+                        System.out.println("|   7. Lihat Laporan Pendapatan                                   |");
+                        System.out.println("|________________________________________________________________/.");
                         System.out.print("||> Masukkan Pilihan Anda: ");
                         menuAdmin = input.nextInt();
                         if (menuAdmin < 1 || menuAdmin > 13) {
@@ -207,26 +198,26 @@ public class ProyekBookingGedung {
                         case 5:
                             tampilkanStokBarang();
                             break;
-                        case 6:
-                            lihatDataAdmin();
-                            break;
-                        case 7:
-                            lihatDataKasir();
-                            break;
-                        case 8:
-                            LihatDataUser();
-                            break;
-                        case 9:
-                            tambahAkunAdmin();
-                            break;
-                        case 10:
-                            tambahAkunKasir();
-                            break;
-                        case 11: 
+                        case 6: 
                             LaporanPendapatan(new Date());
                             break;
-                        case 12:
+                        case 7:
                             LihatHistoriPemesanan();
+                            break;
+                        case 8:
+                            lihatDataAdmin();
+                            break;
+                        case 9:
+                            lihatDataKasir();
+                            break;
+                        case 10:
+                            LihatDataUser();
+                            break;
+                        case 11:
+                            tambahAkunAdmin();
+                            break;
+                        case 12:
+                            tambahAkunKasir();
                             break;
                         case 13:
                             pilihMenu = true;
@@ -265,18 +256,14 @@ public class ProyekBookingGedung {
                 boolean pilihanKasir = true;
                 while (pilihanKasir) {
                     do {
-                        System.out.println("\n,----------------------------------<");
-                        System.out.println("|            MENU KASIR            |");
-                        System.out.println("|----------------------------------|");
-                        System.out.println("|   1. Cetak Struk Pemesanan       |");
-                        System.out.println("|   2. Lihat Sisa Stok Gedung      |");
-                        System.out.println("|   3. Tambah Stok Gedung          |");
-                        System.out.println("|   4. Tambah Gedung Baru          |");
-                        System.out.println("|   5. Lihat Sisa Stok Barang      |");
-                        System.out.println("|   6. Tambah Stok Barang          |");
-                        System.out.println("|   7. Tambah Barang Baru          |");
-                        System.out.println("|   8. Keluar                      |");
-                        System.out.println("|_________________________________/.");
+                        System.out.println("\n,-----------------------------------------------------------<");
+                        System.out.println("|                         MENU KASIR                        |");
+                        System.out.println("|-----------------------------------------------------------|");
+                        System.out.println("|   1. Cetak Struk Pemesanan     5. Lihat Sisa Stok Barang  |");
+                        System.out.println("|   2. Lihat Sisa Stok Gedung    6. Tambah Stok Barang      |");
+                        System.out.println("|   3. Tambah Stok Gedung        7. Tambah Barang Baru      |");
+                        System.out.println("|   4. Tambah Gedung Baru        8. Keluar                  |");
+                        System.out.println("|__________________________________________________________/.");
                         System.out.print("||> Masukkan Pilihan Anda: ");
                         menuKasir = input.nextInt();
                         if (menuKasir < 1 || menuKasir > 8) {
