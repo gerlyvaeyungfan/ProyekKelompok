@@ -1,4 +1,3 @@
-import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -7,12 +6,12 @@ import java.util.Scanner;
 
 public class ProyekBookingGedung {
     static int stepLogin, menuGedung, pilihGedung, jumlahTamu, menuAdmin, menuKasir, menuUser, indeksBarang, indexKasir, tambahanStokBarang,
-               jumlahBarang = 0, jumlahGedung = 0, jumlahUser = 0, jumlahAdmin = 0, jumlahKasir = 0, tambahStokGedung, jumlahData=0;
+               jumlahBarang = 0, jumlahGedung = 0, jumlahUser = 0, jumlahAdmin = 0, jumlahKasir = 0, tambahStokGedung, jumlahData=0,
+               jumlahHistori=0;
     static long totalBiaya, totalPendapatanBulanan = 0;
     static double totalTarifGedung1 = 0, totalTarifGedung2 = 0, cetakHargaMember, diskon, totalTarif;
-    static String inputNamaPelanggan, inputNoTelpPelanggan, inputTanggal, totalGedung="", totalBarang="", jumlahTotalBarang="",
-                  metodePembayaran1="", metodePembayaran2="",metodePembayaran3="", metodePembayaran4="", metodePembayaran5="",
-                  metodePembayaran6="", totalMetodePembayaran="", targetNamaGedung, targetNamaBarang;
+    static String inputNamaPelanggan, inputNoTelpPelanggan, inputTanggal, totalGedung = "", totalBarang = "", jumlahTotalBarang = "",
+                  totalMetodePembayaran = "", targetNamaGedung, targetNamaBarang;
     static boolean pilihanUser;
 
     static String[] namaPelanggan = new String[100];
@@ -43,25 +42,6 @@ public class ProyekBookingGedung {
 
     static String[] regUsernameUser = new String[100];
     static String[] regPasswordUser = new String[100];
-
-    static int jumlahHistori = 0;
-
-    public static void LihatHistoriPemesanan() {
-        System.out.println("\n-----------------------------------");
-        System.out.println("Jumlah Histori : " + jumlahHistori);
-        System.out.println("Daftar Histori Pelanggan:");
-        System.out.println("-----------------------------------");
-        for (int i = 0; i < jumlahHistori; i++) {
-            System.out.println("Histori ke-" + (i + 1));
-            System.out.println("Tanggal           : " + tampilTanggal[i]);
-            System.out.println("Atas nama         : " + namaPelanggan[i]);
-            System.out.println("No.Telp           : " + noTelpPelanggan[i]);
-            System.out.println("Nama Gedung       : " + cetakGedung[i]);
-            System.out.println("Nama Barang       : " + cetakBarang[i]);
-            System.out.println("Metode Pembayaran : " + cetakMetodePembayaran[i]);
-            System.out.println("-----------------------------------");
-        }
-    }
 
     static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     static Date tanggal = null;
@@ -361,7 +341,7 @@ public class ProyekBookingGedung {
             } else if (stepLogin == 4){
                 tambahAkunUser();
             } else if (stepLogin == 5) {
-                searchNamaGedung(targetNamaGedung);
+                cariNamaGedung(targetNamaGedung);
             } else if (stepLogin == 6) {
                 cariNamaBarang(targetNamaBarang);
             } else if (stepLogin == 7) {
@@ -370,6 +350,53 @@ public class ProyekBookingGedung {
             }
         }
     }
+    
+    public static void cariNamaGedung(String targetNamaGedung) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("\n----------------------------------------------------");
+                    System.out.print("||> Masukkan nama gedung: ");
+                    targetNamaGedung = input.next();
+                    System.out.println("----------------------------------------------------");
+        boolean jikaGedungDitemukan = false;
+        for (int i = 0; i < jumlahGedung; i++) {
+            if (namaGedung[i].equalsIgnoreCase(targetNamaGedung)) {
+                jikaGedungDitemukan = true;
+                System.out.println("\n.---------------------------------.");
+                System.out.println("!       ! Gedung Tersedia !       !");
+                System.out.println("!.-------------------------------.!");
+                break;
+            }
+        }
+        if (!jikaGedungDitemukan) {
+            System.out.println("\n.-----------------------------------.");
+            System.out.println("!     ! Gedung Tidak Tersedia !     !");
+            System.out.println("!.---------------------------------.!");
+        }
+    }
+
+    public static void cariNamaBarang(String targetNamaBarang) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("\n----------------------------------------------------");
+                    System.out.print("||> Masukkan nama barang: ");
+                    targetNamaBarang = input.next();
+                    System.out.println("----------------------------------------------------");
+        boolean isBarangDitemukan = false;
+        for (int i = 0; i < jumlahBarang; i++) {
+            if (namaBarang[i].equalsIgnoreCase(targetNamaBarang)) {
+                isBarangDitemukan = true;
+                System.out.println("\n.------------------------------------.");
+                System.out.println("!      ! Nama Barang Tersedia !      !");
+                System.out.println("!.----------------------------------.!");
+                break;
+            }
+        }
+        if (!isBarangDitemukan) {
+            System.out.println("\n.--------------------------------------.");
+            System.out.println("!    ! Nama Barang Tidak Tersedia !    !");
+            System.out.println("!.------------------------------------.!");
+        }
+    }
+
 
     public static void PencarianAdminTerdaftar() {
         Scanner input = new Scanner(System.in);
@@ -457,52 +484,6 @@ public class ProyekBookingGedung {
             System.out.println("| " + (i + 1) + ".  | " + namaBarang[i] + "\t    | "+ stokBarang[i] + "\t|");
         }
         System.out.println("|_____|_____________|__________/.");
-    }
-
-    public static void cariNamaBarang(String targetNamaBarang) {
-        Scanner input = new Scanner(System.in);
-        System.out.println("\n----------------------------------------------------");
-                    System.out.print("||> Masukkan nama barang: ");
-                    targetNamaBarang = input.next();
-                    System.out.println("----------------------------------------------------");
-        boolean isBarangDitemukan = false;
-        for (int i = 0; i < jumlahBarang; i++) {
-            if (namaBarang[i].equalsIgnoreCase(targetNamaBarang)) {
-                isBarangDitemukan = true;
-                System.out.println("\n.------------------------------------.");
-                System.out.println("!      ! Nama Barang Tersedia !      !");
-                System.out.println("!.----------------------------------.!");
-                break;
-            }
-        }
-        if (!isBarangDitemukan) {
-            System.out.println("\n.--------------------------------------.");
-            System.out.println("!    ! Nama Barang Tidak Tersedia !    !");
-            System.out.println("!.------------------------------------.!");
-        }
-    }
-
-    public static void searchNamaGedung(String targetNamaGedung) {
-        Scanner input = new Scanner(System.in);
-        System.out.println("\n----------------------------------------------------");
-                    System.out.print("||> Masukkan nama gedung: ");
-                    targetNamaGedung = input.next();
-                    System.out.println("----------------------------------------------------");
-        boolean jikaGedungDitemukan = false;
-        for (int i = 0; i < jumlahGedung; i++) {
-            if (namaGedung[i].equalsIgnoreCase(targetNamaGedung)) {
-                jikaGedungDitemukan = true;
-                System.out.println("\n.---------------------------------.");
-                System.out.println("!       ! Gedung Tersedia !       !");
-                System.out.println("!.-------------------------------.!");
-                break;
-            }
-        }
-        if (!jikaGedungDitemukan) {
-            System.out.println("\n.-----------------------------------.");
-            System.out.println("!     ! Gedung Tidak Tersedia !     !");
-            System.out.println("!.---------------------------------.!");
-        }
     }
 
     public static void tambahkanStokGedung(String targetNamaGedung, int tambahStokGedung) {
@@ -788,133 +769,53 @@ public class ProyekBookingGedung {
         }
     }
 
-    
-    private static void LaporanPendapatan(Date currentDate) {
-        System.out.println("\n======================================================");
-        System.out.println("             LAPORAN HARIAN DAN BULANAN");
-        System.out.println("\nTanggal: " + dateFormat.format(currentDate));
-        System.out.println("======================================================");
-        for (int i = 0; i < jumlahHistori; i++) {
+    public static void PilihanMember() {
+        Scanner input = new Scanner(System.in);
+        String inputUserMember;
+        boolean memberValid=false;
+        while (!memberValid){
             System.out.println("\n----------------------------------------------------");
-            System.out.println("Tanggal Acara     : " + tampilTanggal[i]);
-            System.out.println("Gedung Yang Disewa" + cetakGedung[i]);
-            System.out.println("Barang Yang Telah Tersewa"+cetakBarang[i]);
-            System.out.println("Metode Pembayaran : "+cetakMetodePembayaran[i]);
+            System.out.print("||> Apakah Anda Member (y/t): ");
+            inputUserMember = input.nextLine();
             System.out.println("----------------------------------------------------");
-            System.out.println("PENDAPATAN HARIAN : Rp." + tampilBiaya[i]);
-            System.out.println("----------------------------------------------------");
-            totalPendapatanBulanan += tampilBiaya[i];
-        }
-        System.out.println("\n====================================================");
-        System.out.println("TOTAL PENDAPATAN BULANAN : Rp." + totalPendapatanBulanan);
-        System.out.println("====================================================");
-    }
-
-    public static void tambahAkunAdmin() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("---------------------------------------------------");
-        System.out.print("||> Masukkan username baru: ");
-        String inputUserBaru = input.next();
-        System.out.println("---------------------------------------------------");
-        System.out.print("||> Masukkan password baru: ");
-        String inputPwBaru = input.next();
-        System.out.println("---------------------------------------------------");
-        if (jumlahAdmin < regUsernameAdmin.length && jumlahAdmin < regPasswordAdmin.length) {
-            regUsernameAdmin[jumlahAdmin] = inputUserBaru;
-            regPasswordAdmin[jumlahAdmin] = inputPwBaru;
-            jumlahAdmin++;
-            System.out.println("\n-.......................................-");
-            System.out.println("   ! USER ADMIN BERHASIL DITAMBAHKAN !   ");
-            System.out.println("-.......................................-\n");
-        } else {
-            System.out.println("\nMohon maaf, jumlah admin melebihi batas.");
-        }
-    }
-
-    public static void tambahAkunKasir() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("---------------------------------------------------");
-        System.out.print("||> Masukkan username baru: ");
-        String inputUserBaru = input.next();
-        System.out.println("---------------------------------------------------");
-        System.out.print("||> Masukkan password baru: ");
-        String inputPwBaru = input.next();
-        System.out.println("---------------------------------------------------");
-        if (jumlahKasir < regUsernameKasir.length && jumlahKasir < regPasswordKasir.length) {
-            regUsernameKasir[jumlahKasir] = inputUserBaru;
-            regPasswordKasir[jumlahKasir] = inputPwBaru;
-            jumlahKasir++;
-            System.out.println("\n-.......................................-");
-            System.out.println("   ! USER KASIR BERHASIL DITAMBAHKAN !   ");
-            System.out.println("-.......................................-\n");
-        } else {
-            System.out.println("\nMohon maaf, jumlah kasir melebihi batas.");
-        }
-    }
-
-    public static void tambahAkunUser() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("---------------------------------------------------");
-        System.out.print("||> Masukkan username baru: ");
-        String inputUserBaru = input.next();
-        System.out.println("---------------------------------------------------");
-        System.out.print("||> Masukkan password baru: ");
-        String inputPwBaru = input.next();
-        System.out.println("---------------------------------------------------");
-        if (jumlahUser < regUsernameUser.length && jumlahUser < regPasswordUser.length) {
-            regUsernameUser[jumlahUser] = inputUserBaru;
-            regPasswordUser[jumlahUser] = inputPwBaru;
-            jumlahUser++;
-            System.out.println("\n-....................................-");
-            System.out.println("   ! USER BARU BERHASIL TERDAFTAR !   ");
-            System.out.println("-....................................-\n");
-        } else {
-            System.out.println("\nMohon maaf, jumlah member melebihi batas.");
-        }
-    }
-
-    public static void lihatDataAdmin(){
-        System.out.println("\n-----------------------------------");
-        System.out.println("Jumlah Admin : " + jumlahAdmin);
-        System.out.println("Akun Admin yang telah terdaftar :");
-        System.out.println("-----------------------------------");
-        for (int i = 0; i < jumlahAdmin; i++) {
-            System.out.println("Admin ke-" + (i + 1));
-            System.out.println("Username : " + regUsernameAdmin[i]);
-            System.out.println("Password : " + regPasswordAdmin[i]);
-            System.out.println("-----------------------------------");
-        }
-    }
-
-    public static void lihatDataKasir(){
-        System.out.println("\n-----------------------------------");
-        System.out.println("Jumlah Kasir : " + jumlahKasir);
-        System.out.println("Akun Kasir yang telah terdaftar :");
-        System.out.println("-----------------------------------");
-        for (int i = 0; i < jumlahKasir; i++) {
-            System.out.println("Kasir ke-" + (i + 1));
-            System.out.println("Username : " + regUsernameKasir[i]);
-            System.out.println("Password : " + regPasswordKasir[i]);
-            System.out.println("-----------------------------------");
-        }
-    }
-
-    public static void LihatDataUser(){
-        System.out.println("\n-----------------------------------");
-        System.out.println("Jumlah User : " + jumlahUser);
-        System.out.println("Akun User yang telah terdaftar :");
-        System.out.println("-----------------------------------");
-        for (int i = 0; i < jumlahUser; i++) {
-            System.out.println("User ke-" + (i + 1));
-            System.out.println("Username : " + regUsernameUser[i]);
-            System.out.println("Password : " + regPasswordUser[i]);
-            System.out.println("-----------------------------------");
+            if (inputUserMember.equals("y")){
+                memberValid = false;
+                do {
+                    System.out.print("||> Masukkan Kode Member milik Anda: ");
+                    String inputKodeMember = input.next();
+                    System.out.println("----------------------------------------------------");
+                    for (String verifMember : kodeMember) {
+                        if (inputKodeMember.equals(verifMember)) {
+                            diskon = 0.13 * totalTarif;
+                            cetakHargaMember = totalTarif - diskon;
+                            totalBiaya=(long)cetakHargaMember;
+                            tampilBiaya[jumlahHistori]=totalBiaya;
+                            memberValid=true;
+                            break;
+                        }
+                    }
+                    if (!memberValid) {
+                        System.out.println("\n! Kode verifikasi Salah. Silahkan coba lagi !");
+                        memberValid=false;
+                    }
+                } while (!memberValid);
+            } else if (inputUserMember.equals("t")){
+                diskon = 0 * totalTarif;
+                cetakHargaMember = totalTarif - diskon;
+                totalBiaya=(long)cetakHargaMember;
+                tampilBiaya[jumlahHistori]=totalBiaya;
+                memberValid=true;
+            } else if (!inputUserMember.equals("t")){
+                System.out.println("\n! Maaf Pilihan Anda Salah! Mohon masukkan (y/t)!");
+            }
         }
     }
 
     public static void PilihMetodeBayar() {
         Scanner input = new Scanner(System.in);
         int inputMetodePembayaran;
+        String metodePembayaran1 = "", metodePembayaran2 = "", metodePembayaran3 = "",
+               metodePembayaran4 = "", metodePembayaran5 = "", metodePembayaran6 = "";
         boolean metodeBayar = true;
         while (metodeBayar) {
             do {
@@ -1022,46 +923,144 @@ public class ProyekBookingGedung {
             }
         } while (!jikaKodeValid);
     }
-
-    public static void PilihanMember() {
-        Scanner input = new Scanner(System.in);
-        String inputUserMember;
-        boolean memberValid=false;
-        while (!memberValid){
+    
+    private static void LaporanPendapatan(Date currentDate) {
+        System.out.println("\n======================================================");
+        System.out.println("             LAPORAN HARIAN DAN BULANAN");
+        System.out.println("\nTanggal: " + dateFormat.format(currentDate));
+        System.out.println("======================================================");
+        for (int i = 0; i < jumlahHistori; i++) {
             System.out.println("\n----------------------------------------------------");
-            System.out.print("||> Apakah Anda Member (y/t): ");
-            inputUserMember = input.nextLine();
+            System.out.println("Tanggal Acara     : " + tampilTanggal[i]);
+            System.out.println("Gedung Yang Disewa" + cetakGedung[i]);
+            System.out.println("Barang Yang Telah Tersewa"+cetakBarang[i]);
+            System.out.println("Metode Pembayaran : "+cetakMetodePembayaran[i]);
             System.out.println("----------------------------------------------------");
-            if (inputUserMember.equals("y")){
-                memberValid = false;
-                do {
-                    System.out.print("||> Masukkan Kode Member milik Anda: ");
-                    String inputKodeMember = input.next();
-                    System.out.println("----------------------------------------------------");
-                    for (String verifMember : kodeMember) {
-                        if (inputKodeMember.equals(verifMember)) {
-                            diskon = 0.13 * totalTarif;
-                            cetakHargaMember = totalTarif - diskon;
-                            totalBiaya=(long)cetakHargaMember;
-                            tampilBiaya[jumlahHistori]=totalBiaya;
-                            memberValid=true;
-                            break;
-                        }
-                    }
-                    if (!memberValid) {
-                        System.out.println("\n! Kode verifikasi Salah. Silahkan coba lagi !");
-                        memberValid=false;
-                    }
-                } while (!memberValid);
-            } else if (inputUserMember.equals("t")){
-                diskon = 0 * totalTarif;
-                cetakHargaMember = totalTarif - diskon;
-                totalBiaya=(long)cetakHargaMember;
-                tampilBiaya[jumlahHistori]=totalBiaya;
-                memberValid=true;
-            } else if (!inputUserMember.equals("t")){
-                System.out.println("\n! Maaf Pilihan Anda Salah! Mohon masukkan (y/t)!");
-            }
+            System.out.println("PENDAPATAN HARIAN : Rp." + tampilBiaya[i]);
+            System.out.println("----------------------------------------------------");
+            totalPendapatanBulanan += tampilBiaya[i];
+        }
+        System.out.println("\n====================================================");
+        System.out.println("TOTAL PENDAPATAN BULANAN : Rp." + totalPendapatanBulanan);
+        System.out.println("====================================================");
+    }
+
+    public static void LihatHistoriPemesanan() {
+        System.out.println("\n-----------------------------------");
+        System.out.println("Jumlah Histori : " + jumlahHistori);
+        System.out.println("Daftar Histori Pelanggan:");
+        System.out.println("-----------------------------------");
+        for (int i = 0; i < jumlahHistori; i++) {
+            System.out.println("Histori ke-" + (i + 1));
+            System.out.println("Tanggal           : " + tampilTanggal[i]);
+            System.out.println("Atas nama         : " + namaPelanggan[i]);
+            System.out.println("No.Telp           : " + noTelpPelanggan[i]);
+            System.out.println("Nama Gedung       : " + cetakGedung[i]);
+            System.out.println("Nama Barang       : " + cetakBarang[i]);
+            System.out.println("Metode Pembayaran : " + cetakMetodePembayaran[i]);
+            System.out.println("-----------------------------------");
+        }
+    }
+
+    public static void lihatDataAdmin(){
+        System.out.println("\n-----------------------------------");
+        System.out.println("Jumlah Admin : " + jumlahAdmin);
+        System.out.println("Akun Admin yang telah terdaftar :");
+        System.out.println("-----------------------------------");
+        for (int i = 0; i < jumlahAdmin; i++) {
+            System.out.println("Admin ke-" + (i + 1));
+            System.out.println("Username : " + regUsernameAdmin[i]);
+            System.out.println("Password : " + regPasswordAdmin[i]);
+            System.out.println("-----------------------------------");
+        }
+    }
+
+    public static void lihatDataKasir(){
+        System.out.println("\n-----------------------------------");
+        System.out.println("Jumlah Kasir : " + jumlahKasir);
+        System.out.println("Akun Kasir yang telah terdaftar :");
+        System.out.println("-----------------------------------");
+        for (int i = 0; i < jumlahKasir; i++) {
+            System.out.println("Kasir ke-" + (i + 1));
+            System.out.println("Username : " + regUsernameKasir[i]);
+            System.out.println("Password : " + regPasswordKasir[i]);
+            System.out.println("-----------------------------------");
+        }
+    }
+
+    public static void LihatDataUser(){
+        System.out.println("\n-----------------------------------");
+        System.out.println("Jumlah User : " + jumlahUser);
+        System.out.println("Akun User yang telah terdaftar :");
+        System.out.println("-----------------------------------");
+        for (int i = 0; i < jumlahUser; i++) {
+            System.out.println("User ke-" + (i + 1));
+            System.out.println("Username : " + regUsernameUser[i]);
+            System.out.println("Password : " + regPasswordUser[i]);
+            System.out.println("-----------------------------------");
+        }
+    }
+
+    public static void tambahAkunAdmin() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("---------------------------------------------------");
+        System.out.print("||> Masukkan username baru: ");
+        String inputUserBaru = input.next();
+        System.out.println("---------------------------------------------------");
+        System.out.print("||> Masukkan password baru: ");
+        String inputPwBaru = input.next();
+        System.out.println("---------------------------------------------------");
+        if (jumlahAdmin < regUsernameAdmin.length && jumlahAdmin < regPasswordAdmin.length) {
+            regUsernameAdmin[jumlahAdmin] = inputUserBaru;
+            regPasswordAdmin[jumlahAdmin] = inputPwBaru;
+            jumlahAdmin++;
+            System.out.println("\n-.......................................-");
+            System.out.println("   ! USER ADMIN BERHASIL DITAMBAHKAN !   ");
+            System.out.println("-.......................................-\n");
+        } else {
+            System.out.println("\nMohon maaf, jumlah admin melebihi batas.");
+        }
+    }
+
+    public static void tambahAkunKasir() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("---------------------------------------------------");
+        System.out.print("||> Masukkan username baru: ");
+        String inputUserBaru = input.next();
+        System.out.println("---------------------------------------------------");
+        System.out.print("||> Masukkan password baru: ");
+        String inputPwBaru = input.next();
+        System.out.println("---------------------------------------------------");
+        if (jumlahKasir < regUsernameKasir.length && jumlahKasir < regPasswordKasir.length) {
+            regUsernameKasir[jumlahKasir] = inputUserBaru;
+            regPasswordKasir[jumlahKasir] = inputPwBaru;
+            jumlahKasir++;
+            System.out.println("\n-.......................................-");
+            System.out.println("   ! USER KASIR BERHASIL DITAMBAHKAN !   ");
+            System.out.println("-.......................................-\n");
+        } else {
+            System.out.println("\nMohon maaf, jumlah kasir melebihi batas.");
+        }
+    }
+
+    public static void tambahAkunUser() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("---------------------------------------------------");
+        System.out.print("||> Masukkan username baru: ");
+        String inputUserBaru = input.next();
+        System.out.println("---------------------------------------------------");
+        System.out.print("||> Masukkan password baru: ");
+        String inputPwBaru = input.next();
+        System.out.println("---------------------------------------------------");
+        if (jumlahUser < regUsernameUser.length && jumlahUser < regPasswordUser.length) {
+            regUsernameUser[jumlahUser] = inputUserBaru;
+            regPasswordUser[jumlahUser] = inputPwBaru;
+            jumlahUser++;
+            System.out.println("\n-....................................-");
+            System.out.println("   ! USER BARU BERHASIL TERDAFTAR !   ");
+            System.out.println("-....................................-\n");
+        } else {
+            System.out.println("\nMohon maaf, jumlah member melebihi batas.");
         }
     }
 
