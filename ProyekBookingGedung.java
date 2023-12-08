@@ -11,11 +11,9 @@ public class ProyekBookingGedung {
                totalPesanKursi=0, totalPesanPiring=0, totalPesanSendok=0, totalPesanGarpu=0,
                jumlahBarang = 0, jumlahGedung = 0, jumlahUser = 0, jumlahAdmin = 0, jumlahKasir = 0, tambahStokGedung,
                jumlahData=0;
-    static long tarif = 0, totalPendapatanBulanan = 0,
-                hargaGedung1, hargaGedung2, hargaGedung3, hargaGedung4, totalBiaya, cetakHargaGedung1, cetakHargaGedung2,
-                cetakHargaGedung3, cetakHargaGedung4;
-    static double totalTarifGedung1 = 0, totalTarifGedung2 = 0, totalTarifGedung3 = 0, totalTarifGedung4 = 0,
-                   diskon, cetakHargaMember, totalTarifMember;
+    static long totalPendapatanBulanan = 0, cetakHargaGedung1, cetakHargaGedung2, cetakHargaGedung3, cetakHargaGedung4, totalBiaya;
+    static double tarif = 0, totalTarifGedung1 = 0, totalTarifGedung2 = 0, totalTarifGedung3 = 0, totalTarifGedung4 = 0,
+                  diskon, cetakHargaMember, totalTarifMember, hargaGedung1, hargaGedung2, hargaGedung3, hargaGedung4;
     static String inputPesanLagi, inputUserMember, inputNamaPelanggan, inputNoTelpPelanggan, targetBarang, akun, 
                   inputUserAdmin, inputPwAdmin, inputUser, inputPwUser, inputKodeVerif, totalGedung="", totalBarang="",
                   inputUserKasir, inputPwKasir, targetGedung, targetNamaBarang, inputTanggal, jumlahTotalBarang="",
@@ -701,7 +699,6 @@ public class ProyekBookingGedung {
                 cetakGedung[jumlahHistori] = totalGedung;
                 hargaGedung1=50000000;
                 totalTarifGedung1+=hargaGedung1;
-                cetakHargaGedung1 = (long)totalTarifGedung1;
                 do {
                     System.out.print("||> Masukkan Jumlah Tamu: ");
                     jumlahTamu = input.nextInt();
@@ -714,7 +711,7 @@ public class ProyekBookingGedung {
                         tamuPemesan[jumlahHistori]=jumlahTamu;
                         tarif = jumlahTamu * 500000;
                         totalTarifGedung1 += tarif;
-                        cetakHargaGedung1+=totalTarifGedung1;
+                        cetakHargaGedung1=(long)totalTarifGedung1;
                         totalBiaya = cetakHargaGedung1;
                         tampilBiaya[jumlahHistori] = totalBiaya;
                         BarangTambahan();
@@ -731,7 +728,6 @@ public class ProyekBookingGedung {
                 cetakGedung[jumlahHistori] = totalGedung;
                 hargaGedung2=20000000;
                 totalTarifGedung2+=hargaGedung2;
-                cetakHargaGedung2 = (long)totalTarifGedung2;
                 do {
                     System.out.print("||> Masukkan Jumlah Tamu: ");
                     jumlahTamu = input.nextInt();
@@ -744,7 +740,7 @@ public class ProyekBookingGedung {
                         tamuPemesan[jumlahHistori]=jumlahTamu;
                         tarif = jumlahTamu * 200000;
                         totalTarifGedung2 += tarif;
-                        cetakHargaGedung2+=totalTarifGedung2;
+                        cetakHargaGedung2=(long)totalTarifGedung2;
                         totalBiaya = cetakHargaGedung2;
                         tampilBiaya[jumlahHistori] = totalBiaya;
                         BarangTambahan();
