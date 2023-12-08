@@ -1,20 +1,18 @@
+import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
 public class ProyekBookingGedung {
-    static int stepLogin, menuGedung, pilihGedung, jumlahTamu, inputMetodePembayaran, menuAdmin, menuKasir, menuUser, indeksBarang, indexKasir,
-               jumlahPesananMeja, jumlahPesananKursi, jumlahPesananPiring, jumlahPesananSendok, jumlahPesananGarpu, tambahanStokBarang,
-               indexAdmin, indexUser, totalPesanMeja=0, totalPesanKursi=0, totalPesanPiring=0, totalPesanSendok=0, totalPesanGarpu=0,
+    static int stepLogin, menuGedung, pilihGedung, jumlahTamu, menuAdmin, menuKasir, menuUser, indeksBarang, indexKasir, tambahanStokBarang,
                jumlahBarang = 0, jumlahGedung = 0, jumlahUser = 0, jumlahAdmin = 0, jumlahKasir = 0, tambahStokGedung, jumlahData=0;
-    static long cetakHargaGedung1, cetakHargaGedung2, cetakHargaGedung3, cetakHargaGedung4, totalBiaya, totalPendapatanBulanan = 0;
-    static double hargaGedung1, hargaGedung2, hargaGedung3, hargaGedung4, totalTarifGedung1 = 0, totalTarifGedung2 = 0,
-                  totalTarifGedung3 = 0, totalTarifGedung4 = 0, tarifTamu = 0, cetakHargaMember, totalTarifMember, diskon, totalDiskon;
-    static String inputUsernameAdmin, inputPasswordAdmin, inputUsernameKasir, inputPasswordKasir, inputUsernameUser, inputPasswordUser,
-                  inputNamaPelanggan, inputNoTelpPelanggan, inputTanggal, inputKodeVerifikasi, totalGedung="", totalBarang="",
-                  jumlahTotalBarang="", inputUserMember, metodePembayaran1="", metodePembayaran2="",metodePembayaran3="", metodePembayaran4="",
-                  metodePembayaran5="", metodePembayaran6="", totalMetodePembayaran="", targetNamaGedung, targetNamaBarang;
+    static long totalBiaya, totalPendapatanBulanan = 0;
+    static double totalTarifGedung1 = 0, totalTarifGedung2 = 0, cetakHargaMember, diskon, totalTarif;
+    static String inputNamaPelanggan, inputNoTelpPelanggan, inputTanggal, totalGedung="", totalBarang="", jumlahTotalBarang="",
+                  metodePembayaran1="", metodePembayaran2="",metodePembayaran3="", metodePembayaran4="", metodePembayaran5="",
+                  metodePembayaran6="", totalMetodePembayaran="", targetNamaGedung, targetNamaBarang;
     static boolean pilihanUser;
 
     static String[] namaPelanggan = new String[100];
@@ -67,6 +65,7 @@ public class ProyekBookingGedung {
 
     static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     static Date tanggal = null;
+    static Calendar calendar = Calendar.getInstance();
 
     static boolean isValidFormat(String value, SimpleDateFormat dateFormat) {
         dateFormat.setLenient(false);
@@ -139,17 +138,17 @@ public class ProyekBookingGedung {
                 do {
                     System.out.println("\n---------------------------------------------------");
                     System.out.print("||> Masukkan username: ");
-                    inputUsernameAdmin = input.next();
+                    String inputUsernameAdmin = input.next();
                     System.out.println("---------------------------------------------------");
                     System.out.print("||> Masukkan password: ");
-                    inputPasswordAdmin = input.next();
+                    String inputPasswordAdmin = input.next();
                     System.out.println("---------------------------------------------------");
                     regUsernameAdminValid = false;
-                    indexAdmin = -1;
+                    int indeksAdmin = -1;
                     for (int i = 0; i < jumlahAdmin; i++) {
                         if (inputUsernameAdmin.equals(regUsernameAdmin[i]) && inputPasswordAdmin.equals(regPasswordAdmin[i])) {
                             regUsernameAdminValid = true;
-                            indexAdmin = i;
+                            indeksAdmin = i;
                             break;
                         }
                     }
@@ -230,10 +229,10 @@ public class ProyekBookingGedung {
                 do {
                     System.out.println("\n---------------------------------------------------");
                     System.out.print("||> Masukkan username: ");
-                    inputUsernameKasir = input.next();
+                    String inputUsernameKasir = input.next();
                     System.out.println("---------------------------------------------------");
                     System.out.print("||> Masukkan password: ");
-                    inputPasswordKasir = input.next();
+                    String inputPasswordKasir = input.next();
                     System.out.println("---------------------------------------------------");
                     regUsernameKasirValid = false;
                     indexKasir = -1;
@@ -307,17 +306,17 @@ public class ProyekBookingGedung {
                 do {
                     System.out.println("\n---------------------------------------------------");
                     System.out.print("||> Masukkan username: ");
-                    inputUsernameUser = input.next();
+                    String inputUsernameUser = input.next();
                     System.out.println("---------------------------------------------------");
                     System.out.print("||> Masukkan password: ");
-                    inputPasswordUser = input.next();
+                    String inputPasswordUser = input.next();
                     System.out.println("---------------------------------------------------");
                     regUsernameUserValid = false;
-                    indexUser = -1;
+                    int indeksUser = -1;
                     for (int i = 0; i < jumlahUser; i++) {
                         if (inputUsernameUser.equals(regUsernameUser[i]) && inputPasswordUser.equals(regPasswordUser[i])) {
                             regUsernameUserValid = true;
-                            indexUser = i;
+                            indeksUser = i;
                             break;
                         }
                     }
@@ -643,8 +642,8 @@ public class ProyekBookingGedung {
             System.out.println("|___________________________________________________________|");
             System.out.println("| No. | Nama Gedung | Harga Sewa   | Maks Tamu | Tarif Tamu |");
             System.out.println("|-----|-------------|--------------|-----------|------------|");
-            System.out.println("| 1.  | Pernikahan  | Rp.50000000  | 5000      | Rp.500000  |");
-            System.out.println("| 2.  | Auditorium  | Rp.20000000  | 2000      | Rp.200000  |");
+            System.out.println("| 1.  | Pernikahan  | Rp.5000000   | 5000      | Rp.50000   |");
+            System.out.println("| 2.  | Auditorium  | Rp.2000000   | 2000      | Rp.20000   |");
             System.out.println("|_____|_____________|______________|___________|___________/.");
             System.out.print("||> Masukkan Pilihan Anda: ");
             pilihGedung = input.nextInt();
@@ -661,8 +660,9 @@ public class ProyekBookingGedung {
             if (stokGedung[0]>0) {
                 totalGedung ="\n-> "+namaGedung[0];
                 cetakGedung[jumlahHistori] = totalGedung;
-                hargaGedung1=50000000;
+                double hargaGedung1=5000000;
                 totalTarifGedung1+=hargaGedung1;
+                totalTarif=totalTarifGedung1;
                 do {
                     System.out.print("||> Masukkan Jumlah Tamu: ");
                     jumlahTamu = input.nextInt();
@@ -672,9 +672,6 @@ public class ProyekBookingGedung {
                     } else {
                         cetakStokGedung[jumlahHistori] = stokGedung[0];
                         tamuPemesan[jumlahHistori]=jumlahTamu;
-                        tarifTamu = jumlahTamu * 500000;
-                        totalTarifGedung1 += tarifTamu;
-                        totalDiskon=totalTarifGedung1;
                         BarangTambahan();
                         pilihanGedung=false;
                     }
@@ -687,8 +684,9 @@ public class ProyekBookingGedung {
             if (stokGedung[1]>0) {
                 totalGedung ="\n-> "+namaGedung[1];
                 cetakGedung[jumlahHistori] = totalGedung;
-                hargaGedung2=20000000;
+                double hargaGedung2=2000000;
                 totalTarifGedung2+=hargaGedung2;
+                totalTarif=totalTarifGedung1;
                 do {
                     System.out.print("||> Masukkan Jumlah Tamu: ");
                     jumlahTamu = input.nextInt();
@@ -698,9 +696,6 @@ public class ProyekBookingGedung {
                     } else {
                         cetakStokGedung[jumlahHistori] = stokGedung[1];
                         tamuPemesan[jumlahHistori]=jumlahTamu;
-                        tarifTamu = jumlahTamu * 200000;
-                        totalTarifGedung2 += tarifTamu;
-                        totalDiskon=totalTarifGedung2;
                         BarangTambahan();
                         pilihanGedung=false;
                     }
@@ -724,7 +719,7 @@ public class ProyekBookingGedung {
     }
 
     public static void BarangTambahan() {
-        jumlahPesananMeja=jumlahTamu;
+        int jumlahPesananMeja=jumlahTamu;
         if (jumlahPesananMeja <= stokBarang[0]) {
             totalBarang="\n-> "+namaBarang[0]+"           : "+jumlahTamu;
             jumlahTotalBarang+=totalBarang;
@@ -733,7 +728,7 @@ public class ProyekBookingGedung {
         } else {
             System.out.println("\n! Stok Meja tidak mencukupi untuk pesanan tersebut !");
         }
-        jumlahPesananKursi=jumlahTamu;
+        int jumlahPesananKursi=jumlahTamu;
         if (jumlahPesananKursi <= stokBarang[1]) {
             totalBarang+="\n-> "+namaBarang[1]+"          : "+jumlahTamu;
             jumlahTotalBarang+=totalBarang;
@@ -741,7 +736,7 @@ public class ProyekBookingGedung {
         } else {
             System.out.println("\n! Stok Kursi tidak mencukupi untuk pesanan tersebut !");
         }
-        jumlahPesananPiring=jumlahTamu;
+        int jumlahPesananPiring=jumlahTamu;
         if (jumlahPesananPiring <= stokBarang[2]) {
             totalBarang+="\n-> "+namaBarang[2]+"         : "+jumlahTamu;
             jumlahTotalBarang+=totalBarang;
@@ -749,7 +744,7 @@ public class ProyekBookingGedung {
         } else {
             System.out.println("\n! Stok Piring tidak mencukupi untuk pesanan tersebut !");
         }
-        jumlahPesananSendok=jumlahTamu;
+        int jumlahPesananSendok=jumlahTamu;
         if (jumlahPesananSendok <= stokBarang[3]) {
             totalBarang+="\n-> "+namaBarang[3]+"         : "+jumlahTamu;
             jumlahTotalBarang+=totalBarang;
@@ -757,7 +752,7 @@ public class ProyekBookingGedung {
         } else {
             System.out.println("\n! Stok Sendok tidak mencukupi untuk pesanan tersebut !");
         }
-        jumlahPesananGarpu=jumlahTamu;
+        int jumlahPesananGarpu=jumlahTamu;
         if (jumlahPesananGarpu <= stokBarang[4]) {
             totalBarang+="\n-> "+namaBarang[4]+"          : "+jumlahTamu;
             jumlahTotalBarang+=totalBarang;
@@ -781,9 +776,11 @@ public class ProyekBookingGedung {
             inputTanggal = input.nextLine();
             if (isValidFormat(inputTanggal, dateFormat)) {
                 tanggal = dateFormat.parse(inputTanggal, new ParsePosition(0));
-                if (tanggal != null && tanggal.getTime() > 0) {
+                if (tanggal != null && tanggal.getTime() > calendar.getTimeInMillis()) {
                     inputTanggalValid = true;
                     tampilTanggal[jumlahHistori] = inputTanggal;
+                } else {
+                    System.out.println("Tanggal harus lebih dari tanggal sekarang. Mohon masukkan kembali.");
                 }
             } else {
                 System.out.println("Format tanggal tidak valid. Mohon masukkan kembali.");
@@ -917,6 +914,7 @@ public class ProyekBookingGedung {
 
     public static void PilihMetodeBayar() {
         Scanner input = new Scanner(System.in);
+        int inputMetodePembayaran;
         boolean metodeBayar = true;
         while (metodeBayar) {
             do {
@@ -1010,7 +1008,7 @@ public class ProyekBookingGedung {
             System.out.println("|                                         |");
             System.out.println("|.----------------------------------------'");
             System.out.print("\n||> Masukkan kode verifikasi: ");
-            inputKodeVerifikasi = input.next();
+            String inputKodeVerifikasi = input.next();
             System.out.println("----------------------------------------------------");
             jikaKodeValid = false;
             for (String kode : kodeVerif) {
@@ -1027,11 +1025,12 @@ public class ProyekBookingGedung {
 
     public static void PilihanMember() {
         Scanner input = new Scanner(System.in);
+        String inputUserMember;
         boolean memberValid=false;
         while (!memberValid){
             System.out.println("\n----------------------------------------------------");
             System.out.print("||> Apakah Anda Member (y/t): ");
-            inputUserMember= input.nextLine();
+            inputUserMember = input.nextLine();
             System.out.println("----------------------------------------------------");
             if (inputUserMember.equals("y")){
                 memberValid = false;
@@ -1041,8 +1040,8 @@ public class ProyekBookingGedung {
                     System.out.println("----------------------------------------------------");
                     for (String verifMember : kodeMember) {
                         if (inputKodeMember.equals(verifMember)) {
-                            diskon = 0.13 * totalDiskon;
-                            cetakHargaMember = totalDiskon - diskon;
+                            diskon = 0.13 * totalTarif;
+                            cetakHargaMember = totalTarif - diskon;
                             totalBiaya=(long)cetakHargaMember;
                             tampilBiaya[jumlahHistori]=totalBiaya;
                             memberValid=true;
@@ -1055,8 +1054,8 @@ public class ProyekBookingGedung {
                     }
                 } while (!memberValid);
             } else if (inputUserMember.equals("t")){
-                diskon = 0 * totalDiskon;
-                cetakHargaMember = totalDiskon - diskon;
+                diskon = 0 * totalTarif;
+                cetakHargaMember = totalTarif - diskon;
                 totalBiaya=(long)cetakHargaMember;
                 tampilBiaya[jumlahHistori]=totalBiaya;
                 memberValid=true;
