@@ -397,7 +397,6 @@ public class ProyekBookingGedung {
         }
     }
 
-
     public static void PencarianAdminTerdaftar() {
         Scanner input = new Scanner(System.in);
         System.out.println("\n----------------------------------------------------");
@@ -924,7 +923,7 @@ public class ProyekBookingGedung {
         } while (!jikaKodeValid);
     }
     
-    private static void LaporanPendapatan(Date currentDate) {
+    public static void LaporanPendapatan(Date currentDate) {
         System.out.println("\n======================================================");
         System.out.println("             LAPORAN HARIAN DAN BULANAN");
         System.out.println("\nTanggal: " + dateFormat.format(currentDate));
