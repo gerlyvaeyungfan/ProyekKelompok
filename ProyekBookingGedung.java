@@ -121,12 +121,17 @@ public class ProyekBookingGedung {
         totalItem++;
         
         do {
-            System.out.println(" _______________________________________");
-            System.out.println("|Pilih Bahasa / Choose Your Language : |");
-            System.out.println("|1. Bahasa Indonesia                   |");
-            System.out.println("|2. English                            |");
-            System.out.println("|______________________________________|");
-            System.out.print("Masukkan Bahasa / Input your language : ");
+            System.out.println("\n  .-=============================================-.");
+            System.out.println("  ||                                             ||");
+            System.out.println("  ||     PILIH BAHASA / CHOOSE YOUR LANGUAGE     ||");
+            System.out.println("  ||                                             ||");
+            System.out.println("  ||=============================================||");
+            System.out.println("  ||                                             ||");
+            System.out.println("  ||     1. BAHASA INDONESIA                     ||");
+            System.out.println("  ||     2. ENGLISH                              ||");
+            System.out.println("  ||                                             ||");
+            System.out.println("=====================================================");
+            System.out.print("||> Masukkan Bahasa / Input your language : ");
             bahasa = input.nextInt();
             if (bahasa < 1 || bahasa > 2 ){
                 System.out.println("Mohon Masukkan nomor 1 atau 2 / Please input number 1 or 2 : ");
