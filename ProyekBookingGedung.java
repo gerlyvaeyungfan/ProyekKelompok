@@ -398,7 +398,7 @@ public class ProyekBookingGedung {
                     }
                 }
             case 2 :
-                System.out.println("\n T-.________________________________________________________.-T");
+                System.out.println("\n T-.__________________________________________________________.-T");
                 System.out.println(" ||                                                            ||");
                 System.out.println(" ||       WELCOME TO OUR WEBSITE BOOKING GEDUNG SOEHAT         ||");
                 System.out.println(" ||                                                            ||");
@@ -1662,13 +1662,13 @@ public class ProyekBookingGedung {
         Scanner input = new Scanner(System.in);
         boolean pilihanGedung = true;
         while (pilihanGedung) {
-            System.out.println("\n,------------------------------------------------<");
-            System.out.println("|                 List of Available Building !     |");
+            System.out.println("\n,--------------------------------------------------<");
+            System.out.println("|            List of Available Building !          |");
             System.out.println("|__________________________________________________|");
             System.out.println("| No. | Buildings Name | Price        | Max. Guest |");
             System.out.println("|-----|----------------|--------------|------------|");
-            System.out.println("| 1.  | Wedding Hall   | Rp.50000000  | 5000       |");
-            System.out.println("| 2.  | Auditorium     | Rp.20000000  | 2000       |");
+            System.out.println("| 1.  | Wedding Hall   | Rp.5000000   | 5000       |");
+            System.out.println("| 2.  | Auditorium     | Rp.2000000   | 2000       |");
             System.out.println("|_____|________________|______________|___________/.");
             System.out.print("||> Input your choice: ");
             pilihGedung = input.nextInt();
@@ -1956,7 +1956,7 @@ public class ProyekBookingGedung {
         boolean metodeBayar = true;
         while (metodeBayar) {
             do {
-                System.out.println("\n,-------------------------------------------------------------<");
+                System.out.println("\n,---------------------------------------------------------------<");
                 System.out.println("|                        PAYMENT METHOD!                        |");
                 System.out.println("|_______________________________________________________________|");
                 System.out.println("| No.| VIA        | Account/Telephone | Name                    |");
