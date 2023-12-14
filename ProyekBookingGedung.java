@@ -17,15 +17,15 @@ public class ProyekBookingGedung {
     static String[] namaPelanggan = new String[100];
     static String[] noTelpPelanggan = new String[100];
     static String [] tampilTanggal = new String[100];
+    static int [] tamuPemesan = new int[100];
     static String[] cetakGedung = new String[100];
     static String[] cetakBarang = new String[100];
-    static int [] cetakStokGedung = new int[100];
-    static int [] tamuPemesan = new int[100];
     static long [] tampilBiaya = new long[100];
     static String[] cetakMetodePembayaran= new String[100];
+    static int [] cetakStokGedung = new int[100];
     
     static String menuMetodeBayar[] = {"BRI", "BNI", "BCA", "DANA", "GoPay", "LinkAja"};
-    static String kodeVerif[] = { "01234", "12345", "23456", "34567", "45678", "56789", "67890" };
+    static String kodeVerifikasi[] = { "01234", "12345", "23456", "34567", "45678", "56789", "67890" };
     static String kodeMember[] = {"a1b2c3", "12ab34cd", "01000001", "01000111", "01001010"};
 
     static String[] namaBarang = new String[100];
@@ -827,7 +827,7 @@ public class ProyekBookingGedung {
     public static void cetakStruk() {
         System.out.println("\n==============================================\n");
         System.out.println("\t     BOOKING GEDUNG SOEHAT\n");
-        System.out.println("============= Nota Pemesanan Anda ============");
+        System.out.println("============= NOTA PEMESANAN ANDA ============");
         System.out.println("\nGedung Dipesan"+ cetakGedung[jumlahHistori-1]);
         System.out.println("\nAtas Nama         : " + namaPelanggan[jumlahHistori-1]);
         System.out.println("No. Telepon       : " + noTelpPelanggan[jumlahHistori-1]);
@@ -1259,7 +1259,7 @@ public class ProyekBookingGedung {
             String inputKodeVerifikasi = input.next();
             System.out.println("----------------------------------------------------");
             jikaKodeValid = false;
-            for (String kode : kodeVerif) {
+            for (String kode : kodeVerifikasi) {
                 if (inputKodeVerifikasi.equals(kode)) {
                     jikaKodeValid = true;
                     break;
@@ -1476,7 +1476,7 @@ public class ProyekBookingGedung {
         System.out.println("\n,-------------------------------<");
         System.out.println("|     List of Available Item    | ");
         System.out.println("|_______________________________|");
-        System.out.println("| No. | Item Name   | Stok \t|");
+        System.out.println("| No. | Item Name   | Stock \t|");
         System.out.println("|-----|-------------|-----------|");
         for (int i = 0; i < totalItem; i++) {
             System.out.println("| " + (i + 1) + ".  | " + ItemName[i] + "\t    | "+ ItemStock[i] + "\t|");
@@ -1487,9 +1487,9 @@ public class ProyekBookingGedung {
     public static void cariNamaBarangEng(String targetNamaBarang) {
         Scanner input = new Scanner(System.in);
         System.out.println("\n----------------------------------------------------");
-                    System.out.print("||> Input Item Name : ");
-                    targetNamaBarang = input.next();
-                    System.out.println("----------------------------------------------------");
+        System.out.print("||> Input Item Name : ");
+        targetNamaBarang = input.next();
+        System.out.println("----------------------------------------------------");
         boolean isBarangDitemukan = false;
         for (int i = 0; i < totalItem; i++) {
             if (ItemName[i].equalsIgnoreCase(targetNamaBarang)) {
@@ -1510,9 +1510,9 @@ public class ProyekBookingGedung {
     public static void searchNamaGedungEng(String targetNamaGedung) {
         Scanner input = new Scanner(System.in);
         System.out.println("\n----------------------------------------------------");
-                    System.out.print("||> Input Building Name : ");
-                    targetNamaGedung = input.next();
-                    System.out.println("----------------------------------------------------");
+        System.out.print("||> Input Building Name : ");
+        targetNamaGedung = input.next();
+        System.out.println("----------------------------------------------------");
         boolean jikaGedungDitemukan = false;
         for (int i = 0; i < totalBuilding; i++) {
             if (BuildingName[i].equalsIgnoreCase(targetNamaGedung)) {
@@ -1590,7 +1590,7 @@ public class ProyekBookingGedung {
             System.out.println("  Stock : " + ItemStock[indeksBarang]);
             System.out.println(".-----------------------------------.");
         } else {
-            System.out.println("\n.-----------------------------------.");
+            System.out.println("\n.----------------------------------.");
             System.out.println("!      ! Item Not Available !      !");
             System.out.println("!.---------------------------------!");
         }
@@ -2049,7 +2049,7 @@ public class ProyekBookingGedung {
             String inputKodeVerifikasi = input.next();
             System.out.println("----------------------------------------------------");
             jikaKodeValid = false;
-            for (String kode : kodeVerif) {
+            for (String kode : kodeVerifikasi) {
                 if (inputKodeVerifikasi.equals(kode)) {
                     jikaKodeValid = true;
                     break;
@@ -2129,7 +2129,7 @@ public class ProyekBookingGedung {
     public static void cetakStrukEng() {
         System.out.println("\n==============================================\n");
         System.out.println("\t     BOOKING GEDUNG SOEHAT\n");
-        System.out.println("============= Nota Pemesanan Anda ============");
+        System.out.println("=============== YOUR ORDER NOTE ==============");
         System.out.println("\nBooked Building "+ cetakGedung[jumlahHistori-1]);
         System.out.println("\nCustomer's name  : " + namaPelanggan[jumlahHistori-1]);
         System.out.println("Telephone          : " + noTelpPelanggan[jumlahHistori-1]);
