@@ -131,7 +131,7 @@ public class ProyekBookingGedung {
             System.out.println("  ||     2. ENGLISH                              ||");
             System.out.println("  ||                                             ||");
             System.out.println("=====================================================");
-            System.out.print("||> Masukkan Bahasa / Input your language : ");
+            System.out.print("||> Masukkan Bahasa / Input your language (1/2): ");
             bahasa = input.nextInt();
             if (bahasa < 1 || bahasa > 2 ){
                 System.out.println("Mohon Masukkan nomor 1 atau 2 / Please input number 1 or 2 : ");
@@ -225,11 +225,19 @@ public class ProyekBookingGedung {
                                 case 5:
                                     tampilkanStokBarang();
                                     break;
-                                case 6: 
-                                    LaporanPendapatan(new Date());
+                                case 6:
+                                    if (jumlahHistori>0){
+                                        LaporanPendapatan(new Date());
+                                    } else {
+                                        System.out.println("\n! Belum ada laporan pendapatan yang akan dicetak !");
+                                    }
                                     break;
                                 case 7:
-                                    LihatHistoriPemesanan();
+                                    if (jumlahHistori>0){
+                                        LihatHistoriPemesanan();
+                                    } else {
+                                        System.out.println("\n! Belum ada Histori pemesanan yang akan dicetak !");
+                                    }
                                     break;
                                 case 8:
                                     lihatDataAdmin();
@@ -484,11 +492,19 @@ public class ProyekBookingGedung {
                                 case 5:
                                     tampilkanStokBarangEng();
                                     break;
-                                case 6: 
-                                    LaporanPendapatanEng(new Date());
+                                case 6:
+                                    if (jumlahHistori>0){
+                                        LaporanPendapatanEng(new Date());
+                                    } else {
+                                        System.out.println("\n! There are no earnings reports yet to be printed !");
+                                    }
                                     break;
                                 case 7:
-                                    LihatHistoriPemesananEng();
+                                    if (jumlahHistori>0){
+                                        LihatHistoriPemesananEng();
+                                    } else {
+                                        System.out.println("\n! There is no order history to print yet !");
+                                    }
                                     break;
                                 case 8:
                                     lihatDataAdminEng();
