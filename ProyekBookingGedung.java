@@ -166,7 +166,7 @@ public class ProyekBookingGedung {
                         System.out.println("|   1. Pencarian Admin Terdaftar    5. Lihat Data Admin    |");
                         System.out.println("|   2. Pencarian Kasir Terdaftar    6. Lihat Data Kasir    |");
                         System.out.println("|   3. Pencarian User Terdaftar     7. Lihat Data User     |");
-                        System.out.println("|   4. Lihat Histori Pemesanan      8. Krluar              |");
+                        System.out.println("|   4. Lihat Histori Pemesanan      8. Keluar              |");
                         System.out.println("|_________________________________________________________/.");
                         System.out.print("||> Masukkan Pilihan Anda: ");
                         menuAdmin = input.nextInt();
@@ -666,10 +666,9 @@ public class ProyekBookingGedung {
         System.out.println("----------------------------------------------------");
         System.out.print("Masukkan Stok Gedung Baru: ");
         int stokGedungBaru = input.nextInt();
-        System.out.print("Masukkan Harga Sewa: ");
+        System.out.print("Masukkan Harga Sewa : ");
         double hargaSewaGedungBaru = input.nextDouble();
-        System.out.print("Masukkan Tampilan Harga Sewa: ");
-        int tampilHargaGedungBaru = input.nextInt();
+        int tampilHargaGedungBaru = (int)hargaSewaGedungBaru;
         System.out.print("Masukkan kapasitas maksimal tamu: ");
         int tamuBaru = input.nextInt();
         System.out.println("----------------------------------------------------");
@@ -893,7 +892,7 @@ public class ProyekBookingGedung {
                     System.out.println("----------------------------------------------------");
                     for (String verifMember : kodeMember) {
                         if (inputKodeMember.equals(verifMember)) {
-                            for (int i = pilihGedung; i < jumlahGedung; i++) {
+                            for (int i = pilihGedung; i <= jumlahGedung; i++) {
                                 diskon = 0.13 * hargaGedung[i-1];
                                 cetakHargaMember = hargaGedung[i-1] - diskon;
                                 totalBiaya=(long)cetakHargaMember;
@@ -909,7 +908,7 @@ public class ProyekBookingGedung {
                     }
                 } while (!memberValid);
             } else if (inputUserMember.equals("t")){
-                for (int i = pilihGedung; i < jumlahGedung; i++) {
+                for (int i = pilihGedung; i <= jumlahGedung; i++) {
                     diskon = 0 * totalTarif;
                     cetakHargaMember = hargaGedung[i-1] - diskon;
                     totalBiaya=(long)cetakHargaMember;
