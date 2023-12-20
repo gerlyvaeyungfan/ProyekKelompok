@@ -9,7 +9,7 @@ public class ProyekBookingGedung {
                jumlahBarang = 0, jumlahGedung = 0, jumlahUser = 0, jumlahAdmin = 0, jumlahKasir = 0, jumlahManager = 0, tambahStokGedung,
                tambahanStokBarang, jumlahData=0, jumlahHistori=0, totalBuilding=0, totalItem = 0, bahasa;
     static long totalBiaya, totalPendapatanBulanan = 0;
-    static double cetakHargaMember, diskon, totalTarif;
+    static double cetakHargaMember, diskon;
     static String inputNamaPelanggan, inputNoTelpPelanggan, inputTanggal, totalGedung = "", totalBarang = "", jumlahTotalBarang = "",
                   totalMetodePembayaran = "", targetNamaGedung, targetNamaBarang;
     static boolean pilihanUser, pilihanManager;
@@ -892,9 +892,9 @@ public class ProyekBookingGedung {
                     System.out.println("----------------------------------------------------");
                     for (String verifMember : kodeMember) {
                         if (inputKodeMember.equals(verifMember)) {
-                            for (int i = pilihGedung; i <= jumlahGedung; i++) {
-                                diskon = 0.13 * hargaGedung[i-1];
-                                cetakHargaMember = hargaGedung[i-1] - diskon;
+                            for (int i = 0; i < (jumlahHistori+1); i++) {
+                                diskon = 0.13 * hargaGedung[i];
+                                cetakHargaMember = hargaGedung[i] - diskon;
                                 totalBiaya=(long)cetakHargaMember;
                                 tampilBiaya[jumlahHistori]=totalBiaya;
                             }
@@ -903,14 +903,14 @@ public class ProyekBookingGedung {
                         } 
                     }
                     if (!memberValid) {
-                        System.out.println("\n! Kode verifikasi Salah. Silahkan coba lagi !");
+                        System.out.println("\n! Kode verifikasi Salah. Silahkan coba lagi !\n");
                         memberValid=false;
                     }
                 } while (!memberValid);
             } else if (inputUserMember.equals("t")){
-                for (int i = pilihGedung; i <= jumlahGedung; i++) {
-                    diskon = 0 * totalTarif;
-                    cetakHargaMember = hargaGedung[i-1] - diskon;
+                for (int i = 0; i < (jumlahHistori+1); i++) {
+                    diskon = 0 * hargaGedung[i];
+                    cetakHargaMember = hargaGedung[i] - diskon;
                     totalBiaya=(long)cetakHargaMember;
                     tampilBiaya[jumlahHistori]=totalBiaya;
                     memberValid=true;
@@ -1026,7 +1026,7 @@ public class ProyekBookingGedung {
         System.out.println("             LAPORAN HARIAN DAN BULANAN");
         System.out.println("\nTanggal: " + dateFormat.format(currentDate));
         System.out.println("======================================================");
-        for (int i = 0; i < jumlahHistori; i++) {
+        for (int i = 0; i < (jumlahHistori); i++) {
             System.out.println("\n----------------------------------------------------");
             System.out.println("Tanggal Acara     : " + tampilTanggal[i]);
             System.out.println("Gedung Yang Disewa" + cetakGedung[i]);
