@@ -307,13 +307,12 @@ public class ProyekBookingGedung {
                 pilihanUser = true;
                 while (pilihanUser) {
                     do {
-                        System.out.println("\n,---------------------------------<");
-                        System.out.println("|            MENU USER            |");
-                        System.out.println("|---------------------------------|");
-                        System.out.println("|   1. Pesan Gedung Sekarang      |");
-                        System.out.println("|   2. Lihat Sisa Stok Gedung     |");
-                        System.out.println("|   3. Keluar                     |");
-                        System.out.println("|________________________________/.");
+                        System.out.println("\n,--------------------------------------------<");
+                        System.out.println("|                  MENU USER                 |");
+                        System.out.println("|--------------------------------------------|");
+                        System.out.println("|   1. Pesan Gedung Sekarang    3. Keluar    |");
+                        System.out.println("|   2. Lihat Sisa Stok Gedung                |");
+                        System.out.println("|___________________________________________/.");
                         System.out.print("||> Masukkan Pilihan Anda: ");
                         menuUser = input.nextInt();
                         if (menuUser < 1 || menuUser > 3) {
@@ -517,7 +516,7 @@ public class ProyekBookingGedung {
         System.out.println("----------------------------------------------------");
         boolean adminTerdaftar = false;
         for (int i = 0; i < jumlahAdmin; i++) {
-            if (regUsernameUser[i].equals(targetAdmin)) {
+            if (regUsernameAdmin[i].equals(targetAdmin)) {
                 adminTerdaftar = true;
                 break;
             }
@@ -534,13 +533,13 @@ public class ProyekBookingGedung {
     //CASE 2 MENU ADMIN
     public static void PencarianKasirTerdaftar() {
         Scanner input = new Scanner(System.in);
-        System.out.println("/n----------------------------------------------------");
+        System.out.println("\n----------------------------------------------------");
         System.out.print("||> Masukkan username kasir: ");
         String targetKasir = input.next();
         System.out.println("----------------------------------------------------");
         boolean kasirTerdaftar = false;
         for (int i = 0; i < jumlahKasir; i++) {
-            if (regUsernameUser[i].equals(targetKasir)) {
+            if (regUsernameKasir[i].equals(targetKasir)) {
                 kasirTerdaftar = true;
                 break;
             }
@@ -749,7 +748,8 @@ public class ProyekBookingGedung {
             System.out.printf("| %-3s | %-18s | %-14s | %-10s |\n", "No.", "Nama Gedung", "Harga Sewa", "Maks Tamu");
             System.out.println("|-----|--------------------|----------------|------------|");
             for (int i = 0; i < jumlahGedung; i++) {
-                System.out.printf("| %-3d | %-18s | %-14s | %-10s |\n", (i + 1), namaGedung[i], "Rp." + daftarHargaGedung[i], tamuGedung[i]);
+                System.out.printf("| %-3d | %-18s | %-14s | %-10s |\n", (i + 1), namaGedung[i], "Rp." + daftarHargaGedung[i],
+                tamuGedung[i]);
             }
             System.out.println("|_____|____________________|________________|___________/.");
             System.out.print("||> Masukkan Pilihan Anda: ");
