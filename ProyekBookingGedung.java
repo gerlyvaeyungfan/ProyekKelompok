@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class ProyekBookingGedung {
     static int stepLogin, menuGedung, pilihGedung, jumlahTamu, menuAdmin, menuKasir, menuUser, menuManager, indeksBarang, indexKasir, 
                jumlahBarang = 0, jumlahGedung = 0, jumlahUser = 0, jumlahAdmin = 0, jumlahKasir = 0, jumlahManager = 0, tambahStokGedung,
-               tambahanStokBarang, jumlahData=0, jumlahHistori=0, totalBuilding=0, totalItem = 0, bahasa;
+               tambahanStokBarang, jumlahData=0, jumlahHistori=0;
     static long totalBiaya, totalPendapatanBulanan = 0;
     static double cetakHargaMember, diskon;
     static String inputNamaPelanggan, inputNoTelpPelanggan, inputTanggal, totalGedung = "", totalBarang = "", jumlahTotalBarang = "",
