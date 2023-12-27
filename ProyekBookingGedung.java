@@ -123,13 +123,13 @@ public class ProyekBookingGedung {
                 System.out.println("|   2. Login Kasir          6. Pencarian Barang Tersedia   |");
                 System.out.println("|   3. Login User           7. Daftar Akun User Baru       |");
                 System.out.println("|   4. Login Manager        8. Keluar                      |");
-                System.out.println("|__________________________________________________________/.");
+                System.out.println("|_________________________________________________________/.");
                 System.out.print("||> Masukkan Pilihan Anda: ");
                 stepLogin = input.nextInt();
-                if (stepLogin < 1 || stepLogin > 7) {
-                    System.out.println("\n! Mohon masukkan nomor antara 1 dan 7 !");
+                if (stepLogin < 1 || stepLogin > 8) {
+                    System.out.println("\n! Mohon masukkan nomor antara 1 dan 8 !");
                 }
-            } while (stepLogin < 1 || stepLogin > 7);
+            } while (stepLogin < 1 || stepLogin > 8);
             if (stepLogin == 1) {
                 boolean regUsernameAdminValid = true;
                 do {
@@ -273,6 +273,7 @@ public class ProyekBookingGedung {
                             } else {
                                 System.out.println("\n! Belum ada laporan pendapatan yang akan dicetak !");
                             }
+                            break;
                         case 5:
                             pilihMenu = true;
                             pilihanKasir = false;
@@ -658,7 +659,6 @@ public class ProyekBookingGedung {
             System.out.println("!    ! Gedung Tidak Tersedia !      !");
             System.out.println("!.----------------------------------!");
         }
-        
     }
 
     //CASE 4 MENU KASIR
