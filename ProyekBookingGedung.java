@@ -5,13 +5,14 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class ProyekBookingGedung {
-    static int stepLogin, menuGedung, pilihGedung, jumlahTamu, menuAdmin, menuKasir, menuUser, menuManager, indeksBarang, indexKasir, 
-               jumlahBarang = 0, jumlahGedung = 0, jumlahUser = 0, jumlahAdmin = 0, jumlahKasir = 0, jumlahManager = 0, tambahStokGedung,
-               tambahanStokBarang, jumlahData=0, jumlahHistori=0;
+    static int stepLogin, menuGedung, pilihGedung, jumlahTamu, menuAdmin, menuKasir, menuUser, menuManager,
+               indeksBarang, indexKasir, jumlahBarang = 0, jumlahGedung = 0, jumlahUser = 0, jumlahAdmin = 0,
+               jumlahKasir = 0, jumlahManager = 0, tambahStokGedung, tambahanStokBarang, jumlahData=0,
+               jumlahHistori=0;
     static long totalBiaya, totalPendapatanBulanan = 0;
     static double cetakHargaMember, diskon;
-    static String inputNamaPelanggan, inputNoTelpPelanggan, inputTanggal, totalGedung = "", totalBarang = "", jumlahTotalBarang = "",
-                  totalMetodePembayaran = "", targetNamaGedung, targetNamaBarang;
+    static String inputNamaPelanggan, inputNoTelpPelanggan, inputTanggal, totalGedung = "", totalBarang = "",
+                  jumlahTotalBarang = "", totalMetodePembayaran = "", targetNamaGedung, targetNamaBarang;
     static boolean pilihanUser, pilihanManager;
 
     static String[] namaPelanggan = new String[100];
@@ -142,7 +143,8 @@ public class ProyekBookingGedung {
                     regUsernameAdminValid = false;
                     int indeksAdmin = -1;
                     for (int i = 0; i < jumlahAdmin; i++) {
-                        if (inputUsernameAdmin.equals(regUsernameAdmin[i]) && inputPasswordAdmin.equals(regPasswordAdmin[i])) {
+                        if (inputUsernameAdmin.equals(regUsernameAdmin[i]) &&
+                            inputPasswordAdmin.equals(regPasswordAdmin[i])) {
                             regUsernameAdminValid = true;
                             indeksAdmin = i;
                             break;
@@ -219,7 +221,8 @@ public class ProyekBookingGedung {
                     regUsernameKasirValid = false;
                     indexKasir = -1;
                     for (int i = 0; i < jumlahKasir; i++) {
-                        if (inputUsernameKasir.equals(regUsernameKasir[i]) && inputPasswordKasir.equals(regPasswordKasir[i])) {
+                        if (inputUsernameKasir.equals(regUsernameKasir[i]) &&
+                            inputPasswordKasir.equals(regPasswordKasir[i])) {
                             regUsernameKasirValid = true;
                             indexKasir = i;
                             break;
@@ -289,7 +292,8 @@ public class ProyekBookingGedung {
                     regUsernameUserValid = false;
                     int indeksUser = -1;
                     for (int i = 0; i < jumlahUser; i++) {
-                        if (inputUsernameManager.equals(regUsernameUser[i]) && inputPasswordManager.equals(regPasswordUser[i])) {
+                        if (inputUsernameManager.equals(regUsernameUser[i]) &&
+                            inputPasswordManager.equals(regPasswordUser[i])) {
                             regUsernameUserValid = true;
                             indeksUser = i;
                             break;
@@ -345,7 +349,8 @@ public class ProyekBookingGedung {
                     regUsernameManagerValid = false;
                     int indeksManager = -1;
                     for (int i = 0; i < jumlahUser; i++) {
-                        if (inputUsernameUser.equals(regUsernameManager[i]) && inputPasswordUser.equals(regPasswordManager[i])) {
+                        if (inputUsernameUser.equals(regUsernameManager[i]) &&
+                            inputPasswordUser.equals(regPasswordManager[i])) {
                             regUsernameManagerValid = true;
                             indeksManager = i;
                             break;
@@ -463,9 +468,9 @@ public class ProyekBookingGedung {
     public static void cariNamaGedung(String targetNamaGedung) {
         Scanner input = new Scanner(System.in);
         System.out.println("\n----------------------------------------------------");
-                    System.out.print("||> Masukkan nama gedung: ");
-                    targetNamaGedung = input.next();
-                    System.out.println("----------------------------------------------------");
+        System.out.print("||> Masukkan nama gedung: ");
+        targetNamaGedung = input.next();
+        System.out.println("----------------------------------------------------");
         boolean jikaGedungDitemukan = false;
         for (int i = 0; i < jumlahGedung; i++) {
             if (namaGedung[i].equalsIgnoreCase(targetNamaGedung)) {
@@ -487,9 +492,9 @@ public class ProyekBookingGedung {
     public static void cariNamaBarang(String targetNamaBarang) {
         Scanner input = new Scanner(System.in);
         System.out.println("\n----------------------------------------------------");
-                    System.out.print("||> Masukkan nama barang: ");
-                    targetNamaBarang = input.next();
-                    System.out.println("----------------------------------------------------");
+        System.out.print("||> Masukkan nama barang: ");
+        targetNamaBarang = input.next();
+        System.out.println("----------------------------------------------------");
         boolean isBarangDitemukan = false;
         for (int i = 0; i < jumlahBarang; i++) {
             if (namaBarang[i].equalsIgnoreCase(targetNamaBarang)) {
@@ -745,11 +750,12 @@ public class ProyekBookingGedung {
             System.out.println("\n,--------------------------------------------------------<");
             System.out.println("|               Daftar Gedung yang tersedia!             |");
             System.out.println("|________________________________________________________|");
-            System.out.printf("| %-3s | %-18s | %-14s | %-10s |\n", "No.", "Nama Gedung", "Harga Sewa", "Maks Tamu");
+            System.out.printf("| %-3s | %-18s | %-14s | %-10s |\n", "No.", "Nama Gedung",
+                                     "Harga Sewa", "Maks Tamu");
             System.out.println("|-----|--------------------|----------------|------------|");
             for (int i = 0; i < jumlahGedung; i++) {
-                System.out.printf("| %-3d | %-18s | %-14s | %-10s |\n", (i + 1), namaGedung[i], "Rp." + daftarHargaGedung[i],
-                tamuGedung[i]);
+                System.out.printf("| %-3d | %-18s | %-14s | %-10s |\n", (i + 1), namaGedung[i],
+                                         "Rp." + daftarHargaGedung[i], tamuGedung[i]);
             }
             System.out.println("|_____|____________________|________________|___________/.");
             System.out.print("||> Masukkan Pilihan Anda: ");
@@ -773,7 +779,8 @@ public class ProyekBookingGedung {
                         jumlahTamu = input.nextInt();
                         if (jumlahTamu <1 || jumlahTamu > tamuGedung[pilihGedung-1]) {
                             System.out.println("----------------------------------------------------");
-                            System.out.println("! Mohon masukkan jumlah tamu antara 1 dan "+tamuGedung[pilihGedung-1]+" !");
+                            System.out.println("! Mohon masukkan jumlah tamu antara 1 dan " +
+                                               tamuGedung[pilihGedung-1] + " !");
                         } else {
                             cetakStokGedung[jumlahHistori] = stokGedung[pilihGedung-1];
                             tamuPemesan[jumlahHistori]=jumlahTamu;
